@@ -9,6 +9,9 @@ Crear y gestionar el ciclo de vida de los pedidos.
 - Comprador
 - Inventario
 
+## Implementación Java
+`src/main/java/application/services/PedidoService.java`
+
 ## Operaciones
 - crearPedido()
 - consultarPedido()

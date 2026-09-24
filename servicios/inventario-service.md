@@ -9,6 +9,9 @@ Registrar, ajustar y consultar existencias distribuidas por bodega.
 - Bodega
 - MovimientoInventario
 
+## Implementación Java
+`src/main/java/application/services/InventarioService.java`
+
 ## Operaciones
 - registrarExistencias()
 - consultarExistencias()

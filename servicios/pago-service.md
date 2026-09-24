@@ -7,6 +7,9 @@ Procesar y validar pagos a través del `PagoPort`.
 - Pago
 - Pedido
 
+## Implementación Java
+`src/main/java/application/services/PagoService.java`
+
 ## Operaciones
 - procesarPago()
 - validarPago()

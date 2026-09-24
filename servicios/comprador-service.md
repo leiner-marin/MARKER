@@ -8,6 +8,9 @@ Registrar y gestionar la información comercial del comprador, direcciones y ped
 - Carrito
 - Pedido
 
+## Implementación Java
+`src/main/java/application/services/CompradorService.java`
+
 ## Operaciones
 - registrarComprador()
 - actualizarDatos()

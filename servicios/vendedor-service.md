@@ -8,6 +8,9 @@ Registrar y gestionar vendedores y operaciones relacionadas a sus productos e in
 - Producto
 - Inventario
 
+## Implementación Java
+`src/main/java/application/services/VendedorService.java`
+
 ## Operaciones
 - registrarVendedor()
 - actualizarVendedor()

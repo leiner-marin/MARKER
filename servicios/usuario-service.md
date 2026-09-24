@@ -3,6 +3,9 @@
 ## Responsabilidad
 Gestionar el ciclo de vida y estado de los usuarios (registro, actualización, bloqueo, roles).
 
+## Implementación Java
+`src/main/java/application/services/UsuarioService.java`
+
 ## Entidades involucradas
 - Usuario
 - Comprador

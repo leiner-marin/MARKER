@@ -8,6 +8,9 @@ Registrar y administrar bodegas; exponer inventario asociado a cada bodega.
 - Inventario
 - Vendedor
 
+## Implementación Java
+`src/main/java/application/services/BodegaService.java`
+
 ## Operaciones
 - registrarBodega()
 - actualizarBodega()

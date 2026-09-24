@@ -29,3 +29,6 @@ Generar reportes administrativos (ventas, inventario, pedidos, logística).
 
 ## Errores o validaciones
 - Falta de permisos para acceder a datos consolidados.
+
+## Implementación Java
+`src/main/java/application/services/ReporteService.java`

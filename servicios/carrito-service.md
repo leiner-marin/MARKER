@@ -9,6 +9,9 @@ Gestionar la creación y modificación de carritos de compra y su conversión a 
 - Producto
 - Comprador
 
+## Implementación Java
+`src/main/java/application/services/CarritoService.java`
+
 ## Operaciones
 - crearCarrito()
 - agregarProducto()

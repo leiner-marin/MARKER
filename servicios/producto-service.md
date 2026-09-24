@@ -9,6 +9,9 @@ Gestionar el ciclo de vida de los productos del Marketplace.
 - Variante
 - Inventario
 
+## Implementación Java
+`src/main/java/application/services/ProductoService.java`
+
 ## Operaciones
 - registrarProducto()
 - actualizarProducto()

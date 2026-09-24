@@ -7,6 +7,9 @@ Generar y gestionar facturas asociadas a pedidos pagados.
 - Factura
 - Pedido
 
+## Implementación Java
+`src/main/java/application/services/FacturaService.java`
+
 ## Operaciones
 - generarFactura()
 - consultarFactura()
