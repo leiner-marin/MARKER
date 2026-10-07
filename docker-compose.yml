@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  marker-app:
+    build:
+      context: .
+    container_name: marker-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+    depends_on:
+      - marker-mysql
+      - marker-mongo
+
+  marker-mysql:
+    image: mysql:8.0
+    container_name: marker-mysql
+    environment:
+      MYSQL_DATABASE: marker_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+
+  marker-mongo:
+    image: mongo:7
+    container_name: marker-mongo
+    ports:
+      - "27017:27017"
