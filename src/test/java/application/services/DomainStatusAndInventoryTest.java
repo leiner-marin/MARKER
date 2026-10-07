@@ -1,4 +1,4 @@
-package application.domain.services;
+package application.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
