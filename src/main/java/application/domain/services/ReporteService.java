@@ -1,4 +1,4 @@
-package application.services;
+package application.domain.services;
 
 import java.util.HashMap;
 import java.util.Map;

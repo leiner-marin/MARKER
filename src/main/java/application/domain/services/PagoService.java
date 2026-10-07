@@ -1,4 +1,4 @@
-package application.services;
+package application.domain.services;
 
 import application.ports.out.PaymentPort;
 import java.math.BigDecimal;

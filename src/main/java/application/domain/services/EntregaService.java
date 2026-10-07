@@ -1,4 +1,4 @@
-package application.services;
+package application.domain.services;
 
 import application.domain.entities.Shipment;
 import application.domain.enums.ShipmentStatus;
