@@ -3,9 +3,7 @@ package application.domain.services;
 import application.domain.entities.Order;
 import application.domain.enums.OrderStatus;
 import java.time.LocalDateTime;
-import org.springframework.stereotype.Service;
 
-@Service
 public class EstadoPedidoService {
 
     public Order actualizarEstadoPedido(Order order, OrderStatus nuevoEstado) {

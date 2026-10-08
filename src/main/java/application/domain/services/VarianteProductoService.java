@@ -3,9 +3,7 @@ package application.domain.services;
 import application.domain.entities.Product;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
-@Service
 public class VarianteProductoService {
 
     public Product asignarVariantes(Product product, List<String> variantes) {

@@ -3,9 +3,7 @@ package application.domain.services;
 import application.domain.entities.Shipment;
 import application.domain.enums.ShipmentStatus;
 import java.time.LocalDateTime;
-import org.springframework.stereotype.Service;
 
-@Service
 public class EnvioService {
 
     public Shipment createShipment(Shipment shipment) {

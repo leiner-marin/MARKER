@@ -3,9 +3,7 @@ package application.domain.services;
 import application.domain.entities.Seller;
 import application.domain.enums.SellerStatus;
 import java.time.LocalDate;
-import org.springframework.stereotype.Service;
 
-@Service
 public class IncorporacionVendedorService {
 
     public Seller incorporarVendedor(Seller seller) {

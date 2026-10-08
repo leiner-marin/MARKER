@@ -2,9 +2,7 @@ package application.domain.services;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ReporteService {
 
     public Map<String, Object> generateSalesReport(Integer totalOrders, Integer totalSales, Double averageTicket) {

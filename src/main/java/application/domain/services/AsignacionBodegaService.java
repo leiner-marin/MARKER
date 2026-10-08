@@ -4,9 +4,7 @@ import application.domain.entities.Seller;
 import application.domain.entities.Warehouse;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
-@Service
 public class AsignacionBodegaService {
 
     public Warehouse asignarBodega(Seller seller, Warehouse warehouse) {

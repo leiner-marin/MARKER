@@ -1,10 +1,21 @@
 # MARKER
 
-MARKER es un proyecto backend de marketplace para NexusMarket, estructurado siguiendo una arquitectura orientada al dominio y la trazabilidad de requisitos a implementación.
+MARKER es un backend de marketplace para NexusMarket, diseñado con una arquitectura orientada al dominio y una separación clara entre reglas de negocio, casos de uso, adaptadores e infraestructura.
 
-## Cadena de valor del proyecto
+## Propósito del sistema
 
-La base de la solución se organiza en esta secuencia:
+MARKER modela la operación de un marketplace con:
+- usuarios, compradores y vendedores
+- productos, variantes y catálogo
+- inventario y bodegas
+- carrito, pedidos y pagos
+- facturación, logística y entregas
+- devoluciones y reembolsos
+- reportes y validaciones administrativas
+
+## Arquitectura base
+
+La solución sigue la secuencia:
 
 1. Especificación funcional y reglas de negocio
 2. Dominio del negocio
@@ -15,74 +26,58 @@ La base de la solución se organiza en esta secuencia:
 7. Infraestructura y configuración
 8. Pruebas y validación
 
-Esto mantiene una separación clara entre la lógica del negocio y los detalles de infraestructura, como Spring, JPA, seguridad, HTTP o base de datos.
+Esta separación permite que el dominio permanezca desacoplado de Spring, JPA, HTTP y cualquier tecnología de infraestructura.
 
-## Objetivo del sistema
+## Estructura del repositorio
 
-MARKER centraliza la operación de un marketplace con:
-- usuarios, compradores y vendedores
-- productos, variantes e inventario
-- bodegas y asignación comercial
-- carrito, pedidos y pagos
-- facturación, logística y devoluciones
-- reportes administrativos
-
-## Estructura profesional del repositorio
-
-- `SDD/` — especificación documental del proyecto y trazabilidad funcional
+- `SDD/` — especificación funcional, reglas del negocio y trazabilidad
 - `src/main/java/application/domain/` — entidades, enums, modelos, value objects, excepciones, servicios y puertos del dominio
-- `src/main/java/application/adapters/` — casos de uso y adaptadores de infraestructura
-- `src/main/java/application/infrastructure/` — configuración, persistencia y componentes transversales
-- `src/main/java/application/api/` — REST controllers para la capa de exposición
-- `src/test/java/` — pruebas de dominio, integración y validación operativa
+- `src/main/java/application/adapters/` — adaptadores, mappers y casos de uso
+- `src/main/java/application/infrastructure/` — configuración, seguridad, persistencia y componentes técnicos
+- `src/main/java/application/api/` — exposición REST
+- `src/test/java/` — pruebas unitarias e integración
 
-## Capas de la solución
+## Principios de diseño aplicados
 
-### Dominio
-La capa de dominio concentra:
-- modelos de negocio
-- enums del sistema
-- objetos de valor
-- excepciones de reglas de negocio
-- servicios de dominio
+- El dominio no depende de Spring, JPA ni HTTP.
+- Los servicios del dominio encapsulan reglas de negocio y validaciones.
+- Los puertos definen contratos explícitos entre dominio e infraestructura.
+- Los casos de uso coordinan flujos sin mezclar lógica de negocio con almacenamiento o HTTP.
+- No se duplican servicios ni capas con responsabilidades equivalentes.
+- La documentación y la implementación deben mantenerse sincronizadas.
+
+## Organización del dominio
+
+La capa de dominio está reservada para:
+- entidades del negocio
+- enums de estados y tipos
+- objetos de valor con validación propia
+- excepciones de negocio
+- servicios de dominio con responsabilidad específica
 - puertos de entrada y salida
 
-### Adaptadores
-Los adaptadores encapsulan:
-- uso de casos de uso
-- coordinación entre dominio e infraestructura
-- acceso a persistencia
-- endpoints REST
-- mapeo de DTOs, requests y responses
+Los servicios de dominio no son componentes Spring. Son clases puras del negocio que reciben datos y devuelven resultados o lanzan excepciones del dominio.
 
-### Infraestructura
-La infraestructura contiene:
-- configuración Spring
-- repositorios JPA
-- adaptadores de persistencia
-- seguridad
-- notificaciones
-- integración con servicios externos
+## Organización de adaptadores e infraestructura
 
-## Documentación de negocio y dominio
+La infraestructura y los adaptadores se encargan de:
+- persistencia
+- repositorios
+- entidades JPA/mappers
+- DTOs, requests y responses
+- controladores REST
+- seguridad y autenticación
+- configuración general del sistema
 
-La documentación funcional del proyecto se encuentra en `SDD/` y está organizada por bloques que permiten mantener trazabilidad desde requisitos hasta implementación.
-
-Se recomienda seguir esta ruta de trabajo:
-
-- `SDD/Business/` — reglas, actores y trazabilidad
-- `SDD/Domain/` — modelos, servicios, puertos y reglas del dominio
-- `SDD/Architecture/` — visión de la arquitectura global
-- `SDD/Use-Cases/` — casos de uso del sistema
-- `SDD/Adapters/` — integración, REST y persistencia
+Esto asegura que la lógica del negocio permanezca aislada y reutilizable.
 
 ## Tecnologías
 
-- Java 17+
+- Java 17
+- Maven
 - Spring Boot 4.1.1
 - Spring Data JPA
-- H2 para ambiente local
-- Maven Wrapper
+- H2 para entorno local
 - Docker Compose
 - Lombok
 
@@ -90,28 +85,29 @@ Se recomienda seguir esta ruta de trabajo:
 
 1. Clonar el repositorio.
 2. Ejecutar:
-   - `./mvnw clean install`
-3. Levantar la aplicación:
-   - `./mvnw spring-boot:run`
-4. Opcional: levantar infraestructura con Docker:
-   - `docker-compose up --build`
+
+```bash
+./mvnw clean install
+```
+
+3. Iniciar la aplicación:
+
+```bash
+./mvnw spring-boot:run
+```
+
+4. Opcionalmente, levantar infraestructura con Docker:
+
+```bash
+docker-compose up --build
+```
 
 ## Cómo probar
-
-Ejecutar:
 
 ```bash
 ./mvnw test
 ```
 
-## Principios de diseño
-
-- El dominio no depende de Spring, JPA ni HTTP.
-- Los servicios de dominio validan reglas del negocio.
-- Los puertos deciden el contrato entre dominio e infraestructura.
-- Los casos de uso coordinan flujo sin mezclar responsabilidades.
-- La persistencia y la API son adaptadores, no parte central del negocio.
-
 ## Estado del proyecto
 
-El proyecto ya está estructurado con una primera implementación profesional del flujo principal, con separación funcional entre dominio, puertos, casos de uso, adaptadores e infraestructura, y validación continua mediante Maven.
+La estructura actual ha sido ajustada para mantener el dominio limpio, eliminar duplicidades innecesarias y reforzar la separación entre negocio e infraestructura. El proyecto sigue siendo compatible con Java y Maven, y la documentación se mantiene alineada con ese principio arquitectónico.

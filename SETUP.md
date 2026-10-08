@@ -8,13 +8,13 @@
 
 ## Estructura objetivo
 
-MARKER está organizado para seguir la cadena completa:
+MARKER produce una separación clara entre capas:
 
 ```text
-Especificación -> Dominio -> Servicios -> Puertos -> Casos de uso -> Adaptadores -> Infraestructura -> Pruebas
+Especificación -> Dominio -> Puertos -> Casos de uso -> Adaptadores -> Infraestructura -> Pruebas
 ```
 
-Esto implica que la lógica del negocio vive en `application/domain`, mientras que la infraestructura y la exposición HTTP quedan aisladas en `application/adapters` e `application/infrastructure`.
+La lógica de negocio vive en `src/main/java/application/domain`, mientras que la infraestructura, persistencia y endpoints REST quedan aislados en `application/adapters`, `application/infrastructure` y `application/api`.
 
 ## Configuración local
 
@@ -32,8 +32,6 @@ Esto implica que la lógica del negocio vive en `application/domain`, mientras q
 ```
 
 ## Entorno con Docker
-
-Ejecutar:
 
 ```bash
 docker-compose up --build
@@ -61,8 +59,9 @@ docker-compose up --build
 
 ## Reglas de desarrollo
 
-- no mezclar lógica de negocio con controladores ni repositorios
+- no mezclar lógica de negocio con controladores, repositorios ni JPA
 - mantener los servicios de dominio desacoplados de infraestructura
 - usar puertos para abstraer persistencia y servicios externos
-- dejar los casos de uso como orquestadores del flujo y no como repositorios de negocio
-- mantener la documentación en `SDD/` sincronizada con la implementación
+- mantener una sola responsabilidad por componente
+- evitar duplicidades entre `domain/services` y `application/services`
+- sincronizar `SDD/` con la implementación real

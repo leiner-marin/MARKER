@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import application.domain.entities.Seller;
 import application.domain.entities.Warehouse;
 import application.domain.enums.WarehouseType;
+import application.domain.services.BodegaService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;

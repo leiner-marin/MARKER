@@ -5,9 +5,7 @@ import application.domain.entities.Shipment;
 import application.domain.entities.Warehouse;
 import application.domain.enums.ShipmentStatus;
 import java.time.LocalDateTime;
-import org.springframework.stereotype.Service;
 
-@Service
 public class DespachoService {
 
     public Shipment despacharPedido(Order order, Warehouse origen, String direccionEntrega) {

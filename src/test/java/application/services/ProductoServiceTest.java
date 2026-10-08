@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import application.domain.entities.Product;
 import application.domain.enums.ProductStatus;
+import application.domain.services.ProductoService;
 import application.infrastructure.repositories.InMemoryProductRepository;
 import org.junit.jupiter.api.Test;
 

@@ -4,9 +4,7 @@ import application.domain.entities.User;
 import application.domain.enums.UserRole;
 import application.domain.enums.UserStatus;
 import java.util.Objects;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ValidacionUsuarioService {
 
     public boolean validarEmail(String email) {

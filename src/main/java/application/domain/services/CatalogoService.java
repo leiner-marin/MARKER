@@ -4,9 +4,7 @@ import application.domain.entities.Product;
 import application.domain.entities.Seller;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
-@Service
 public class CatalogoService {
 
     public Seller agregarProductoCatalogo(Seller seller, Product product) {

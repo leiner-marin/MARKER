@@ -5,9 +5,7 @@ import application.domain.entities.Seller;
 import application.domain.entities.Warehouse;
 import application.domain.enums.SellerStatus;
 import java.util.ArrayList;
-import org.springframework.stereotype.Service;
 
-@Service
 public class VendedorService {
 
     public Seller registerSeller(Seller seller) {

@@ -5,9 +5,7 @@ import application.domain.entities.Warehouse;
 import application.domain.enums.WarehouseType;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
-@Service
 public class BodegaService {
 
     public Warehouse registerWarehouse(Warehouse warehouse) {

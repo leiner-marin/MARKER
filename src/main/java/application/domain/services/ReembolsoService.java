@@ -3,9 +3,7 @@ package application.domain.services;
 import application.domain.entities.Order;
 import application.domain.enums.OrderStatus;
 import java.math.BigDecimal;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ReembolsoService {
     public Order aprobarReembolso(Order order, BigDecimal amount) {
         if (order == null) {

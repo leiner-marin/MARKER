@@ -2,9 +2,7 @@ package application.domain.services;
 
 import application.domain.entities.Order;
 import java.util.Objects;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ValidacionPedidoService {
 
     public Order validarPedido(Order order) {

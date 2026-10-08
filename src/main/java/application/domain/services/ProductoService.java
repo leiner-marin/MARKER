@@ -6,9 +6,7 @@ import application.domain.entities.Seller;
 import application.domain.enums.ProductStatus;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ProductoService {
     private final ProductRepository productRepository;
 

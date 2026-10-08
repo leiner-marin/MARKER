@@ -3,9 +3,7 @@ package application.domain.services;
 import application.domain.entities.Buyer;
 import application.domain.enums.CommercialStatus;
 import java.util.ArrayList;
-import org.springframework.stereotype.Service;
 
-@Service
 public class CompradorService {
 
     public Buyer registerBuyer(Buyer buyer) {

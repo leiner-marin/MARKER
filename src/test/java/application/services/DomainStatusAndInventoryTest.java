@@ -11,6 +11,10 @@ import application.domain.entities.Shipment;
 import application.domain.enums.CommercialStatus;
 import application.domain.enums.PaymentStatus;
 import application.domain.enums.ShipmentStatus;
+import application.domain.services.CompradorService;
+import application.domain.services.EnvioService;
+import application.domain.services.FacturaService;
+import application.domain.services.InventarioService;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 

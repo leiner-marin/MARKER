@@ -3,9 +3,7 @@ package application.domain.services;
 import application.domain.entities.Buyer;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
-@Service
 public class DireccionCompradorService {
 
     public Buyer registrarDireccionPrincipal(Buyer buyer, String direccion) {

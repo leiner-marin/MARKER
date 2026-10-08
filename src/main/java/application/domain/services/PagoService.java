@@ -2,9 +2,7 @@ package application.domain.services;
 
 import application.ports.out.PaymentPort;
 import java.math.BigDecimal;
-import org.springframework.stereotype.Service;
 
-@Service
 public class PagoService {
     private final PaymentPort paymentPort;
 

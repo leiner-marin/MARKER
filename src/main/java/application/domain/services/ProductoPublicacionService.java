@@ -2,9 +2,7 @@ package application.domain.services;
 
 import application.domain.entities.Product;
 import application.domain.enums.ProductStatus;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ProductoPublicacionService {
 
     public Product publicarProducto(Product product) {

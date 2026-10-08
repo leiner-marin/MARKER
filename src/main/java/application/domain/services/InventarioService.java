@@ -2,9 +2,7 @@ package application.domain.services;
 
 import application.domain.entities.Inventory;
 import java.util.Objects;
-import org.springframework.stereotype.Service;
 
-@Service
 public class InventarioService {
 
     public Inventory registerInitialStock(Inventory inventory) {

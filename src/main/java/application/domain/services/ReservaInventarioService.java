@@ -3,9 +3,7 @@ package application.domain.services;
 import application.domain.entities.Inventory;
 import application.domain.enums.InventoryMovementType;
 import java.time.LocalDateTime;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ReservaInventarioService {
 
     public Inventory reservar(Inventory inventory, Integer cantidad) {
