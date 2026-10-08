@@ -3,37 +3,26 @@ package application.services;
 import application.domain.entities.Seller;
 import application.domain.entities.Warehouse;
 import application.domain.enums.WarehouseType;
-import java.util.ArrayList;
 import java.util.List;
 
-public class BodegaService {
+public class BodegaService extends application.domain.services.BodegaService {
 
+    public BodegaService() {
+        super();
+    }
+
+    @Override
     public Warehouse registerWarehouse(Warehouse warehouse) {
-        if (warehouse == null) {
-            throw new IllegalArgumentException("Warehouse cannot be null.");
-        }
-        if (warehouse.getType() == null) {
-            warehouse.setType(WarehouseType.SELLER);
-        }
-        return warehouse;
+        return super.registerWarehouse(warehouse);
     }
 
+    @Override
     public Warehouse classifyWarehouse(Warehouse warehouse, WarehouseType type) {
-        if (warehouse == null) {
-            throw new IllegalArgumentException("Warehouse cannot be null.");
-        }
-        if (type == null) {
-            throw new IllegalArgumentException("Warehouse type is required.");
-        }
-        warehouse.setType(type);
-        return warehouse;
+        return super.classifyWarehouse(warehouse, type);
     }
 
+    @Override
     public List<Warehouse> getWarehousesForSeller(Seller seller) {
-        if (seller == null || seller.getAssociatedWarehouses() == null) {
-            return new ArrayList<>();
-        }
-        return seller.getAssociatedWarehouses();
+        return super.getWarehousesForSeller(seller);
     }
 }
-
