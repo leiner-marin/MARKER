@@ -17,6 +17,7 @@ public class ProductoService {
     }
 
     public Product registerProduct(Product product) {
+        validateProductCompleteness(product);
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null.");
         }
@@ -84,6 +85,20 @@ public class ProductoService {
         return product.getId() == null
                 ? productRepository.save(product)
                 : productRepository.update(product);
+    }
+
+    private void validateProductCompleteness(Product product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null.");
+        }
+
+        boolean hasIdentifier = product.getId() != null;
+        boolean hasSeller = product.getSeller() != null;
+
+        if ((hasIdentifier || hasSeller) && !(hasIdentifier && hasSeller)) {
+            throw new IllegalArgumentException(
+                    "Product data is incomplete: when the product has identity or seller information, both values must be present.");
+        }
     }
 }
 

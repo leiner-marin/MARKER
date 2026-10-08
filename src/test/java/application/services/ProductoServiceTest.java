@@ -2,6 +2,7 @@ package application.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import application.domain.entities.Product;
 import application.domain.enums.ProductStatus;
@@ -32,5 +33,13 @@ class ProductoServiceTest {
 
         assertNotNull(published.getId());
         assertEquals(ProductStatus.PUBLISHED, published.getStatus());
+    }
+
+    @Test
+    void rejectsProductWithPartialIdentityData() {
+        Product product = new Product();
+        product.setId(99L);
+
+        assertThrows(IllegalArgumentException.class, () -> productService.registerProduct(product));
     }
 }
