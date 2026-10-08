@@ -1,51 +1,117 @@
 # MARKER
 
-## Descripción
-MARKER es una plataforma de comercio electrónico orientada a marketplace, con foco en usuarios, vendedores, productos, inventario, pedidos, pagos, logística y reportes administrativos.
+MARKER es un proyecto backend de marketplace para NexusMarket, estructurado siguiendo una arquitectura orientada al dominio y la trazabilidad de requisitos a implementación.
 
-## Objetivo
-Centralizar la gestión del catálogo, la operación comercial y la logística de ventas para un ecosistema con compradores, vendedores y administradores.
+## Cadena de valor del proyecto
 
-## Funcionalidades
-- Registro y administración de usuarios, compradores y vendedores.
-- Gestión de bodegas, productos, variantes y catálogo.
-- Control de inventario con reservas, ajustes y movimientos.
-- Gestión de carrito, pedidos, pagos y facturación.
-- Preparación, despacho, entrega y devolución de pedidos.
-- Generación de reportes administrativos.
+La base de la solución se organiza en esta secuencia:
 
-## Arquitectura
-El proyecto sigue un enfoque basado en dominio, con separación entre:
-- dominio: entidades, enums, excepciones, puertos y servicios.
-- adaptadores: casos de uso, REST y persistencia.
-- infraestructura: configuración, seguridad y servicios transversales.
+1. Especificación funcional y reglas de negocio
+2. Dominio del negocio
+3. Servicios de dominio
+4. Puertos de entrada y salida
+5. Casos de uso
+6. Adaptadores de persistencia y REST
+7. Infraestructura y configuración
+8. Pruebas y validación
 
-## Estructura
-- `SDD/` contiene la especificación de negocio y la documentación del dominio.
-- `src/main/java/application/` contiene la implementación del backend.
-- `src/test/java/application/` está reservado para pruebas unitarias e integradas.
+Esto mantiene una separación clara entre la lógica del negocio y los detalles de infraestructura, como Spring, JPA, seguridad, HTTP o base de datos.
+
+## Objetivo del sistema
+
+MARKER centraliza la operación de un marketplace con:
+- usuarios, compradores y vendedores
+- productos, variantes e inventario
+- bodegas y asignación comercial
+- carrito, pedidos y pagos
+- facturación, logística y devoluciones
+- reportes administrativos
+
+## Estructura profesional del repositorio
+
+- `SDD/` — especificación documental del proyecto y trazabilidad funcional
+- `src/main/java/application/domain/` — entidades, enums, modelos, value objects, excepciones, servicios y puertos del dominio
+- `src/main/java/application/adapters/` — casos de uso y adaptadores de infraestructura
+- `src/main/java/application/infrastructure/` — configuración, persistencia y componentes transversales
+- `src/main/java/application/api/` — REST controllers para la capa de exposición
+- `src/test/java/` — pruebas de dominio, integración y validación operativa
+
+## Capas de la solución
+
+### Dominio
+La capa de dominio concentra:
+- modelos de negocio
+- enums del sistema
+- objetos de valor
+- excepciones de reglas de negocio
+- servicios de dominio
+- puertos de entrada y salida
+
+### Adaptadores
+Los adaptadores encapsulan:
+- uso de casos de uso
+- coordinación entre dominio e infraestructura
+- acceso a persistencia
+- endpoints REST
+- mapeo de DTOs, requests y responses
+
+### Infraestructura
+La infraestructura contiene:
+- configuración Spring
+- repositorios JPA
+- adaptadores de persistencia
+- seguridad
+- notificaciones
+- integración con servicios externos
+
+## Documentación de negocio y dominio
+
+La documentación funcional del proyecto se encuentra en `SDD/` y está organizada por bloques que permiten mantener trazabilidad desde requisitos hasta implementación.
+
+Se recomienda seguir esta ruta de trabajo:
+
+- `SDD/Business/` — reglas, actores y trazabilidad
+- `SDD/Domain/` — modelos, servicios, puertos y reglas del dominio
+- `SDD/Architecture/` — visión de la arquitectura global
+- `SDD/Use-Cases/` — casos de uso del sistema
+- `SDD/Adapters/` — integración, REST y persistencia
 
 ## Tecnologías
-- Java 24
+
+- Java 17+
 - Spring Boot 4.1.1
 - Spring Data JPA
-- H2 en memoria para desarrollo
-- Maven
-- Docker Compose para entorno de infraestructura
+- H2 para ambiente local
+- Maven Wrapper
+- Docker Compose
+- Lombok
 
 ## Cómo ejecutar
+
 1. Clonar el repositorio.
-2. Ejecutar `./mvnw clean install`.
-3. Iniciar la aplicación con `./mvnw spring-boot:run`.
+2. Ejecutar:
+   - `./mvnw clean install`
+3. Levantar la aplicación:
+   - `./mvnw spring-boot:run`
+4. Opcional: levantar infraestructura con Docker:
+   - `docker-compose up --build`
 
 ## Cómo probar
-- Ejecutar `./mvnw test`
 
-## Reglas principales
-- El dominio debe permanecer independiente de la infraestructura.
-- Los servicios de dominio deben validar precondiciones y reglas del negocio.
-- Los puertos de salida definen la abstracción de persistencia y servicios externos.
-- Los casos de uso coordinan la ejecución de dominio y adaptadores.
+Ejecutar:
+
+```bash
+./mvnw test
+```
+
+## Principios de diseño
+
+- El dominio no depende de Spring, JPA ni HTTP.
+- Los servicios de dominio validan reglas del negocio.
+- Los puertos deciden el contrato entre dominio e infraestructura.
+- Los casos de uso coordinan flujo sin mezclar responsabilidades.
+- La persistencia y la API son adaptadores, no parte central del negocio.
 
 ## Estado del proyecto
-En evolución. La estructura documental y de dominio ya ha sido reorganizada para seguir el patrón sugerido por el docente.
+
+El proyecto ya está estructurado con una primera implementación profesional del flujo principal, con separación funcional entre dominio, puertos, casos de uso, adaptadores e infraestructura, y validación continua mediante Maven.
