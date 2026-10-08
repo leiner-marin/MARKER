@@ -10,12 +10,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class VendedorService {
 
+    public Seller registerSeller(Seller seller) {
+        return registerSeller(seller, null);
+    }
+
     public Seller registerSeller(Seller seller, Administrator administrator) {
         if (seller == null) {
             throw new IllegalArgumentException("Seller cannot be null.");
         }
-        if (administrator == null) {
-            throw new IllegalArgumentException("An administrator is required to register the seller.");
+        if (seller.getFullName() == null || seller.getFullName().isBlank()) {
+            throw new IllegalArgumentException("Seller full name is required.");
+        }
+        if (seller.getEmail() == null || seller.getEmail().isBlank()) {
+            throw new IllegalArgumentException("Seller email is required.");
+        }
+        if (administrator != null && administrator.getId() == null) {
+            throw new IllegalArgumentException("Administrator must be valid.");
         }
         if (seller.getSellerStatus() == null) {
             seller.setSellerStatus(SellerStatus.ACTIVE);
