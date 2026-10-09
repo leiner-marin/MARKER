@@ -1,12 +1,12 @@
 # NexusMarket SDD
 
-La especificacion se organiza por etapas. Cada servicio tiene obligatoriamente un documento en `03-services` y una implementacion Java en `src/main/java/application/services`.
+The specification is organized in stages. Each service must have a document in `03-services` and a Java implementation under `src/main/java/application/services`.
 
-- `01-business-rules/`: reglas que el dominio debe cumplir.
-- `02-domain-model/`: entidades, objetos de valor y estados.
-- `03-services/`: contrato documental de cada servicio.
-- `04-use-cases/`: operaciones de la capa de aplicacion.
-- `05-architecture/`: limites entre domain, application e infrastructure.
-- `06-data-model/`: persistencia y mapeos pendientes.
-- `07-api/`: contratos de entrada y salida.
-- `08-testing/`: estrategia de pruebas.
+- `01-business-rules/`: business rules the domain must satisfy
+- `02-domain-model/`: entities, value objects and states
+- `03-services/`: service-level documentation
+- `04-use-cases/`: application layer operations
+- `05-architecture/`: boundaries between domain, application and infrastructure
+- `06-data-model/`: persistence and mapping notes
+- `07-api/`: input/output contracts
+- `08-testing/`: testing strategy

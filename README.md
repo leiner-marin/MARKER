@@ -1,113 +1,112 @@
 # MARKER
 
-MARKER es un backend de marketplace para NexusMarket, diseñado con una arquitectura orientada al dominio y una separación clara entre reglas de negocio, casos de uso, adaptadores e infraestructura.
+MARKER is a backend for the NexusMarket marketplace. It is designed using domain-oriented architecture with a clear separation between business rules, use cases, adapters, and infrastructure.
 
-## Propósito del sistema
+## System Purpose
 
-MARKER modela la operación de un marketplace con:
-- usuarios, compradores y vendedores
-- productos, variantes y catálogo
-- inventario y bodegas
-- carrito, pedidos y pagos
-- facturación, logística y entregas
-- devoluciones y reembolsos
-- reportes y validaciones administrativas
+MARKER models a marketplace with:
+- users (buyers and sellers)
+- products, variants, and catalog
+- inventory and warehouses
+- shopping cart, orders, and payments
+- invoicing, logistics, and deliveries
+- returns and refunds
+- administrative reports and validations
 
-## Arquitectura base
+## Core Architecture
 
-La solución sigue la secuencia:
+The solution follows this layering:
 
-1. Especificación funcional y reglas de negocio
-2. Dominio del negocio
-3. Servicios de dominio
-4. Puertos de entrada y salida
-5. Casos de uso
-6. Adaptadores de persistencia y REST
-7. Infraestructura y configuración
-8. Pruebas y validación
+1. Functional specification and business rules
+2. Domain model
+3. Domain services
+4. Ports (input/output boundaries)
+5. Use cases (application services)
+6. Persistence and REST adapters
+7. Infrastructure and configuration
+8. Tests and validation
 
-Esta separación permite que el dominio permanezca desacoplado de Spring, JPA, HTTP y cualquier tecnología de infraestructura.
+This separation keeps the domain decoupled from Spring, JPA, HTTP, and other infrastructure technologies.
 
-## Estructura del repositorio
+## Repository Structure
 
-- `SDD/` — especificación funcional, reglas del negocio y trazabilidad
-- `src/main/java/application/domain/` — entidades, enums, modelos, value objects, excepciones, servicios y puertos del dominio
-- `src/main/java/application/adapters/` — adaptadores, mappers y casos de uso
-- `src/main/java/application/infrastructure/` — configuración, seguridad, persistencia y componentes técnicos
-- `src/main/java/application/api/` — exposición REST
-- `src/test/java/` — pruebas unitarias e integración
+- `SDD/` — functional specification, business rules and traceability
+- `src/main/java/application/domain/` — entities, enums, models, value objects, exceptions, domain services and ports
+- `src/main/java/application/adapters/` — adapters, mappers and use case implementations
+- `src/main/java/application/infrastructure/` — configuration, security, persistence and technical components
+- `src/main/java/application/api/` — REST exposure
+- `src/test/java/` — unit and integration tests
 
-## Principios de diseño aplicados
+## Design Principles
 
-- El dominio no depende de Spring, JPA ni HTTP.
-- Los servicios del dominio encapsulan reglas de negocio y validaciones.
-- Los puertos definen contratos explícitos entre dominio e infraestructura.
-- Los casos de uso coordinan flujos sin mezclar lógica de negocio con almacenamiento o HTTP.
-- No se duplican servicios ni capas con responsabilidades equivalentes.
-- La documentación y la implementación deben mantenerse sincronizadas.
+- The domain does not depend on Spring, JPA or HTTP.
+- Domain services encapsulate business rules and validations.
+- Ports define explicit contracts between domain and infrastructure.
+- Use cases orchestrate flows without mixing business logic with storage or HTTP concerns.
+- Avoid duplicate services or layers with overlapping responsibilities.
+- Keep documentation and implementation synchronized.
 
-## Organización del dominio
+## Domain Organization
 
-La capa de dominio está reservada para:
-- entidades del negocio
-- enums de estados y tipos
-- objetos de valor con validación propia
-- excepciones de negocio
-- servicios de dominio con responsabilidad específica
-- puertos de entrada y salida
+The domain layer contains:
+- business entities
+- enums for states and types
+- value objects with their own validation
+- business exceptions
+- domain services with specific responsibilities
+- input and output ports
 
-Los servicios de dominio no son componentes Spring. Son clases puras del negocio que reciben datos y devuelven resultados o lanzan excepciones del dominio.
+Domain services are plain business classes (not Spring components) that receive inputs, return results, or throw domain exceptions.
 
-## Organización de adaptadores e infraestructura
+## Adapters and Infrastructure
 
-La infraestructura y los adaptadores se encargan de:
-- persistencia
-- repositorios
-- entidades JPA/mappers
-- DTOs, requests y responses
-- controladores REST
-- seguridad y autenticación
-- configuración general del sistema
+Infrastructure and adapters handle:
+- persistence
+- repositories and JPA entities/mappers
+- DTOs, requests and responses
+- REST controllers
+- security and authentication
+- system configuration
 
-Esto asegura que la lógica del negocio permanezca aislada y reutilizable.
+This ensures business logic remains isolated and reusable.
 
-## Tecnologías
+## Technologies
 
-- Java 17
-- Maven
+- Java (project target version configured in `pom.xml`)
+- Maven (uses the Maven Wrapper)
 - Spring Boot 4.1.1
 - Spring Data JPA
-- H2 para entorno local
+- H2 for local development
 - Docker Compose
-- Lombok
+- Lombok (annotation processing)
 
-## Cómo ejecutar
+## Running the project
 
-1. Clonar el repositorio.
-2. Ejecutar:
+1. Clone the repository.
+2. Build:
 
 ```bash
 ./mvnw clean install
 ```
 
-3. Iniciar la aplicación:
+3. Run the application:
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-4. Opcionalmente, levantar infraestructura con Docker:
+4. Optionally start infrastructure with Docker:
 
 ```bash
 docker-compose up --build
 ```
 
-## Cómo probar
+## Running tests
 
 ```bash
 ./mvnw test
 ```
 
-## Estado del proyecto
+## Project status
 
-La estructura actual ha sido ajustada para mantener el dominio limpio, eliminar duplicidades innecesarias y reforzar la separación entre negocio e infraestructura. El proyecto sigue siendo compatible con Java y Maven, y la documentación se mantiene alineada con ese principio arquitectónico.
+The repository structure emphasizes a clean domain layer, reduces duplication, and strengthens separation between business logic and infrastructure. Documentation is kept aligned with implementation.

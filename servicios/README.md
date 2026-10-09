@@ -1,19 +1,19 @@
 # Service Specification Overview
 
-## Objetivo
-Este directorio consolida la especificación inicial de los servicios del sistema, organizada por dominio funcional y basada en los requisitos de negocio identificados.
+## Purpose
+This directory consolidates the initial specification for the system services, organized by functional domain and based on identified business requirements.
 
-## Dominio 1: Identidad y acceso
+## Domain 1: Identity and Access
 - [UsuarioService.md](UsuarioService.md)
 - [ValidacionUsuarioService.md](ValidacionUsuarioService.md)
 
-## Dominio 2: Compradores y vendedores
+## Domain 2: Buyers and Sellers
 - [CompradorService.md](CompradorService.md)
 - [VendedorService.md](VendedorService.md)
 - [DireccionCompradorService.md](DireccionCompradorService.md)
 - [IncorporacionVendedorService.md](IncorporacionVendedorService.md)
 
-## Dominio 3: Catálogo, inventario y bodegas
+## Domain 3: Catalog, Inventory and Warehouses
 - [BodegaService.md](BodegaService.md)
 - [ProductoService.md](ProductoService.md)
 - [InventarioService.md](InventarioService.md)
@@ -25,7 +25,7 @@ Este directorio consolida la especificación inicial de los servicios del sistem
 - [MovimientoInventarioService.md](MovimientoInventarioService.md)
 - [AjusteInventarioService.md](AjusteInventarioService.md)
 
-## Dominio 4: Compras, pedidos y facturación
+## Domain 4: Shopping, Orders and Billing
 - [CarritoService.md](CarritoService.md)
 - [PedidoService.md](PedidoService.md)
 - [FacturacionService.md](FacturacionService.md)
@@ -33,14 +33,14 @@ Este directorio consolida la especificación inicial de los servicios del sistem
 - [ValidacionPedidoService.md](ValidacionPedidoService.md)
 - [PreparacionPedidoService.md](PreparacionPedidoService.md)
 
-## Dominio 5: Logística y devoluciones
+## Domain 5: Logistics and Returns
 - [LogisticaService.md](LogisticaService.md)
 - [DevolucionReembolsoService.md](DevolucionReembolsoService.md)
 - [DespachoService.md](DespachoService.md)
 - [EntregaService.md](EntregaService.md)
 
-## Dominio 6: Reportes administrativos
+## Domain 6: Administrative Reports
 - [ReporteService.md](ReporteService.md)
 
-## Nota
-Los nombres de los servicios se mantienen en inglés para mantener consistencia técnica; la descripción funcional del contenido se presenta en español, según el criterio de negocio.
+## Note
+Service filenames are kept in Spanish for now to preserve existing links and references; functional descriptions are being translated to English progressively.

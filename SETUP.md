@@ -1,67 +1,63 @@
-# Setup del proyecto MARKER
+# Project setup
 
-## Requisitos
-- Java 17 o superior
-- Maven Wrapper incluido
-- Docker y Docker Compose
+## Requirements
+- Java 17 or higher (use JDK 21 for LTS compatibility where appropriate)
+- Maven Wrapper (included)
+- Docker and Docker Compose (optional)
 - Git
 
-## Estructura objetivo
+## Target structure
 
-MARKER produce una separación clara entre capas:
+MARKER keeps a clear separation between layers:
 
 ```text
-Especificación -> Dominio -> Puertos -> Casos de uso -> Adaptadores -> Infraestructura -> Pruebas
+Specification -> Domain -> Ports -> Use Cases -> Adapters -> Infrastructure -> Tests
 ```
 
-La lógica de negocio vive en `src/main/java/application/domain`, mientras que la infraestructura, persistencia y endpoints REST quedan aislados en `application/adapters`, `application/infrastructure` y `application/api`.
+Business logic lives in `src/main/java/application/domain`, while infrastructure, persistence and REST endpoints are isolated under `application/adapters`, `application/infrastructure` and `application/api`.
 
-## Configuración local
+## Local setup
 
-1. Abrir la raíz del proyecto.
-2. Ejecutar:
+1. Open the project root.
+2. Build:
 
 ```bash
 ./mvnw clean install
 ```
 
-3. Levantar la aplicación:
+3. Run the application:
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-## Entorno con Docker
+## Docker
 
 ```bash
 docker-compose up --build
 ```
 
-## Variables de entorno recomendadas
+## Recommended environment variables
 
 - `SPRING_PROFILES_ACTIVE`
-- `DB_URL`
-- `DB_USERNAME`
-- `DB_PASSWORD`
-- `SPRING_DATASOURCE_URL`
-- `SPRING_DATASOURCE_USERNAME`
-- `SPRING_DATASOURCE_PASSWORD`
+- `DB_URL` / `DB_USERNAME` / `DB_PASSWORD`
+- `SPRING_DATASOURCE_URL` / `SPRING_DATASOURCE_USERNAME` / `SPRING_DATASOURCE_PASSWORD`
 
-## Verificación
+## Verification
 
-- confirmar que la aplicación inicia sin errores
-- revisar logs y endpoints activos
-- ejecutar pruebas:
+- confirm the application starts without errors
+- check logs and active endpoints
+- run tests:
 
 ```bash
 ./mvnw test
 ```
 
-## Reglas de desarrollo
+## Development rules
 
-- no mezclar lógica de negocio con controladores, repositorios ni JPA
-- mantener los servicios de dominio desacoplados de infraestructura
-- usar puertos para abstraer persistencia y servicios externos
-- mantener una sola responsabilidad por componente
-- evitar duplicidades entre `domain/services` y `application/services`
-- sincronizar `SDD/` con la implementación real
+- do not mix business logic with controllers, repositories or JPA
+- keep domain services decoupled from infrastructure
+- use ports to abstract persistence and external services
+- ensure single responsibility per component
+- avoid duplication between `domain/services` and `application/services`
+- keep `SDD/` synchronized with the implementation
