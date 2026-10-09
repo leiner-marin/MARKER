@@ -1,7 +1,7 @@
 # Project setup
 
 ## Requirements
-- Java 17 or higher (use JDK 21 for LTS compatibility where appropriate)
+- Java 24 (JDK 24)
 - Maven Wrapper (included)
 - Docker and Docker Compose (optional)
 - Git

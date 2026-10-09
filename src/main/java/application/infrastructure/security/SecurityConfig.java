@@ -22,8 +22,8 @@ public class SecurityConfig {
                 registration.setLoadOnStartup(1);
                 registration.addMapping("/h2-console");
                 registration.addMapping("/h2-console/*");
-                registration.setInitParameter("webAllowOthers", "true");
-                registration.setInitParameter("trace", "true");
+                registration.setInitParameter("webAllowOthers", "false");
+                registration.setInitParameter("trace", "false");
             } catch (Exception ex) {
                 throw new IllegalStateException("Unable to register H2 console servlet", ex);
             }
@@ -40,7 +40,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers("/h2-console/**"))
             .headers(headers -> headers
-                .frameOptions(frame -> frame.disable()))
+                .frameOptions(frame -> frame.sameOrigin()))
             .httpBasic(Customizer.withDefaults());
 
         return http.build();

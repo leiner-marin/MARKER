@@ -9,9 +9,16 @@ services:
       - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: default
+      SPRING_DATASOURCE_URL: jdbc:mysql://marker-mysql:3306/marker_db
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_H2_CONSOLE_ENABLED: "false"
+      APP_SECURITY_USER: marker
+      APP_SECURITY_PASSWORD: marker-dev-password
     depends_on:
       - marker-mysql
-      - marker-mongo
 
   marker-mysql:
     image: mysql:8.0
@@ -21,9 +28,3 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
-
-  marker-mongo:
-    image: mongo:7
-    container_name: marker-mongo
-    ports:
-      - "27017:27017"

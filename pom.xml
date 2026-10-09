@@ -87,8 +87,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.1.2</version>
 				<configuration>
-					<forkCount>0</forkCount>
-					<argLine>-Xms256m -Xmx768m -XX:MaxMetaspaceSize=256m -XX:+UseSerialGC -Djava.util.concurrent.ForkJoinPool.common.parallelism=1</argLine>
+					<forkCount>1</forkCount>
+					<reuseForks>true</reuseForks>
+					<argLine>-Xms256m -Xmx768m -XX:MaxMetaspaceSize=256m -XX:+UseSerialGC -XX:+EnableDynamicAgentLoading -Ddebug=false -Djava.util.concurrent.ForkJoinPool.common.parallelism=1</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
