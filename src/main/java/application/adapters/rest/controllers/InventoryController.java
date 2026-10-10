@@ -1,6 +1,8 @@
 package application.adapters.rest.controllers;
 
-import application.domain.entities.Inventory;
+import application.adapters.rest.dtos.inventory.InventoryRequest;
+import application.adapters.rest.dtos.inventory.InventoryResponse;
+import application.adapters.rest.mappers.InventoryRestMapper;
 import application.domain.ports.in.ManageInventoryUseCase;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +23,18 @@ public class InventoryController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Inventory> getByProductId(@PathVariable Long productId) {
-        Optional<Inventory> inventory = manageInventoryUseCase.findByProductId(productId);
-        return inventory.map(ResponseEntity::ok)
+    public ResponseEntity<InventoryResponse> getByProductId(@PathVariable Long productId) {
+        Optional<application.domain.entities.Inventory> inventory =
+                manageInventoryUseCase.findByProductId(productId);
+
+        return inventory.map(InventoryRestMapper::toResponse)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Inventory save(@RequestBody Inventory inventory) {
-        return manageInventoryUseCase.save(inventory);
+    public InventoryResponse save(@RequestBody InventoryRequest request) {
+        return InventoryRestMapper.toResponse(
+                manageInventoryUseCase.save(InventoryRestMapper.toDomain(request)));
     }
 }
