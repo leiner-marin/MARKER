@@ -1,9 +1,12 @@
 package application.adapters.rest.controllers;
 
+import application.adapters.rest.dtos.product.ProductRequest;
+import application.adapters.rest.dtos.product.ProductResponse;
+import application.adapters.rest.mappers.ProductRestMapper;
 import application.domain.entities.Product;
+import application.domain.ports.in.ManageProductUseCase;
 import application.domain.ports.in.PublishProductUseCase;
 import application.domain.ports.in.RegisterProductUseCase;
-import application.domain.ports.in.ManageProductUseCase;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,24 +33,28 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAll() {
-        return manageProductUseCase.findAll();
+    public List<ProductResponse> getAll() {
+        return manageProductUseCase.findAll().stream()
+                .map(ProductRestMapper::toResponse)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponse> getById(@PathVariable Long id) {
         return manageProductUseCase.findById(id)
+                .map(ProductRestMapper::toResponse)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return registerProductUseCase.register(product);
+    public ProductResponse create(@RequestBody ProductRequest request) {
+        Product product = ProductRestMapper.toDomain(request);
+        return ProductRestMapper.toResponse(registerProductUseCase.register(product));
     }
 
     @PostMapping("/{id}/publish")
-    public Product publish(@PathVariable Long id) {
-        return publishProductUseCase.publish(id);
+    public ProductResponse publish(@PathVariable Long id) {
+        return ProductRestMapper.toResponse(publishProductUseCase.publish(id));
     }
 }
