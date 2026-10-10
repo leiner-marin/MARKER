@@ -1,6 +1,6 @@
 package application.domain.services;
 
-import application.ports.out.ProductRepository;
+import application.domain.ports.out.ProductRepositoryPort;
 import application.domain.entities.Product;
 import application.domain.entities.Seller;
 import application.domain.enums.ProductStatus;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoService {
-    private final ProductRepository productRepository;
+    private final ProductRepositoryPort productRepository;
 
-    public ProductoService(ProductRepository productRepository) {
+    public ProductoService(ProductRepositoryPort productRepository) {
         this.productRepository = productRepository;
     }
 
