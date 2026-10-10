@@ -1,10 +1,20 @@
-# Contratos API
+# REST API
 
-Los puertos de entrada representan operaciones de aplicacion. Los puertos de salida representan persistencia o comunicacion con sistemas externos:
+REST exposes application use cases through HTTP.
 
-- `PaymentPort`
-- `LogisticsPort`
-- `NotificationPort`
-- `BillingPort`
+## Structure
+application/adapters/rest/
+- controllers/
+- dtos/
+- mappers/
+- exception/
 
-Los controladores HTTP se agregaran cuando los casos de uso y sus DTOs esten validados.
+## Request flow
+HTTP Request → Request DTO → Mapper → Input Port → Use Case → Domain Service → Output Port → Adapter → Response DTO
+
+Controllers must not call repositories or domain services directly.
+
+## Business areas
+Users, buyers, sellers, warehouses, products, inventory, cart, orders, payments, invoices, shipments, deliveries, returns, refunds, and administrative reports.
+
+Request validation belongs at the REST boundary. Business validation belongs in the domain.
