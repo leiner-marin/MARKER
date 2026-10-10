@@ -3,7 +3,7 @@ package application.adapters.rest.controllers;
 import application.domain.entities.Product;
 import application.domain.ports.in.PublishProductUseCase;
 import application.domain.ports.in.RegisterProductUseCase;
-import application.domain.ports.out.ProductRepositoryPort;
+import application.domain.ports.in.ManageProductUseCase;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,25 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final RegisterProductUseCase registerProductUseCase;
     private final PublishProductUseCase publishProductUseCase;
-    private final ProductRepositoryPort productRepositoryPort;
+    private final ManageProductUseCase manageProductUseCase;
 
     public ProductController(
             RegisterProductUseCase registerProductUseCase,
             PublishProductUseCase publishProductUseCase,
-            ProductRepositoryPort productRepositoryPort) {
+            ManageProductUseCase manageProductUseCase) {
         this.registerProductUseCase = registerProductUseCase;
         this.publishProductUseCase = publishProductUseCase;
-        this.productRepositoryPort = productRepositoryPort;
+        this.manageProductUseCase = manageProductUseCase;
     }
 
     @GetMapping
     public List<Product> getAll() {
-        return productRepositoryPort.findAll();
+        return manageProductUseCase.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getById(@PathVariable Long id) {
-        return productRepositoryPort.findById(id)
+        return manageProductUseCase.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
