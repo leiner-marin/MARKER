@@ -1,6 +1,6 @@
 package application.infrastructure.repositories;
 
-import application.ports.out.ProductRepository;
+import application.domain.ports.out.ProductRepositoryPort;
 import application.domain.entities.Product;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class InMemoryProductRepository implements ProductRepository {
+public class InMemoryProductRepository implements ProductRepositoryPort {
     private final ConcurrentMap<Long, Product> products = new ConcurrentHashMap<>();
     private final AtomicLong nextId = new AtomicLong(1);
 
