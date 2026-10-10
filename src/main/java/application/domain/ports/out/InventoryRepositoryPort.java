@@ -1,10 +1,10 @@
 package application.domain.ports.out;
 
-import application.domain.models.InventoryModel;
+import application.domain.entities.Inventory;
 import java.util.Optional;
 
 public interface InventoryRepositoryPort {
-    InventoryModel save(InventoryModel inventory);
-    InventoryModel update(InventoryModel inventory);
-    Optional<InventoryModel> findByProductId(Long productId);
+    Inventory save(Inventory inventory);
+    Inventory update(Inventory inventory);
+    Optional<Inventory> findByProductId(Long productId);
 }
