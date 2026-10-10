@@ -1,63 +1,38 @@
-# Project setup
+# MARKER Setup Guide
 
 ## Requirements
-- Java 24 (JDK 24)
-- Maven Wrapper (included)
-- Docker and Docker Compose (optional)
+- JDK 24
 - Git
+- Maven Wrapper
+- Docker and Docker Compose (optional)
 
-## Target structure
-
-MARKER keeps a clear separation between layers:
-
-```text
-Specification -> Domain -> Ports -> Use Cases -> Adapters -> Infrastructure -> Tests
-```
-
-Business logic lives in `src/main/java/application/domain`, while infrastructure, persistence and REST endpoints are isolated under `application/adapters`, `application/infrastructure` and `application/api`.
+## Architecture
+Specification → Domain → Ports → Use Cases → Adapters → Infrastructure → Tests
 
 ## Local setup
-
-1. Open the project root.
-2. Build:
-
-```bash
-./mvnw clean install
-```
-
-3. Run the application:
-
-```bash
-./mvnw spring-boot:run
+```powershell
+.\mvnw.cmd clean test
+.\mvnw.cmd spring-boot:run
 ```
 
 ## Docker
-
 ```bash
-docker-compose up --build
+docker compose up --build
+docker compose down
 ```
 
-## Recommended environment variables
-
-- `SPRING_PROFILES_ACTIVE`
-- `DB_URL` / `DB_USERNAME` / `DB_PASSWORD`
-- `SPRING_DATASOURCE_URL` / `SPRING_DATASOURCE_USERNAME` / `SPRING_DATASOURCE_PASSWORD`
-
-## Verification
-
-- confirm the application starts without errors
-- check logs and active endpoints
-- run tests:
-
-```bash
-./mvnw test
-```
+## Environment variables
+- SPRING_PROFILES_ACTIVE
+- SPRING_DATASOURCE_URL
+- SPRING_DATASOURCE_USERNAME
+- SPRING_DATASOURCE_PASSWORD
+- JWT_SECRET
 
 ## Development rules
-
-- do not mix business logic with controllers, repositories or JPA
-- keep domain services decoupled from infrastructure
-- use ports to abstract persistence and external services
-- ensure single responsibility per component
-- avoid duplication between `domain/services` and `application/services`
-- keep `SDD/` synchronized with the implementation
+- Keep business rules inside the domain.
+- Keep JPA and database details outside the domain.
+- Use input ports as application entry contracts.
+- Use output ports as application exit contracts.
+- Keep controllers thin.
+- Avoid duplicate packages and responsibilities.
+- Keep SDD documentation synchronized with the implementation.
