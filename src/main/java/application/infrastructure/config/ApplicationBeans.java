@@ -2,8 +2,8 @@ package application.infrastructure.config;
 
 import application.adapters.useCases.DefaultInventoryUseCase;
 import application.adapters.useCases.DefaultProductUseCase;
-import application.domain.ports.out.InventoryPort;
-import application.domain.ports.out.ProductPort;
+import application.domain.ports.out.InventoryRepositoryPort;
+import application.domain.ports.out.ProductRepositoryPort;
 import application.domain.services.BodegaService;
 import application.domain.services.VendedorService;
 import org.springframework.context.annotation.Bean;
@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationBeans {
 
     @Bean
-    public DefaultProductUseCase defaultProductUseCase(ProductPort productPort) {
-        return new DefaultProductUseCase(productPort);
+    public DefaultProductUseCase defaultProductUseCase(ProductRepositoryPort productRepositoryPort) {
+        return new DefaultProductUseCase(productRepositoryPort);
     }
 
     @Bean
-    public DefaultInventoryUseCase defaultInventoryUseCase(InventoryPort inventoryPort) {
-        return new DefaultInventoryUseCase(inventoryPort);
+    public DefaultInventoryUseCase defaultInventoryUseCase(InventoryRepositoryPort inventoryRepositoryPort) {
+        return new DefaultInventoryUseCase(inventoryRepositoryPort);
     }
 
     @Bean
