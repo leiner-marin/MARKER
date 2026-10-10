@@ -2,15 +2,31 @@ package application.adapters.useCases;
 
 import application.domain.entities.Product;
 import application.domain.exceptions.ProductValidationException;
+import application.domain.ports.in.ManageProductUseCase;
 import application.domain.ports.in.PublishProductUseCase;
 import application.domain.ports.in.RegisterProductUseCase;
+import java.util.List;
+import java.util.Optional;
 import application.domain.ports.out.ProductRepositoryPort;
 
-public class DefaultProductUseCase implements RegisterProductUseCase, PublishProductUseCase {
+public class DefaultProductUseCase implements RegisterProductUseCase, PublishProductUseCase, ManageProductUseCase {
     private final ProductRepositoryPort productRepositoryPort;
 
     public DefaultProductUseCase(ProductRepositoryPort productRepositoryPort) {
         this.productRepositoryPort = productRepositoryPort;
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepositoryPort.findAll();
+    }
+
+    @Override
+    public Optional<Product> findById(Long id) {
+        if (id == null) {
+            throw new ProductValidationException("Product id is required.");
+        }
+        return productRepositoryPort.findById(id);
     }
 
     @Override
