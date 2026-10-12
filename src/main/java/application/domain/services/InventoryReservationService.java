@@ -1,6 +1,8 @@
 package application.domain.services;
 
 import application.domain.entities.Inventory;
+import application.domain.enums.InventoryMovementType;
+import java.time.LocalDateTime;
 
 public class InventoryReservationService {
     public Inventory reserve(Inventory inventory, int quantity) {
@@ -10,10 +12,15 @@ public class InventoryReservationService {
         if (quantity <= 0) {
             throw new IllegalArgumentException("Reservation quantity must be greater than zero.");
         }
-        if (inventory.getAvailableQuantity() == null || inventory.getAvailableQuantity() < quantity) {
+        int available = inventory.getAvailableQuantity() == null ? 0 : inventory.getAvailableQuantity();
+        if (available < quantity) {
             throw new IllegalStateException("Insufficient available inventory.");
         }
-        inventory.setAvailableQuantity(inventory.getAvailableQuantity() - quantity);
+        int reserved = inventory.getReservedQuantity() == null ? 0 : inventory.getReservedQuantity();
+        inventory.setAvailableQuantity(available - quantity);
+        inventory.setReservedQuantity(reserved + quantity);
+        inventory.setMovementType(InventoryMovementType.RESERVE.name());
+        inventory.setMovementDate(LocalDateTime.now());
         return inventory;
     }
 }
