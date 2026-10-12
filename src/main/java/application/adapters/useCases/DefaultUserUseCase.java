@@ -27,6 +27,9 @@ public class DefaultUserUseCase implements RegisterUserUseCase, ManageUserUseCas
         if (userRepositoryPort.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email is already registered.");
         }
+        if (userRepositoryPort.existsByIdentityDocument(user.getIdentityDocument())) {
+            throw new IllegalArgumentException("Identity document is already registered.");
+        }
         return userRepositoryPort.save(userService.register(user));
     }
 
@@ -37,6 +40,10 @@ public class DefaultUserUseCase implements RegisterUserUseCase, ManageUserUseCas
         if (!current.getEmail().equalsIgnoreCase(user.getEmail())
                 && userRepositoryPort.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email is already registered.");
+        }
+        if (!current.getIdentityDocument().equalsIgnoreCase(user.getIdentityDocument())
+                && userRepositoryPort.existsByIdentityDocument(user.getIdentityDocument())) {
+            throw new IllegalArgumentException("Identity document is already registered.");
         }
         return userRepositoryPort.update(userService.update(user));
     }
