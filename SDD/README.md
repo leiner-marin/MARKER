@@ -4,9 +4,10 @@ The SDD documents MARKER from business requirements through implementation.
 
 ## Canonical Structure
 
-- `01-business-rules/` — business rules, actors, and traceability
+- `01-business-rules/` — business requirements, rules, actors, and traceability
 - `02-domain-model/` — domain entities, enums, relationships, value objects, and exceptions
 - `03-use-cases/` — application use cases
+- `04-ports/` — input and output port contracts
 - `Domain/services/` — domain service documentation
 - `05-architecture/` — architecture boundaries
 - `06-data-model/` — persistence mapping
@@ -14,10 +15,12 @@ The SDD documents MARKER from business requirements through implementation.
 - `08-testing/` — testing strategy
 - `Completion-Roadmap.md` — completion status
 
+## Architecture Reference
+
+MARKER follows the architectural principles used by the reference project: a pure domain core, explicit ports, application use cases, adapters, infrastructure, and automated testing.
+
+The reference project is used only as an architectural guide. MARKER preserves its own marketplace domain, requirements, rules, and business flows.
+
 ## Documentation Rule
 
-All documentation must use English terminology and remain synchronized with the implementation.
-
-The application architecture is based on the same architectural principles used by the reference project: a pure domain core, explicit input and output ports, application use cases, adapters, infrastructure, and automated tests.
-
-MARKER retains its own marketplace business domain and requirements.
+All documentation uses English terminology and must remain synchronized with the implementation.
