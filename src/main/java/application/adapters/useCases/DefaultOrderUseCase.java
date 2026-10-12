@@ -70,6 +70,8 @@ public class DefaultOrderUseCase implements CreateOrderUseCase, ManageOrderUseCa
     }
 
     private void reservePhysicalProducts(Order order) {
+        java.util.List<Inventory> physicalInventory = new java.util.ArrayList<>();
+
         for (Product product : order.getProducts()) {
             if (product.getProductType() != ProductType.PHYSICAL) {
                 continue;
@@ -79,6 +81,23 @@ public class DefaultOrderUseCase implements CreateOrderUseCase, ManageOrderUseCa
                     .orElseThrow(() -> new IllegalStateException(
                             "Inventory not found for physical product " + product.getId() + "."));
 
+            if (inventory.isDamaged()) {
+                throw new IllegalStateException(
+                        "Damaged inventory cannot be reserved for product " + product.getId() + ".");
+            }
+
+            int available = inventory.getAvailableQuantity() == null
+                    ? 0
+                    : inventory.getAvailableQuantity();
+            if (available < 1) {
+                throw new IllegalStateException(
+                        "Insufficient available inventory for product " + product.getId() + ".");
+            }
+
+            physicalInventory.add(inventory);
+        }
+
+        for (Inventory inventory : physicalInventory) {
             Inventory reserved = reservationService.reserve(inventory, 1);
             Inventory saved = inventoryRepositoryPort.update(reserved);
             inventoryMovementRepositoryPort.saveMovement(saved);
