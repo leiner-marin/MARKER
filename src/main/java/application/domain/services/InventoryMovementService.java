@@ -16,7 +16,7 @@ public class InventoryMovementService {
         return switch (movement) {
             case INGRESS, RETURN -> new InventoryService().adjust(inventory, quantity);
             case RESERVE -> new InventoryReservationService().reserve(inventory, quantity);
-            case SALE_EXIT -> new InventoryService().adjust(inventory, -quantity);
+            case SALE_OUT -> new InventoryService().adjust(inventory, -quantity);
             case ADJUSTMENT -> new InventoryService().adjust(inventory, quantity);
         };
     }
