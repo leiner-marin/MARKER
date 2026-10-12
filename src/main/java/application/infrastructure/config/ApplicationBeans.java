@@ -51,6 +51,7 @@ import application.domain.ports.out.ProductRepositoryPort;
 import application.domain.ports.out.SellerRepositoryPort;
 import application.domain.ports.out.WarehouseRepositoryPort;
 import application.domain.services.SellerOnboardingService;
+import application.domain.services.SellerService;
 import application.domain.services.WarehouseAssignmentService;
 import application.domain.services.WarehouseService;
 import org.springframework.context.annotation.Bean;
@@ -248,6 +249,11 @@ public class ApplicationBeans {
     }
 
     @Bean
+    public SellerService sellerService() {
+        return new SellerService();
+    }
+
+    @Bean
     public SellerOnboardingService sellerOnboardingService() {
         return new SellerOnboardingService();
     }
@@ -266,11 +272,13 @@ public class ApplicationBeans {
     public DefaultSellerUseCase defaultSellerUseCase(
             SellerRepositoryPort sellerRepositoryPort,
             SellerOnboardingService sellerOnboardingService,
-            WarehouseAssignmentService warehouseAssignmentService) {
+            WarehouseAssignmentService warehouseAssignmentService,
+            SellerService sellerService) {
         return new DefaultSellerUseCase(
                 sellerRepositoryPort,
                 sellerOnboardingService,
-                warehouseAssignmentService);
+                warehouseAssignmentService,
+                sellerService);
     }
 
     @Bean
