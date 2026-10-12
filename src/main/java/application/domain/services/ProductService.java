@@ -1,14 +1,10 @@
 package application.domain.services;
 
 import application.domain.entities.Product;
-import application.domain.enums.ProductStatus;
 
 public class ProductService {
     public Product register(Product product) {
         validate(product);
-        if (product.getStatus() == null) {
-            product.setStatus(ProductStatus.PUBLISHED);
-        }
         return product;
     }
 
