@@ -5,5 +5,7 @@ public record InventoryResponse(
         Long productId,
         Long warehouseId,
         Integer availableQuantity,
-        String movementType) {
+        Integer reservedQuantity,
+        String movementType,
+        String movementDate) {
 }
