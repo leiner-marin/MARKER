@@ -1,8 +1,12 @@
 package application.domain.services;
 
 import application.domain.entities.Order;
+import application.domain.entities.Product;
 import application.domain.enums.OrderStatus;
+import application.domain.enums.ProductStatus;
+import application.domain.enums.ProductType;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class OrderService {
 
@@ -35,14 +39,37 @@ public class OrderService {
         return order;
     }
 
+    public Order finalizeDigitalOrder(Order order) {
+        if (order == null || order.getId() == null) {
+            throw new IllegalArgumentException("Order is required.");
+        }
+        if (order.getStatus() != OrderStatus.PAID) {
+            throw new IllegalStateException("Only paid orders can be finalized digitally.");
+        }
+        if (requiresPhysicalDelivery(order)) {
+            throw new IllegalStateException("Orders requiring physical delivery cannot be finalized digitally.");
+        }
+        order.setStatus(OrderStatus.FINALIZED);
+        order.setUpdateDate(LocalDateTime.now());
+        return order;
+    }
+
+    public boolean requiresPhysicalDelivery(Order order) {
+        if (order == null || order.getProducts() == null || order.getProducts().isEmpty()) {
+            return false;
+        }
+        return order.getProducts().stream()
+                .anyMatch(product -> product != null && product.getProductType() == ProductType.PHYSICAL);
+    }
+
     public boolean isValidTransition(OrderStatus current, OrderStatus target) {
         if (current == null || target == null) {
             return false;
         }
         return switch (current) {
             case CART -> target == OrderStatus.PENDING_PAYMENT;
-            case PENDING_PAYMENT -> target == OrderStatus.PAID || target == OrderStatus.CART;
-            case PAID -> target == OrderStatus.DISPATCHED;
+            case PENDING_PAYMENT -> target == OrderStatus.PAID;
+            case PAID -> target == OrderStatus.DISPATCHED || target == OrderStatus.FINALIZED;
             case DISPATCHED -> target == OrderStatus.DELIVERED;
             case DELIVERED -> target == OrderStatus.FINALIZED;
             case FINALIZED -> false;
@@ -59,6 +86,12 @@ public class OrderService {
         }
         if (order.getProducts() == null || order.getProducts().isEmpty()) {
             throw new IllegalArgumentException("Order must contain at least one product.");
+        }
+        List<Product> products = order.getProducts();
+        if (products.stream().anyMatch(product -> product == null
+                || product.getId() == null
+                || product.getStatus() != ProductStatus.PUBLISHED)) {
+            throw new IllegalArgumentException("All order products must be published and identified.");
         }
     }
 }
