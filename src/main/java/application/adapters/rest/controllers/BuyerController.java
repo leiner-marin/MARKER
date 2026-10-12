@@ -21,23 +21,19 @@ public class BuyerController {
     private final RegisterBuyerUseCase registerBuyerUseCase;
     private final ManageBuyerUseCase manageBuyerUseCase;
 
-    public BuyerController(
-            RegisterBuyerUseCase registerBuyerUseCase,
-            ManageBuyerUseCase manageBuyerUseCase) {
+    public BuyerController(RegisterBuyerUseCase registerBuyerUseCase, ManageBuyerUseCase manageBuyerUseCase) {
         this.registerBuyerUseCase = registerBuyerUseCase;
         this.manageBuyerUseCase = manageBuyerUseCase;
     }
 
     @PostMapping
     public BuyerResponse register(@RequestBody BuyerRequest request) {
-        Buyer buyer = BuyerRestMapper.toDomain(request);
-        return BuyerRestMapper.toResponse(registerBuyerUseCase.register(buyer));
+        return BuyerRestMapper.toResponse(registerBuyerUseCase.register(BuyerRestMapper.toDomain(request)));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BuyerResponse> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(
-                BuyerRestMapper.toResponse(manageBuyerUseCase.findById(id)));
+        return ResponseEntity.ok(BuyerRestMapper.toResponse(manageBuyerUseCase.findById(id)));
     }
 
     @PutMapping("/{id}")
@@ -46,4 +42,11 @@ public class BuyerController {
         buyer.setId(id);
         return BuyerRestMapper.toResponse(manageBuyerUseCase.update(buyer));
     }
+
+    @PostMapping("/{id}/addresses")
+    public BuyerResponse addAddress(@PathVariable Long id, @RequestBody AddressRequest request) {
+        return BuyerRestMapper.toResponse(manageBuyerUseCase.addAddress(id, request.address()));
+    }
+
+    public record AddressRequest(String address) {}
 }
