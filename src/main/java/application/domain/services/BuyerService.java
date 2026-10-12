@@ -18,6 +18,9 @@ public class BuyerService {
         if (buyer == null) {
             throw new IllegalArgumentException("Buyer cannot be null.");
         }
+        if (buyer.getIdentityDocument() == null || buyer.getIdentityDocument().isBlank()) {
+            throw new IllegalArgumentException("Identity document is required.");
+        }
         if (buyer.getFullName() == null || buyer.getFullName().isBlank()) {
             throw new IllegalArgumentException("Buyer full name is required.");
         }
