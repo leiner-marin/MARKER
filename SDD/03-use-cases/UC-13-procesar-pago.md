@@ -1,28 +1,17 @@
-# UC-13 Procesar pago
+# UC-13 Process Payment
 
-## Actor principal
-Comprador
+**Primary actor:** Buyer
 
-## Objetivo
-Validar y registrar el pago de un pedido.
+**Goal:** Process payment for a valid order.
 
-## Precondiciones
-- El pedido debe existir.
-- Debe existir un método de pago válido.
+**Preconditions**
+- The order exists.
+- The payment amount is valid.
+- The order is awaiting payment.
 
-## Flujo principal
-1. El comprador solicita procesar el pago.
-2. El sistema valida el estado del pedido.
-3. El sistema invoca el puerto externo de pagos.
-4. El sistema valida la respuesta del proveedor.
-5. El sistema actualiza el estado del pago y del pedido.
-
-## Postcondiciones
-- El pedido queda pagado o rechazado con trazabilidad del resultado.
-
-## Servicios involucrados
-- PagoService
-- PedidoService
-
-## Puertos de salida
-- PagoPort
+**Main flow**
+1. Payment information is received.
+2. The payment is validated.
+3. The external payment contract is invoked.
+4. On acceptance, the order becomes PAID.
+5. The result is returned.
