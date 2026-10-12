@@ -43,9 +43,7 @@ public class ShipmentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Shipment> findById(
-            @PathVariable Long id,
-            @RequestBody(required = false) Shipment ignored) {
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Shipment> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(manageShipmentUseCase.findById(id));
     }
 }
