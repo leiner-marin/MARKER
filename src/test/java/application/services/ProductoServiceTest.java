@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import application.domain.entities.Product;
 import application.domain.enums.ProductStatus;
 import application.domain.services.ProductoService;
-import application.infrastructure.repositories.InMemoryProductRepository;
+import application.adapters.persistence.InMemoryProductRepositoryAdapter;
 import org.junit.jupiter.api.Test;
 
 class ProductoServiceTest {
     private final ProductoService productService =
-            new ProductoService(new InMemoryProductRepository());
+            new ProductoService(new InMemoryProductRepositoryAdapter());
 
     @Test
     void registersAndUpdatesProductThroughRepository() {
