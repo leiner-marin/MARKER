@@ -14,7 +14,10 @@ import application.domain.ports.out.OrderRepositoryPort;
 import application.domain.services.CartService;
 import application.domain.services.OrderService;
 import application.domain.ports.out.BuyerRepositoryPort;
-import application.domain.services.CompradorService;
+import application.domain.services.BuyerService;
+import application.domain.services.ProductService;
+import application.domain.services.ProductPublicationService;
+import application.domain.services.InventoryService;
 import application.adapters.useCases.DefaultProductUseCase;
 import application.adapters.useCases.DefaultSellerUseCase;
 import application.adapters.useCases.DefaultWarehouseUseCase;
@@ -45,7 +48,7 @@ import application.domain.services.RefundService;
 import application.adapters.useCases.DefaultUserUseCase;
 import application.adapters.persistence.InMemoryUserRepositoryAdapter;
 import application.domain.ports.out.UserRepositoryPort;
-import application.domain.services.UsuarioService;
+import application.domain.services.UserService;
 import application.domain.ports.out.InventoryRepositoryPort;
 import application.domain.ports.out.ProductRepositoryPort;
 import application.domain.ports.out.SellerRepositoryPort;
@@ -66,8 +69,8 @@ public class ApplicationBeans {
     }
 
     @Bean
-    public UsuarioService userService() {
-        return new UsuarioService();
+    public UserService userService() {
+        return new UserService();
     }
 
     @Bean
@@ -110,32 +113,52 @@ public class ApplicationBeans {
     }
 
     @Bean
-    public CompradorService buyerService() {
-        return new CompradorService();
+    public BuyerService buyerService() {
+        return new BuyerService();
     }
 
     @Bean
     public DefaultBuyerUseCase defaultBuyerUseCase(
             BuyerRepositoryPort buyerRepositoryPort,
-            CompradorService buyerService) {
+            BuyerService buyerService) {
         return new DefaultBuyerUseCase(buyerRepositoryPort, buyerService);
     }
 
     @Bean
     public DefaultUserUseCase defaultUserUseCase(
             UserRepositoryPort userRepositoryPort,
-            UsuarioService userService) {
+            UserService userService) {
         return new DefaultUserUseCase(userRepositoryPort, userService);
     }
 
     @Bean
-    public DefaultProductUseCase defaultProductUseCase(ProductRepositoryPort productRepositoryPort) {
-        return new DefaultProductUseCase(productRepositoryPort);
+    public ProductService productService() {
+        return new ProductService();
     }
 
     @Bean
-    public DefaultInventoryUseCase defaultInventoryUseCase(InventoryRepositoryPort inventoryRepositoryPort) {
-        return new DefaultInventoryUseCase(inventoryRepositoryPort);
+    public ProductPublicationService productPublicationService() {
+        return new ProductPublicationService();
+    }
+
+    @Bean
+    public DefaultProductUseCase defaultProductUseCase(
+            ProductRepositoryPort productRepositoryPort,
+            ProductService productService,
+            ProductPublicationService productPublicationService) {
+        return new DefaultProductUseCase(productRepositoryPort, productService, productPublicationService);
+    }
+
+    @Bean
+    public InventoryService inventoryService() {
+        return new InventoryService();
+    }
+
+    @Bean
+    public DefaultInventoryUseCase defaultInventoryUseCase(
+            InventoryRepositoryPort inventoryRepositoryPort,
+            InventoryService inventoryService) {
+        return new DefaultInventoryUseCase(inventoryRepositoryPort, inventoryService);
     }
 
     @Bean

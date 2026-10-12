@@ -4,13 +4,13 @@ import application.domain.entities.User;
 import application.domain.ports.in.ManageUserUseCase;
 import application.domain.ports.in.RegisterUserUseCase;
 import application.domain.ports.out.UserRepositoryPort;
-import application.domain.services.UsuarioService;
+import application.domain.services.UserService;
 
 public class DefaultUserUseCase implements RegisterUserUseCase, ManageUserUseCase {
     private final UserRepositoryPort userRepositoryPort;
-    private final UsuarioService userService;
+    private final UserService userService;
 
-    public DefaultUserUseCase(UserRepositoryPort userRepositoryPort, UsuarioService userService) {
+    public DefaultUserUseCase(UserRepositoryPort userRepositoryPort, UserService userService) {
         this.userRepositoryPort = userRepositoryPort;
         this.userService = userService;
     }

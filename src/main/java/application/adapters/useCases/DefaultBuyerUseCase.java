@@ -4,25 +4,25 @@ import application.domain.entities.Buyer;
 import application.domain.ports.in.ManageBuyerUseCase;
 import application.domain.ports.in.RegisterBuyerUseCase;
 import application.domain.ports.out.BuyerRepositoryPort;
-import application.domain.services.CompradorService;
+import application.domain.services.BuyerService;
 
 public class DefaultBuyerUseCase implements RegisterBuyerUseCase, ManageBuyerUseCase {
     private final BuyerRepositoryPort buyerRepositoryPort;
-    private final CompradorService buyerService;
+    private final BuyerService buyerService;
 
-    public DefaultBuyerUseCase(BuyerRepositoryPort buyerRepositoryPort, CompradorService buyerService) {
+    public DefaultBuyerUseCase(BuyerRepositoryPort buyerRepositoryPort, BuyerService buyerService) {
         this.buyerRepositoryPort = buyerRepositoryPort;
         this.buyerService = buyerService;
     }
 
     @Override
     public Buyer register(Buyer buyer) {
-        return buyerRepositoryPort.save(buyerService.registerBuyer(buyer));
+        return buyerRepositoryPort.save(buyerService.register(buyer));
     }
 
     @Override
     public Buyer update(Buyer buyer) {
-        buyerService.registerBuyer(buyer);
+        buyerService.validate(buyer);
         return buyerRepositoryPort.update(buyer);
     }
 
