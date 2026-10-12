@@ -1,11 +1,10 @@
 package application.domain.ports.out;
 
-import application.domain.entities.Order;
+import application.domain.entities.Refund;
 import java.util.Optional;
 
 public interface RefundRepositoryPort {
-    Order save(Order refund);
-    Order update(Order refund);
-    Optional<Order> findById(Long id);
-    Optional<Order> findByReturnId(Long returnId);
-}
+    Refund save(Refund refund);
+    Refund update(Refund refund);
+    Optional<Refund> findById(Long id);
+    Optional<Refund> findByReturnId(Long returnId);
