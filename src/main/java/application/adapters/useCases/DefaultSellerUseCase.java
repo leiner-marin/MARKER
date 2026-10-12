@@ -47,6 +47,10 @@ public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerU
                 && userRepositoryPort.existsByEmail(seller.getEmail())) {
             throw new IllegalArgumentException("Email is already registered.");
         }
+        if (!current.getIdentityDocument().equalsIgnoreCase(seller.getIdentityDocument())
+                && userRepositoryPort.existsByIdentityDocument(seller.getIdentityDocument())) {
+            throw new IllegalArgumentException("Identity document is already registered.");
+        }
         userRepositoryPort.update(seller);
         return sellerRepositoryPort.update(seller);
     }
@@ -69,6 +73,9 @@ public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerU
         sellerService.validate(seller);
         if (userRepositoryPort.existsByEmail(seller.getEmail())) {
             throw new IllegalArgumentException("Email is already registered.");
+        }
+        if (userRepositoryPort.existsByIdentityDocument(seller.getIdentityDocument())) {
+            throw new IllegalArgumentException("Identity document is already registered.");
         }
         Seller onboarded = sellerOnboardingService.onboard(seller);
         userRepositoryPort.save(onboarded);
