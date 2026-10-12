@@ -1,27 +1,20 @@
-# UC-01 Registrar usuario
+# UC-01 Register User
 
-## Actor principal
-Usuario
+**Primary actor:** Administrator
 
-## Objetivo
-Registrar un nuevo usuario dentro del sistema.
+**Goal:** Register a new user in MARKER.
 
-## Precondiciones
-- El usuario no debe existir previamente.
-- La información mínima debe estar completa.
+**Preconditions**
+- Required user information is complete.
+- User identifier and email are unique.
+- The selected role is valid.
 
-## Flujo principal
-1. El usuario solicita registrarse.
-2. El sistema valida los datos obligatorios.
-3. El sistema asigna el rol y estado inicial.
-4. El sistema guarda el usuario.
-5. El sistema confirma la creación.
+**Main flow**
+1. The actor submits user information.
+2. The application validates the information.
+3. The user is created.
+4. The user is stored.
+5. The application confirms registration.
 
-## Postcondiciones
-- El usuario queda registrado con estado activo o inicial válido.
-
-## Servicios involucrados
-- UsuarioService
-
-## Puertos de salida
-- UsuarioRepository
+**Postconditions**
+- The user exists with one role and a valid status.
