@@ -1,8 +1,23 @@
 package application.domain.services;
 
 import application.domain.entities.Seller;
+import application.domain.enums.SellerStatus;
+import application.domain.enums.UserRole;
+import java.time.LocalDate;
 
 public class SellerService {
+    public Seller register(Seller seller) {
+        validate(seller);
+        seller.setRole(UserRole.SELLER);
+        if (seller.getIncorporationDate() == null) {
+            seller.setIncorporationDate(LocalDate.now());
+        }
+        if (seller.getSellerStatus() == null) {
+            seller.setSellerStatus(SellerStatus.ACTIVE);
+        }
+        return seller;
+    }
+
     public Seller validate(Seller seller) {
         if (seller == null) {
             throw new IllegalArgumentException("Seller cannot be null.");
