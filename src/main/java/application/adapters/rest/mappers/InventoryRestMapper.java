@@ -25,6 +25,7 @@ public final class InventoryRestMapper {
         inventory.setWarehouse(warehouse);
 
         inventory.setAvailableQuantity(request.availableQuantity());
+        inventory.setDamaged(request.damaged());
         return inventory;
     }
 
@@ -41,6 +42,7 @@ public final class InventoryRestMapper {
                 warehouseId,
                 inventory.getAvailableQuantity(),
                 inventory.getReservedQuantity(),
+                inventory.isDamaged(),
                 inventory.getMovementType(),
                 movementDate);
     }
