@@ -2,17 +2,21 @@ package application.adapters.useCases;
 
 import application.domain.entities.Inventory;
 import application.domain.ports.in.ReserveInventoryUseCase;
+import application.domain.ports.out.InventoryMovementRepositoryPort;
 import application.domain.ports.out.InventoryRepositoryPort;
 import application.domain.services.InventoryReservationService;
 
 public class DefaultReserveInventoryUseCase implements ReserveInventoryUseCase {
     private final InventoryRepositoryPort inventoryRepositoryPort;
+    private final InventoryMovementRepositoryPort inventoryMovementRepositoryPort;
     private final InventoryReservationService reservationService;
 
     public DefaultReserveInventoryUseCase(
             InventoryRepositoryPort inventoryRepositoryPort,
+            InventoryMovementRepositoryPort inventoryMovementRepositoryPort,
             InventoryReservationService reservationService) {
         this.inventoryRepositoryPort = inventoryRepositoryPort;
+        this.inventoryMovementRepositoryPort = inventoryMovementRepositoryPort;
         this.reservationService = reservationService;
     }
 
@@ -23,6 +27,9 @@ public class DefaultReserveInventoryUseCase implements ReserveInventoryUseCase {
         }
         Inventory inventory = inventoryRepositoryPort.findById(inventoryId)
                 .orElseThrow(() -> new IllegalArgumentException("Inventory not found."));
-        return inventoryRepositoryPort.update(reservationService.reserve(inventory, quantity));
+        Inventory reserved = reservationService.reserve(inventory, quantity);
+        Inventory saved = inventoryRepositoryPort.update(reserved);
+        inventoryMovementRepositoryPort.saveMovement(saved);
+        return saved;
     }
 }
