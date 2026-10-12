@@ -1,37 +1,51 @@
-# Enums
+# Domain Enums
 
-## Required Enums
-The domain must keep enum names and values in English:
+## UserRole
 
-- Role
-- UserStatus
-- SellerStatus
-- WarehouseType
-- ProductType
-- ProductStatus
-- CommercialStatus
-- InventoryMovementType
-- OrderStatus
-- PaymentStatus
-- ShipmentStatus
+- BUYER
+- SELLER
+- LOGISTICS_OPERATOR
+- ADMINISTRATOR
+- SUPERVISOR
 
-## Required Inventory Movement Values
-InventoryMovementType must support:
+## UserStatus
 
-- ENTRY
-- RESERVATION
-- SALE_EXIT
+- ACTIVE
+- INACTIVE
+- BLOCKED
+
+## ProductType
+
+- PHYSICAL
+- DIGITAL
+
+## ProductStatus
+
+- PUBLISHED
+- SUSPENDED
+- DISCONTINUED
+
+## InventoryMovementType
+
+- INGRESS
+- RESERVE
+- SALE_OUT
 - ADJUSTMENT
 - RETURN
 
-## Required Order Lifecycle
-OrderStatus must support the business lifecycle:
+## OrderStatus
 
-```text
-CART -> PENDING_PAYMENT -> PAID -> DISPATCHED -> DELIVERED -> FINALIZED
-```
+- CART
+- PENDING_PAYMENT
+- PAID
+- DISPATCHED
+- DELIVERED
+- FINALIZED
 
-A finalized order is immutable.
+## Additional Enums
 
-## Usage Rules
-Enums standardize operational states and must be used consistently across services, ports, adapters, persistence mappings, and tests.
+- CommercialStatus
+- SellerStatus
+- WarehouseType
+- PaymentStatus
+- ShipmentStatus
