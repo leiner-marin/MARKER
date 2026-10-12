@@ -58,7 +58,11 @@ public class DefaultPaymentUseCase implements ProcessPaymentUseCase {
         if ("PAYMENT_ACCEPTED".equals(result)) {
             payment.setStatus(PaymentStatus.PAID);
             paymentRepositoryPort.save(payment);
-            orderRepositoryPort.update(orderService.updateStatus(order, OrderStatus.PAID));
+            Order paidOrder = orderService.updateStatus(order, OrderStatus.PAID);
+            if (!orderService.requiresPhysicalDelivery(paidOrder)) {
+                orderService.finalizeDigitalOrder(paidOrder);
+            }
+            orderRepositoryPort.update(paidOrder);
         } else {
             payment.setStatus(PaymentStatus.FAILED);
             paymentRepositoryPort.save(payment);
