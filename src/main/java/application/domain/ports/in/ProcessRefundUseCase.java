@@ -1,7 +1,7 @@
 package application.domain.ports.in;
 
-import application.domain.entities.Order;
+import application.domain.entities.Refund;
 
 public interface ProcessRefundUseCase {
-    Order process(Order order);
+    Refund process(Refund refund);
 }
