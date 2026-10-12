@@ -5,6 +5,7 @@ import application.adapters.rest.dtos.buyer.BuyerResponse;
 import application.domain.entities.Buyer;
 import application.domain.enums.CommercialStatus;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class BuyerRestMapper {
     private BuyerRestMapper() {}
