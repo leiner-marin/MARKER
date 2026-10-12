@@ -7,6 +7,7 @@ import application.domain.ports.in.ManageSellerUseCase;
 import application.domain.ports.in.OnboardSellerUseCase;
 import application.domain.ports.out.SellerRepositoryPort;
 import application.domain.ports.out.UserRepositoryPort;
+import application.domain.ports.out.WarehouseRepositoryPort;
 import application.domain.services.SellerOnboardingService;
 import application.domain.services.SellerService;
 import application.domain.services.WarehouseAssignmentService;
@@ -14,6 +15,7 @@ import application.domain.services.WarehouseAssignmentService;
 public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerUseCase {
     private final SellerRepositoryPort sellerRepositoryPort;
     private final UserRepositoryPort userRepositoryPort;
+    private final WarehouseRepositoryPort warehouseRepositoryPort;
     private final SellerOnboardingService sellerOnboardingService;
     private final WarehouseAssignmentService warehouseAssignmentService;
     private final SellerService sellerService;
@@ -21,11 +23,13 @@ public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerU
     public DefaultSellerUseCase(
             SellerRepositoryPort sellerRepositoryPort,
             UserRepositoryPort userRepositoryPort,
+            WarehouseRepositoryPort warehouseRepositoryPort,
             SellerOnboardingService sellerOnboardingService,
             WarehouseAssignmentService warehouseAssignmentService,
             SellerService sellerService) {
         this.sellerRepositoryPort = sellerRepositoryPort;
         this.userRepositoryPort = userRepositoryPort;
+        this.warehouseRepositoryPort = warehouseRepositoryPort;
         this.sellerOnboardingService = sellerOnboardingService;
         this.warehouseAssignmentService = warehouseAssignmentService;
         this.sellerService = sellerService;
@@ -33,6 +37,9 @@ public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerU
 
     @Override
     public Seller update(Seller seller) {
+        if (seller == null) {
+            throw new IllegalArgumentException("Seller is required.");
+        }
         seller.setRole(UserRole.SELLER);
         sellerService.validate(seller);
         Seller current = findById(seller.getId());
@@ -55,6 +62,9 @@ public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerU
 
     @Override
     public Seller onboard(Seller seller) {
+        if (seller == null) {
+            throw new IllegalArgumentException("Seller is required.");
+        }
         seller.setRole(UserRole.SELLER);
         sellerService.validate(seller);
         if (userRepositoryPort.existsByEmail(seller.getEmail())) {
@@ -68,7 +78,12 @@ public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerU
     @Override
     public Seller assignWarehouse(Seller seller, Warehouse warehouse) {
         Seller current = findById(seller == null ? null : seller.getId());
-        warehouseAssignmentService.assign(current, warehouse);
+        Warehouse assigned = warehouseAssignmentService.assign(current, warehouse);
+        if (assigned.getId() == null) {
+            warehouseRepositoryPort.save(assigned);
+        } else {
+            warehouseRepositoryPort.update(assigned);
+        }
         return sellerRepositoryPort.update(current);
     }
 }
