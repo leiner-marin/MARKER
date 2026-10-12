@@ -1,6 +1,18 @@
-version: '3.9'
-
 services:
+  marker-mysql:
+    image: mysql:8.0
+    container_name: marker-mysql
+    environment:
+      MYSQL_DATABASE: marker_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
   marker-app:
     build:
       context: .
@@ -18,13 +30,5 @@ services:
       APP_SECURITY_USER: marker
       APP_SECURITY_PASSWORD: marker-dev-password
     depends_on:
-      - marker-mysql
-
-  marker-mysql:
-    image: mysql:8.0
-    container_name: marker-mysql
-    environment:
-      MYSQL_DATABASE: marker_db
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "3306:3306"
+      marker-mysql:
+        condition: service_healthy
