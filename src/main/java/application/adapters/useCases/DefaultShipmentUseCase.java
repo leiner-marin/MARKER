@@ -22,6 +22,15 @@ public class DefaultShipmentUseCase implements ManageShipmentUseCase {
     }
 
     @Override
+    public Shipment findById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Shipment id is required.");
+        }
+        return shipmentRepositoryPort.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Shipment not found."));
+    }
+
+    @Override
     public Shipment dispatch(Shipment shipment) {
         if (shipment == null || shipment.getId() == null) {
             throw new IllegalArgumentException("Shipment id is required.");
