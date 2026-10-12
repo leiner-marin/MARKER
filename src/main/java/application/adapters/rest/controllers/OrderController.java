@@ -50,8 +50,14 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(manageOrderUseCase.findById(id));
+    public ResponseEntity<Order> findById(
+            @PathVariable Long id,
+            Authentication authentication) {
+        Order order = manageOrderUseCase.findById(id);
+        if (currentActorService.isBuyer(authentication)) {
+            requireBuyerFromOrder(order, authentication);
+        }
+        return ResponseEntity.ok(order);
     }
 
     @PutMapping("/{id}/status")
