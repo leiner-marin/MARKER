@@ -2,25 +2,30 @@ package application.adapters.useCases;
 
 import application.domain.entities.Seller;
 import application.domain.entities.Warehouse;
+import application.domain.enums.UserRole;
+import application.domain.ports.in.ManageSellerUseCase;
 import application.domain.ports.in.OnboardSellerUseCase;
 import application.domain.ports.out.SellerRepositoryPort;
+import application.domain.ports.out.UserRepositoryPort;
 import application.domain.services.SellerOnboardingService;
 import application.domain.services.SellerService;
-import application.domain.ports.in.ManageSellerUseCase;
 import application.domain.services.WarehouseAssignmentService;
 
 public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerUseCase {
     private final SellerRepositoryPort sellerRepositoryPort;
+    private final UserRepositoryPort userRepositoryPort;
     private final SellerOnboardingService sellerOnboardingService;
     private final WarehouseAssignmentService warehouseAssignmentService;
     private final SellerService sellerService;
 
     public DefaultSellerUseCase(
             SellerRepositoryPort sellerRepositoryPort,
+            UserRepositoryPort userRepositoryPort,
             SellerOnboardingService sellerOnboardingService,
             WarehouseAssignmentService warehouseAssignmentService,
             SellerService sellerService) {
         this.sellerRepositoryPort = sellerRepositoryPort;
+        this.userRepositoryPort = userRepositoryPort;
         this.sellerOnboardingService = sellerOnboardingService;
         this.warehouseAssignmentService = warehouseAssignmentService;
         this.sellerService = sellerService;
@@ -28,7 +33,14 @@ public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerU
 
     @Override
     public Seller update(Seller seller) {
+        seller.setRole(UserRole.SELLER);
         sellerService.validate(seller);
+        Seller current = findById(seller.getId());
+        if (!current.getEmail().equalsIgnoreCase(seller.getEmail())
+                && userRepositoryPort.existsByEmail(seller.getEmail())) {
+            throw new IllegalArgumentException("Email is already registered.");
+        }
+        userRepositoryPort.update(seller);
         return sellerRepositoryPort.update(seller);
     }
 
@@ -43,17 +55,20 @@ public class DefaultSellerUseCase implements OnboardSellerUseCase, ManageSellerU
 
     @Override
     public Seller onboard(Seller seller) {
-        return sellerRepositoryPort.save(sellerOnboardingService.onboard(seller));
+        seller.setRole(UserRole.SELLER);
+        sellerService.validate(seller);
+        if (userRepositoryPort.existsByEmail(seller.getEmail())) {
+            throw new IllegalArgumentException("Email is already registered.");
+        }
+        Seller onboarded = sellerOnboardingService.onboard(seller);
+        userRepositoryPort.save(onboarded);
+        return sellerRepositoryPort.save(onboarded);
     }
 
     @Override
     public Seller assignWarehouse(Seller seller, Warehouse warehouse) {
-        Seller updated = sellerRepositoryPort.findById(seller == null ? null : seller.getId())
-                .orElse(seller);
-        if (updated == null) {
-            throw new IllegalArgumentException("Seller cannot be null.");
-        }
-        warehouseAssignmentService.assign(updated, warehouse);
-        return sellerRepositoryPort.update(updated);
+        Seller current = findById(seller == null ? null : seller.getId());
+        warehouseAssignmentService.assign(current, warehouse);
+        return sellerRepositoryPort.update(current);
     }
 }
