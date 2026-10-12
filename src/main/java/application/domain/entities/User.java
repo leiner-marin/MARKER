@@ -13,9 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class User {
     private Long id;
+    private String identityDocument;
     private String fullName;
     private String email;
     private UserRole role;
     private UserStatus status;
 }
-
