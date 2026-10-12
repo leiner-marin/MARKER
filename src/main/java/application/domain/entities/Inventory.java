@@ -15,7 +15,7 @@ public class Inventory {
     private Product product;
     private Warehouse warehouse;
     private Integer availableQuantity;
-    private String movementType; // INGRESS / RESERVE / OUT / ADJUST / RETURN
+    private Integer reservedQuantity;
+    private String movementType;
     private LocalDateTime movementDate;
 }
-
