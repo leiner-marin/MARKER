@@ -54,6 +54,7 @@ import application.domain.services.CartService;
 import application.domain.services.CatalogService;
 import application.domain.services.DeliveryService;
 import application.domain.services.InventoryAdjustmentService;
+import application.domain.services.InventoryMovementService;
 import application.domain.services.InventoryReservationService;
 import application.domain.services.InventoryService;
 import application.domain.services.InvoiceService;
@@ -161,6 +162,11 @@ public class ApplicationBeans {
     @Bean
     public InventoryAdjustmentService inventoryAdjustmentService() {
         return new InventoryAdjustmentService();
+    }
+
+    @Bean
+    public InventoryMovementService inventoryMovementService() {
+        return new InventoryMovementService();
     }
 
     @Bean
@@ -331,12 +337,14 @@ public class ApplicationBeans {
             InventoryRepositoryPort inventoryRepositoryPort,
             InventoryMovementRepositoryPort inventoryMovementRepositoryPort,
             InventoryService inventoryService,
-            InventoryAdjustmentService inventoryAdjustmentService) {
+            InventoryAdjustmentService inventoryAdjustmentService,
+            InventoryMovementService inventoryMovementService) {
         return new DefaultInventoryUseCase(
                 inventoryRepositoryPort,
                 inventoryMovementRepositoryPort,
                 inventoryService,
-                inventoryAdjustmentService);
+                inventoryAdjustmentService,
+                inventoryMovementService);
     }
 
     @Bean
