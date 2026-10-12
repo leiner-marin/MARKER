@@ -9,6 +9,9 @@ public class InventoryReservationService {
         if (inventory == null) {
             throw new IllegalArgumentException("Inventory cannot be null.");
         }
+        if (inventory.isDamaged()) {
+            throw new IllegalStateException("Damaged inventory cannot be reserved.");
+        }
         if (quantity <= 0) {
             throw new IllegalArgumentException("Reservation quantity must be greater than zero.");
         }
