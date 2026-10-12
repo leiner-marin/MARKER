@@ -14,6 +14,7 @@ class UserServiceTest {
     @Test
     void registersUserWithExplicitRoleAndActiveStatus() {
         User user = new User();
+        user.setIdentityDocument("1001");
         user.setFullName("Test User");
         user.setEmail("user@example.com");
         user.setRole(UserRole.BUYER);
@@ -25,7 +26,7 @@ class UserServiceTest {
     }
 
     @Test
-    void rejectsUserWithoutRole() {
+    void rejectsUserWithoutRoleOrIdentity() {
         User user = new User();
         user.setFullName("Test User");
         user.setEmail("user@example.com");
