@@ -27,10 +27,12 @@ jobs:
       - name: Start Docker Compose
         run: docker compose up -d --build
 
-      - name: Verify running application
+      - name: Verify authenticated API
         run: |
           for i in {1..30}; do
-            if curl --fail --silent --show-error               -u marker:marker-dev-password               http://localhost:8080/api/products; then
+            if curl --fail --silent --show-error \
+              -u marker-admin:marker-dev-password \
+              http://localhost:8080/api/catalog; then
               exit 0
             fi
             sleep 2
