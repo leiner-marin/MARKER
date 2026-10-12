@@ -370,8 +370,9 @@ public class ApplicationBeans {
     @Bean
     public DefaultOrderUseCase defaultOrderUseCase(
             OrderRepositoryPort orderRepositoryPort,
+            CartRepositoryPort cartRepositoryPort,
             OrderService orderService) {
-        return new DefaultOrderUseCase(orderRepositoryPort, orderService);
+        return new DefaultOrderUseCase(orderRepositoryPort, cartRepositoryPort, orderService);
     }
 
     @Bean
