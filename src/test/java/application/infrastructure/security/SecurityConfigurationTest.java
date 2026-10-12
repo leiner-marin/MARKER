@@ -1,31 +1,21 @@
 package application.infrastructure.security;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class SecurityConfigurationTest {
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
-
     private MockMvc mockMvc;
-
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
 
     @Test
     void h2ConsoleShouldBeAccessibleForLocalDevelopment() throws Exception {
@@ -41,17 +31,13 @@ class SecurityConfigurationTest {
 
     @Test
     void administratorCanReadCatalog() throws Exception {
-        mockMvc.perform(get("/api/catalog").with(adminCredentials()))
+        mockMvc.perform(get("/api/catalog").with(httpBasic("marker-admin", "marker-dev-password")))
                 .andExpect(status().isOk());
     }
 
     @Test
     void administratorCannotUseBuyerCartEndpoint() throws Exception {
-        mockMvc.perform(get("/api/carts").with(adminCredentials()))
+        mockMvc.perform(get("/api/carts").with(httpBasic("marker-admin", "marker-dev-password")))
                 .andExpect(status().isForbidden());
-    }
-
-    private RequestPostProcessor adminCredentials() {
-        return httpBasic("marker-admin", "marker-dev-password");
     }
 }
