@@ -4,10 +4,12 @@
 Creates and manages the core User business object.
 
 ## Responsibilities
-Validates required identity data and initializes role/status defaults.
+- Validate required identity data.
+- Require exactly one valid role.
+- Initialize the ACTIVE status when a status is not supplied.
 
 ## Integration
-Used by RegisterUser and ManageUser application use cases.
+Used by RegisterUserUseCase and ManageUserUseCase after technical authentication has been handled at the infrastructure boundary.
 
 ## Architecture
-This is a domain service. It must remain independent from Spring, JPA, REST, HTTP, and database implementations.
+This is a pure domain service. It must remain independent from Spring, JPA, REST, HTTP, and database implementations.
