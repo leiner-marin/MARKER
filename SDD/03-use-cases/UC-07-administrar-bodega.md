@@ -1,28 +1,15 @@
-# UC-07 Administrar bodega
+# UC-07 Manage Warehouse
 
-## Actor principal
-Administrador o vendedor
+**Primary actor:** Administrator
 
-## Objetivo
-Consultar, habilitar, deshabilitar o actualizar una bodega.
+**Goal:** Manage and classify warehouses.
 
-## Precondiciones
-- La bodega debe existir.
-- El responsable debe tener permisos sobre la bodega.
+**Preconditions**
+- The warehouse exists.
+- The actor is authorized.
 
-## Flujo principal
-1. El usuario solicita consultar o actualizar una bodega.
-2. El sistema valida la existencia y permisos.
-3. El sistema realiza la operación correspondiente.
-4. El sistema registra el cambio.
-5. El sistema responde la confirmación.
-
-## Postcondiciones
-- La bodega queda habilitada, deshabilitada o actualizada.
-
-## Servicios involucrados
-- BodegaService
-
-## Puertos de salida
-- BodegaRepository
-- InventarioRepository
+**Main flow**
+1. The administrator selects a warehouse.
+2. The application validates the requested operation.
+3. Warehouse information or classification is updated.
+4. The result is returned.
