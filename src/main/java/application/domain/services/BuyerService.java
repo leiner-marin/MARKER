@@ -2,10 +2,12 @@ package application.domain.services;
 
 import application.domain.entities.Buyer;
 import application.domain.enums.CommercialStatus;
+import application.domain.enums.UserRole;
 
 public class BuyerService {
     public Buyer register(Buyer buyer) {
         validate(buyer);
+        buyer.setRole(UserRole.BUYER);
         if (buyer.getCommercialStatus() == null) {
             buyer.setCommercialStatus(CommercialStatus.ACTIVE);
         }
