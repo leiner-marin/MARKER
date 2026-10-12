@@ -5,7 +5,6 @@ import application.domain.ports.in.GenerateInvoiceUseCase;
 import application.domain.ports.out.InvoicePort;
 import application.domain.ports.out.InvoiceRepositoryPort;
 import application.domain.services.InvoiceService;
-import java.math.BigDecimal;
 
 public class DefaultInvoiceUseCase implements GenerateInvoiceUseCase {
     private final InvoicePort invoicePort;
@@ -26,8 +25,7 @@ public class DefaultInvoiceUseCase implements GenerateInvoiceUseCase {
         if (invoice == null || invoice.getOrder() == null) {
             throw new IllegalArgumentException("Order is required for invoice.");
         }
-        BigDecimal amount = invoice.getAmount();
-        Invoice generated = invoiceService.generate(invoice.getOrder(), amount);
+        Invoice generated = invoiceService.generate(invoice.getOrder(), invoice.getAmount());
         Invoice external = invoicePort.generate(generated);
         return invoiceRepositoryPort.save(external);
     }
