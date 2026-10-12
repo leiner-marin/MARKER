@@ -21,6 +21,14 @@ public class OrderService {
         return order;
     }
 
+    public Order confirmFromCart(Order order) {
+        Order created = create(order);
+        if (created.getStatus() != OrderStatus.CART) {
+            throw new IllegalStateException("Only cart orders can be confirmed.");
+        }
+        return updateStatus(created, OrderStatus.PENDING_PAYMENT);
+    }
+
     public Order updateStatus(Order order, OrderStatus newStatus) {
         if (order == null) {
             throw new IllegalArgumentException("Order cannot be null.");
