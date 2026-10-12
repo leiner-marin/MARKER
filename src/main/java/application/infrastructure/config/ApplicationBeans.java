@@ -1,60 +1,61 @@
 package application.infrastructure.config;
 
-import application.adapters.persistence.InMemorySellerRepositoryAdapter;
-import application.adapters.persistence.InMemoryWarehouseRepositoryAdapter;
-import application.adapters.useCases.DefaultInventoryUseCase;
-import application.adapters.useCases.DefaultBuyerUseCase;
 import application.adapters.persistence.InMemoryBuyerRepositoryAdapter;
 import application.adapters.persistence.InMemoryCartRepositoryAdapter;
+import application.adapters.persistence.InMemoryInvoiceRepositoryAdapter;
 import application.adapters.persistence.InMemoryOrderRepositoryAdapter;
+import application.adapters.persistence.InMemoryRefundRepositoryAdapter;
+import application.adapters.persistence.InMemoryReturnRepositoryAdapter;
+import application.adapters.persistence.InMemorySellerRepositoryAdapter;
+import application.adapters.persistence.InMemoryShipmentRepositoryAdapter;
+import application.adapters.persistence.InMemoryUserRepositoryAdapter;
+import application.adapters.persistence.InMemoryWarehouseRepositoryAdapter;
+import application.adapters.useCases.DefaultBuyerUseCase;
 import application.adapters.useCases.DefaultCartUseCase;
-import application.adapters.useCases.DefaultOrderUseCase;
-import application.domain.ports.out.CartRepositoryPort;
-import application.domain.ports.out.OrderRepositoryPort;
-import application.domain.services.CartService;
-import application.domain.services.OrderService;
-import application.domain.ports.out.BuyerRepositoryPort;
-import application.domain.services.BuyerService;
-import application.domain.services.ProductService;
-import application.domain.services.ProductPublicationService;
-import application.domain.services.InventoryService;
-import application.adapters.useCases.DefaultProductUseCase;
-import application.adapters.useCases.DefaultSellerUseCase;
-import application.adapters.useCases.DefaultWarehouseUseCase;
-import application.adapters.useCases.DefaultPaymentUseCase;
-import application.adapters.useCases.DefaultInvoiceUseCase;
-import application.adapters.useCases.DefaultShipmentUseCase;
 import application.adapters.useCases.DefaultDeliveryUseCase;
-import application.adapters.useCases.DefaultReturnUseCase;
+import application.adapters.useCases.DefaultInventoryUseCase;
+import application.adapters.useCases.DefaultInvoiceUseCase;
+import application.adapters.useCases.DefaultOrderUseCase;
+import application.adapters.useCases.DefaultPaymentUseCase;
+import application.adapters.useCases.DefaultProductUseCase;
 import application.adapters.useCases.DefaultRefundUseCase;
 import application.adapters.useCases.DefaultReportUseCase;
-import application.adapters.persistence.InMemoryInvoiceRepositoryAdapter;
-import application.adapters.persistence.InMemoryShipmentRepositoryAdapter;
-import application.adapters.persistence.InMemoryReturnRepositoryAdapter;
-import application.adapters.persistence.InMemoryRefundRepositoryAdapter;
+import application.adapters.useCases.DefaultReturnUseCase;
+import application.adapters.useCases.DefaultSellerUseCase;
+import application.adapters.useCases.DefaultShipmentUseCase;
+import application.adapters.useCases.DefaultUserUseCase;
+import application.adapters.useCases.DefaultWarehouseUseCase;
+import application.domain.ports.out.BuyerRepositoryPort;
+import application.domain.ports.out.CartRepositoryPort;
 import application.domain.ports.out.InvoicePort;
 import application.domain.ports.out.InvoiceRepositoryPort;
-import application.domain.ports.out.ShipmentRepositoryPort;
-import application.domain.ports.out.ReturnRepositoryPort;
-import application.domain.ports.out.RefundRepositoryPort;
+import application.domain.ports.out.OrderRepositoryPort;
 import application.domain.ports.out.PaymentPort;
-import application.domain.ports.out.ReportPort;
-import application.domain.services.PaymentService;
-import application.domain.services.InvoiceService;
-import application.domain.services.ShipmentService;
-import application.domain.services.DeliveryService;
-import application.domain.services.ReturnService;
-import application.domain.services.RefundService;
-import application.adapters.useCases.DefaultUserUseCase;
-import application.adapters.persistence.InMemoryUserRepositoryAdapter;
-import application.domain.ports.out.UserRepositoryPort;
-import application.domain.services.UserService;
-import application.domain.ports.out.InventoryRepositoryPort;
 import application.domain.ports.out.ProductRepositoryPort;
+import application.domain.ports.out.RefundRepositoryPort;
+import application.domain.ports.out.ReportPort;
+import application.domain.ports.out.ReturnRepositoryPort;
 import application.domain.ports.out.SellerRepositoryPort;
+import application.domain.ports.out.ShipmentRepositoryPort;
+import application.domain.ports.out.UserRepositoryPort;
 import application.domain.ports.out.WarehouseRepositoryPort;
+import application.domain.ports.out.InventoryRepositoryPort;
+import application.domain.services.BuyerService;
+import application.domain.services.CartService;
+import application.domain.services.DeliveryService;
+import application.domain.services.InventoryService;
+import application.domain.services.InvoiceService;
+import application.domain.services.OrderService;
+import application.domain.services.PaymentService;
+import application.domain.services.ProductPublicationService;
+import application.domain.services.ProductService;
+import application.domain.services.RefundService;
+import application.domain.services.ReturnService;
 import application.domain.services.SellerOnboardingService;
 import application.domain.services.SellerService;
+import application.domain.services.ShipmentService;
+import application.domain.services.UserService;
+import application.domain.services.UserValidationService;
 import application.domain.services.WarehouseAssignmentService;
 import application.domain.services.WarehouseService;
 import org.springframework.context.annotation.Bean;
@@ -71,6 +72,11 @@ public class ApplicationBeans {
     @Bean
     public UserService userService() {
         return new UserService();
+    }
+
+    @Bean
+    public UserValidationService userValidationService() {
+        return new UserValidationService();
     }
 
     @Bean
@@ -120,15 +126,17 @@ public class ApplicationBeans {
     @Bean
     public DefaultBuyerUseCase defaultBuyerUseCase(
             BuyerRepositoryPort buyerRepositoryPort,
+            UserRepositoryPort userRepositoryPort,
             BuyerService buyerService) {
-        return new DefaultBuyerUseCase(buyerRepositoryPort, buyerService);
+        return new DefaultBuyerUseCase(buyerRepositoryPort, userRepositoryPort, buyerService);
     }
 
     @Bean
     public DefaultUserUseCase defaultUserUseCase(
             UserRepositoryPort userRepositoryPort,
-            UserService userService) {
-        return new DefaultUserUseCase(userRepositoryPort, userService);
+            UserService userService,
+            UserValidationService userValidationService) {
+        return new DefaultUserUseCase(userRepositoryPort, userService, userValidationService);
     }
 
     @Bean
@@ -294,11 +302,13 @@ public class ApplicationBeans {
     @Bean
     public DefaultSellerUseCase defaultSellerUseCase(
             SellerRepositoryPort sellerRepositoryPort,
+            UserRepositoryPort userRepositoryPort,
             SellerOnboardingService sellerOnboardingService,
             WarehouseAssignmentService warehouseAssignmentService,
             SellerService sellerService) {
         return new DefaultSellerUseCase(
                 sellerRepositoryPort,
+                userRepositoryPort,
                 sellerOnboardingService,
                 warehouseAssignmentService,
                 sellerService);
