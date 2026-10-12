@@ -18,6 +18,7 @@ public final class InventoryJpaMapper {
         entity.setReservedQuantity(inventory.getReservedQuantity() == null ? 0 : inventory.getReservedQuantity());
         entity.setDamaged(inventory.isDamaged());
         entity.setMovementType(parseMovementType(inventory.getMovementType()));
+        entity.setMovementDate(inventory.getMovementDate());
         return entity;
     }
 
@@ -28,6 +29,7 @@ public final class InventoryJpaMapper {
         inventory.setReservedQuantity(entity.getReservedQuantity());
         inventory.setDamaged(entity.isDamaged());
         inventory.setMovementType(entity.getMovementType() == null ? null : entity.getMovementType().name());
+        inventory.setMovementDate(entity.getMovementDate());
 
         Product product = new Product();
         product.setId(entity.getProductId());
@@ -43,6 +45,6 @@ public final class InventoryJpaMapper {
         if (value == null || value.isBlank()) {
             return InventoryMovementType.INGRESS;
         }
-        return InventoryMovementType.valueOf(value);
+        return InventoryMovementType.valueOf(value.toUpperCase());
     }
 }

@@ -9,32 +9,39 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "inventory")
+@Table(
+        name = "inventory",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"product_id", "warehouse_id"}))
 public class InventoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "product_id", nullable = false)
     private Long productId;
 
-    @Column(nullable = false)
+    @Column(name = "warehouse_id", nullable = false)
     private Long warehouseId;
 
-    @Column(nullable = false)
+    @Column(name = "available_quantity", nullable = false)
     private Integer availableQuantity;
 
-    @Column(nullable = false)
+    @Column(name = "reserved_quantity", nullable = false)
     private Integer reservedQuantity;
 
     @Column(nullable = false)
     private boolean damaged;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "movement_type", nullable = false)
     private InventoryMovementType movementType;
+
+    @Column(name = "movement_date", nullable = false)
+    private LocalDateTime movementDate;
 
     public InventoryEntity() {}
 
@@ -52,4 +59,6 @@ public class InventoryEntity {
     public void setDamaged(boolean damaged) { this.damaged = damaged; }
     public InventoryMovementType getMovementType() { return movementType; }
     public void setMovementType(InventoryMovementType movementType) { this.movementType = movementType; }
+    public LocalDateTime getMovementDate() { return movementDate; }
+    public void setMovementDate(LocalDateTime movementDate) { this.movementDate = movementDate; }
 }

@@ -1,13 +1,16 @@
 # ProductService
 
 ## Purpose
-Creates and validates Product business data.
+Creates and validates product business data.
 
 ## Responsibilities
-Requires name, seller, and product type.
+- Require a product name.
+- Require an associated seller.
+- Require a valid product type.
+- Assign SUSPENDED as the initial catalog state when no state was supplied, keeping registration separate from publication.
 
 ## Integration
-Keeps product rules independent from persistence.
+Used by the product registration use case. Publication is handled separately by ProductPublicationService.
 
 ## Architecture
-This is a domain service. It must remain independent from Spring, JPA, REST, HTTP, and database implementations.
+This is a pure domain service and does not depend on Spring, JPA, REST, HTTP, or database implementations.

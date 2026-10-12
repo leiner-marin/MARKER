@@ -22,29 +22,33 @@ public class InventoryMovementService {
         inventoryService.validate(inventory);
 
         switch (movement) {
-            case INGRESS -> {
-                inventory.setAvailableQuantity(inventory.getAvailableQuantity() + quantity);
-            }
-            case RESERVE -> {
-                reservationService.reserve(inventory, quantity);
-            }
-            case SALE_OUT -> {
-                int result = inventory.getAvailableQuantity() - quantity;
-                if (result < 0) {
-                    throw new IllegalStateException("Inventory cannot become negative.");
-                }
-                inventory.setAvailableQuantity(result);
-            }
-            case ADJUSTMENT -> {
-                inventoryService.adjust(inventory, quantity);
-            }
-            case RETURN -> {
-                inventory.setAvailableQuantity(inventory.getAvailableQuantity() + quantity);
-            }
+            case INGRESS -> inventory.setAvailableQuantity(inventory.getAvailableQuantity() + quantity);
+            case RESERVE -> reservationService.reserve(inventory, quantity);
+            case SALE_OUT -> consumeForSale(inventory, quantity);
+            case ADJUSTMENT -> inventoryService.adjust(inventory, quantity);
+            case RETURN -> inventory.setAvailableQuantity(inventory.getAvailableQuantity() + quantity);
         }
 
         inventory.setMovementType(movement.name());
         inventory.setMovementDate(LocalDateTime.now());
         return inventory;
+    }
+
+    private void consumeForSale(Inventory inventory, int quantity) {
+        int reserved = inventory.getReservedQuantity() == null ? 0 : inventory.getReservedQuantity();
+        int available = inventory.getAvailableQuantity() == null ? 0 : inventory.getAvailableQuantity();
+
+        if (reserved >= quantity) {
+            inventory.setReservedQuantity(reserved - quantity);
+            return;
+        }
+
+        int remaining = quantity - reserved;
+        if (available < remaining) {
+            throw new IllegalStateException("Inventory cannot become negative.");
+        }
+
+        inventory.setReservedQuantity(0);
+        inventory.setAvailableQuantity(available - remaining);
     }
 }

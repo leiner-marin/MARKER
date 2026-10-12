@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import application.domain.entities.Product;
 import application.domain.entities.Seller;
+import application.domain.enums.ProductStatus;
 import application.domain.enums.ProductType;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ class ProductServiceTest {
     private final ProductService productService = new ProductService();
 
     @Test
-    void registersValidProduct() {
+    void registersValidProductAsSuspendedUntilPublication() {
         Product product = new Product();
         product.setName("Keyboard");
         product.setProductType(ProductType.PHYSICAL);
@@ -24,6 +25,7 @@ class ProductServiceTest {
 
         assertEquals("Keyboard", result.getName());
         assertEquals(ProductType.PHYSICAL, result.getProductType());
+        assertEquals(ProductStatus.SUSPENDED, result.getStatus());
     }
 
     @Test

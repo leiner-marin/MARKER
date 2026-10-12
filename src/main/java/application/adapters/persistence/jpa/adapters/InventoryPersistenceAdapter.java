@@ -5,6 +5,7 @@ import application.adapters.persistence.jpa.mappers.InventoryJpaMapper;
 import application.adapters.persistence.jpa.repositories.InventoryJpaRepository;
 import application.domain.entities.Inventory;
 import application.domain.ports.out.InventoryRepositoryPort;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +44,11 @@ public class InventoryPersistenceAdapter implements InventoryRepositoryPort {
                 : repository.findFirstByProductId(productId).map(InventoryJpaMapper::toDomain);
     }
 
+    @Override
+    public List<Inventory> findAll() {
+        return repository.findAll().stream().map(InventoryJpaMapper::toDomain).toList();
+    }
+
     private void validate(Inventory inventory) {
         if (inventory == null || inventory.getProduct() == null || inventory.getProduct().getId() == null) {
             throw new IllegalArgumentException("Product is required for inventory.");
@@ -52,6 +58,9 @@ public class InventoryPersistenceAdapter implements InventoryRepositoryPort {
         }
         if (inventory.getAvailableQuantity() == null || inventory.getAvailableQuantity() < 0) {
             throw new IllegalArgumentException("Available quantity cannot be negative.");
+        }
+        if (inventory.getReservedQuantity() != null && inventory.getReservedQuantity() < 0) {
+            throw new IllegalArgumentException("Reserved quantity cannot be negative.");
         }
     }
 }

@@ -28,6 +28,18 @@ class InventoryMovementServiceTest {
         assertEquals("SALE_OUT", inventory.getMovementType());
     }
 
+    @Test
+    void appliesSaleExitFromReservedStock() {
+        Inventory inventory = inventory(0);
+        inventory.setReservedQuantity(2);
+
+        service.apply(inventory, InventoryMovementType.SALE_OUT, 1);
+
+        assertEquals(0, inventory.getAvailableQuantity());
+        assertEquals(1, inventory.getReservedQuantity());
+        assertEquals("SALE_OUT", inventory.getMovementType());
+    }
+
     private Inventory inventory(int quantity) {
         Inventory inventory = new Inventory();
 

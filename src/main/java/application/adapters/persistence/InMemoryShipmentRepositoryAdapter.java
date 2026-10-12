@@ -2,6 +2,8 @@ package application.adapters.persistence;
 
 import application.domain.entities.Shipment;
 import application.domain.ports.out.ShipmentRepositoryPort;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,6 +43,11 @@ public class InMemoryShipmentRepositoryAdapter implements ShipmentRepositoryPort
         return shipments.values().stream()
                 .filter(s -> s.getOrder() != null && orderId != null && orderId.equals(s.getOrder().getId()))
                 .findFirst();
+    }
+
+    @Override
+    public List<Shipment> findAll() {
+        return new ArrayList<>(shipments.values());
     }
 
     private void validate(Shipment shipment) {

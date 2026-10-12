@@ -1,6 +1,7 @@
 package application.domain.ports.out;
 
 import application.domain.entities.Inventory;
+import java.util.List;
 import java.util.Optional;
 
 public interface InventoryRepositoryPort {
@@ -8,4 +9,5 @@ public interface InventoryRepositoryPort {
     Inventory update(Inventory inventory);
     Optional<Inventory> findById(Long id);
     Optional<Inventory> findByProductId(Long productId);
+    List<Inventory> findAll();
 }

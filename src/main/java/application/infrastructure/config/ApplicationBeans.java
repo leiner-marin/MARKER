@@ -371,8 +371,17 @@ public class ApplicationBeans {
     public DefaultOrderUseCase defaultOrderUseCase(
             OrderRepositoryPort orderRepositoryPort,
             CartRepositoryPort cartRepositoryPort,
+            InventoryRepositoryPort inventoryRepositoryPort,
+            InventoryMovementRepositoryPort inventoryMovementRepositoryPort,
+            InventoryReservationService inventoryReservationService,
             OrderService orderService) {
-        return new DefaultOrderUseCase(orderRepositoryPort, cartRepositoryPort, orderService);
+        return new DefaultOrderUseCase(
+                orderRepositoryPort,
+                cartRepositoryPort,
+                inventoryRepositoryPort,
+                inventoryMovementRepositoryPort,
+                inventoryReservationService,
+                orderService);
     }
 
     @Bean
@@ -407,6 +416,9 @@ public class ApplicationBeans {
             ShipmentService shipmentService,
             LogisticsPort logisticsPort,
             OrderRepositoryPort orderRepositoryPort,
+            InventoryRepositoryPort inventoryRepositoryPort,
+            InventoryMovementRepositoryPort inventoryMovementRepositoryPort,
+            InventoryMovementService inventoryMovementService,
             OrderPreparationService orderPreparationService,
             OrderService orderService) {
         return new DefaultShipmentUseCase(
@@ -414,6 +426,9 @@ public class ApplicationBeans {
                 shipmentService,
                 logisticsPort,
                 orderRepositoryPort,
+                inventoryRepositoryPort,
+                inventoryMovementRepositoryPort,
+                inventoryMovementService,
                 orderPreparationService,
                 orderService);
     }
