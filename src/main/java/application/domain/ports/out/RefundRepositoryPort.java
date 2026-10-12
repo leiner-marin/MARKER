@@ -8,3 +8,4 @@ public interface RefundRepositoryPort {
     Refund update(Refund refund);
     Optional<Refund> findById(Long id);
     Optional<Refund> findByReturnId(Long returnId);
+}
