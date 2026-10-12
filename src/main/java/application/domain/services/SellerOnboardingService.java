@@ -35,6 +35,9 @@ public class SellerOnboardingService {
         if (seller == null) {
             throw new IllegalArgumentException("Seller cannot be null.");
         }
+        if (seller.getIdentityDocument() == null || seller.getIdentityDocument().isBlank()) {
+            throw new IllegalArgumentException("Identity document is required.");
+        }
         if (seller.getFullName() == null || seller.getFullName().isBlank()) {
             throw new IllegalArgumentException("Seller full name is required.");
         }
