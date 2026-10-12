@@ -6,6 +6,10 @@ REST exposes application use cases through HTTP.
 
 HTTP Request → DTO → Mapper → Input Port → Use Case → Domain Service → Output Port → Adapter → Response
 
+## Security
+
+All `/api/**` endpoints require authentication. Role restrictions are applied at the REST boundary.
+
 ## Endpoints
 
 | Area | Method | Endpoint | Purpose |
@@ -18,6 +22,8 @@ HTTP Request → DTO → Mapper → Input Port → Use Case → Domain Service �
 | Buyers | PUT | /api/buyers/{id} | Update buyer |
 | Buyers | POST | /api/buyers/{id}/addresses | Add additional address |
 | Sellers | POST | /api/sellers | Onboard seller |
+| Sellers | GET | /api/sellers/{id} | Find seller |
+| Sellers | PUT | /api/sellers/{id} | Update seller |
 | Sellers | POST | /api/sellers/assign-warehouse | Assign warehouse |
 | Warehouses | POST | /api/warehouses | Register warehouse |
 | Warehouses | POST | /api/warehouses/classify | Classify warehouse |
