@@ -9,9 +9,7 @@ import java.util.List;
 public class WarehouseService {
 
     public Warehouse register(Warehouse warehouse) {
-        if (warehouse == null) {
-            throw new IllegalArgumentException("Warehouse cannot be null.");
-        }
+        validate(warehouse);
         if (warehouse.getType() == null) {
             warehouse.setType(WarehouseType.SELLER);
         }
@@ -19,9 +17,7 @@ public class WarehouseService {
     }
 
     public Warehouse classify(Warehouse warehouse, WarehouseType type) {
-        if (warehouse == null) {
-            throw new IllegalArgumentException("Warehouse cannot be null.");
-        }
+        validate(warehouse);
         if (type == null) {
             throw new IllegalArgumentException("Warehouse type is required.");
         }
@@ -33,6 +29,18 @@ public class WarehouseService {
         if (seller == null || seller.getAssociatedWarehouses() == null) {
             return new ArrayList<>();
         }
-        return seller.getAssociatedWarehouses();
+        return List.copyOf(seller.getAssociatedWarehouses());
+    }
+
+    private void validate(Warehouse warehouse) {
+        if (warehouse == null) {
+            throw new IllegalArgumentException("Warehouse cannot be null.");
+        }
+        if (warehouse.getName() == null || warehouse.getName().isBlank()) {
+            throw new IllegalArgumentException("Warehouse name is required.");
+        }
+        if (warehouse.getLocation() == null || warehouse.getLocation().isBlank()) {
+            throw new IllegalArgumentException("Warehouse location is required.");
+        }
     }
 }
