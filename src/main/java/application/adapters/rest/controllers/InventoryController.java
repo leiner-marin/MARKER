@@ -4,6 +4,7 @@ import application.adapters.rest.dtos.inventory.InventoryRequest;
 import application.adapters.rest.dtos.inventory.InventoryResponse;
 import application.adapters.rest.mappers.InventoryRestMapper;
 import application.domain.entities.Inventory;
+import application.domain.enums.InventoryMovementType;
 import application.domain.ports.in.ManageInventoryUseCase;
 import application.domain.ports.in.ReserveInventoryUseCase;
 import java.util.Optional;
@@ -50,5 +51,29 @@ public class InventoryController {
                 reserveInventoryUseCase.reserve(inventoryId, request.quantity()));
     }
 
+    @PostMapping("/{inventoryId}/movement")
+    public InventoryResponse applyMovement(
+            @PathVariable Long inventoryId,
+            @RequestBody MovementRequest request) {
+        InventoryMovementType movement = parseMovement(request.movement());
+        return InventoryRestMapper.toResponse(
+                manageInventoryUseCase.applyMovement(
+                        inventoryId,
+                        movement,
+                        request.quantity()));
+    }
+
+    private InventoryMovementType parseMovement(String value) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException("Movement type is required.");
+        }
+        try {
+            return InventoryMovementType.valueOf(value.toUpperCase());
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Unsupported movement type: " + value, exception);
+        }
+    }
+
     public record ReservationRequest(int quantity) {}
+    public record MovementRequest(String movement, int quantity) {}
 }
