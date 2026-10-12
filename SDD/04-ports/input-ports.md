@@ -2,7 +2,7 @@
 
 Input ports define the application use case contracts exposed by MARKER.
 
-## Current Contracts
+## Contracts
 
 - RegisterUserUseCase
 - ManageUserUseCase
@@ -14,12 +14,13 @@ Input ports define the application use case contracts exposed by MARKER.
 - RegisterProductUseCase
 - ManageProductUseCase
 - PublishProductUseCase
+- QueryCatalogUseCase
 - ManageInventoryUseCase
 - ReserveInventoryUseCase
 - ManageCartUseCase
 - CreateOrderUseCase
-- ProcessPaymentUseCase
 - ManageOrderUseCase
+- ProcessPaymentUseCase
 - GenerateInvoiceUseCase
 - ManageShipmentUseCase
 - ConfirmDeliveryUseCase
@@ -29,6 +30,6 @@ Input ports define the application use case contracts exposed by MARKER.
 
 ## Rules
 
-- Input ports belong to the domain boundary.
-- They do not depend on REST DTOs, JPA entities, Spring components, or infrastructure.
-- Each implemented application flow should be accessible through an explicit input contract.
+- Input ports remain independent from REST, JPA, Spring, and infrastructure.
+- Application use cases implement these contracts.
+- Domain services enforce business rules invoked by the use cases.
