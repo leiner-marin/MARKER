@@ -1,57 +1,44 @@
-# MARKER Completion Roadmap
+# MARKER Completion Status
 
-## Current Position
-MARKER compiles and its existing tests pass, but the implementation is not functionally complete. The next work must reduce naming inconsistency, close the domain model, align documentation with Java contracts, and then implement use cases, adapters, persistence, security, and tests in order.
+## Completed
 
-## Phase 1: Domain Cleanup
-- Normalize all domain names to English.
-- Remove duplicate Spanish/English service concepts.
-- Keep domain entities free from Spring, JPA, and HTTP annotations.
-- Separate Cart from Order and keep their lifecycle rules explicit.
+### Domain Core
+- Domain entities are organized under `application/domain/entities`.
+- Enums, value objects, and domain exceptions are separated.
+- Cart is modeled independently from Order.
+- Domain services are free from Spring and infrastructure dependencies.
 
-## Phase 2: Enums, Value Objects, and Exceptions
-- Finalize required enums and their values.
-- Keep only value objects that enforce real invariants, such as Money and Quantity.
-- Consolidate domain exceptions into meaningful business errors.
+### Ports
+- Input ports are under `application/domain/ports/in`.
+- Output ports are under `application/domain/ports/out`.
+- Repository contracts use the `RepositoryPort` suffix.
 
-## Phase 3: Domain Services
-- Compare every service document with its Java service.
-- Remove undocumented Java methods or document them with business justification.
-- Add missing Java methods that are documented and required.
-- Keep services focused on business rules, not infrastructure.
+### Application
+- Use case implementations are under `application/adapters/useCases`.
+- Use cases coordinate domain services and output ports.
 
-## Phase 4: Ports
-- Normalize input ports under `domain/ports/in`.
-- Normalize output ports under `domain/ports/out`.
-- Rename repository ports with the `RepositoryPort` suffix.
-- Ensure every use case depends on ports, not concrete adapters.
+### REST
+- Controllers are under `application/adapters/rest/controllers`.
+- DTOs and mappers are separated where boundary mapping is required.
+- Global REST exception handling is available.
 
-## Phase 5: Use Cases
-- Implement all input ports as application services.
-- Use domain services for business rules.
-- Use output ports for persistence and integrations.
-- Add positive and negative use case tests.
+### Persistence
+- JPA entities, repositories, mappers, and adapters are isolated from the domain.
+- In-memory adapters remain available for lightweight application execution and tests.
 
-## Phase 6: Persistence
-- Implement JPA entities, repositories, mappers, and adapters.
-- Keep JPA out of the domain model.
-- Define relationships, constraints, indexes, enum mappings, and initial data.
+### Documentation
+- Business requirements, business rules, domain documentation, use cases, architecture, API, testing, and traceability documentation are maintained in English.
+- Each canonical domain service has a matching Markdown document.
 
-## Phase 7: REST API
-- Create REST controllers, DTOs, mappers, validation, and a global exception handler.
-- Keep controllers thin and delegate to input ports.
-- Do not expose JPA entities or domain internals directly.
+### Quality
+- The project targets Java 17.
+- GitHub Actions validates the Maven test suite.
+- Generated logs, crash reports, executables, and temporary outputs are ignored and removed from the repository.
 
-## Phase 8: Security
-- Implement authentication and authorization outside the domain.
-- Enforce role restrictions at the adapter/application boundary.
-- Ensure every protected operation requires an authenticated user.
+## Final Acceptance Gate
 
-## Phase 9: Test Completion
-- Add coverage for User, Buyer, Seller, Warehouse, Product, Inventory, Cart, Order, Payment, Invoice, Shipment, Return, Refund, and Reports.
-- Add negative tests for duplicate identifiers, negative stock, invalid reservations, unauthorized operations, invalid order transitions, finalized order mutation, and invalid seller registration.
-
-## Phase 10: Repository Cleanup
-- Remove temporary files, crash logs, debug output, generated files, installers, and unnecessary binaries.
-- Keep README, SETUP, SDD, and code naming aligned.
-- Run the full Maven test suite before every commit.
+1. `clean test` passes.
+2. The Spring Boot project compiles successfully.
+3. The documented architecture matches the repository structure.
+4. No duplicate legacy service or port directories remain.
+5. Business objectives are traceable to application components and tests.
