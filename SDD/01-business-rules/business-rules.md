@@ -1,52 +1,52 @@
-# Reglas de negocio
+# Business Rules
 
-## Reglas globales
+## Global Rules
 
-### RG-01
-Toda operación debe ejecutarse por un usuario autenticado.
+### BR-01
+Every operation must be executed by an authenticated user.
 
-### RG-02
-Cada usuario tendrá un único rol dentro del sistema.
+### BR-02
+Each user has exactly one role.
 
-### RG-03
-Ningún participante podrá administrar información fuera de su rol.
+### BR-03
+Participants may only administer information within the permissions of their role.
 
-### RG-04
-El identificador del usuario debe ser único.
+### BR-04
+The user identifier must be unique.
 
-### RG-05
-El correo electrónico del usuario debe ser único.
+### BR-05
+The user email must be unique.
 
-### RG-06
-No se permiten existencias negativas en el inventario.
+### BR-06
+Inventory stock must never become negative.
 
-### RG-07
-No se puede reservar inventario inexistente o marcado como dañado.
+### BR-07
+Inventory cannot be reserved when it does not exist or is marked as damaged.
 
-### RG-08
-Un pedido finalizado no puede modificarse.
+### BR-08
+A finalized order cannot be modified.
 
-### RG-09
-Los estados de producto, pedido y usuario deben permanecer dentro de su catálogo definido.
+### BR-09
+User, product, and order states must remain within their defined domain catalogs.
 
-## Reglas por dominio
+## Domain Rules
 
-### Inventario
-- La disponibilidad real debe validarse antes de una reserva o de una venta.
-- El movimiento de inventario debe quedar registrado para mantener trazabilidad.
+### Inventory
+- Available stock must be validated before reservation or sale.
+- Inventory movements must be recorded for traceability.
 
-### Pedidos
-- Un pedido solo puede cambiar de estado dentro de un flujo válido.
-- El estado final exige cierre y bloqueo de modificaciones.
+### Orders
+- Orders may only transition through valid lifecycle states.
+- Finalization closes the order and prevents further modification.
 
-### Usuarios
-- Los datos principales deben estar completos antes de registrar un usuario.
-- El rol determina qué operaciones puede ejecutar el usuario.
+### Users
+- Required information must be complete before registration.
+- The role determines the permitted operations.
 
-### Productos
-- El producto debe pertenecer a un vendedor o a la oferta del marketplace.
-- Los tipos y estados deben respetar el catálogo del dominio.
+### Products
+- A product must belong to a seller or marketplace offer.
+- Product type and status must follow the defined domain catalog.
 
-### Bodegas
-- Una bodega debe tener un tipo y un estado definidos.
-- La gestión de inventario debe estar asociada a una bodega válida.
+### Warehouses
+- A warehouse must have a valid type.
+- Inventory must be associated with a valid product and warehouse.
