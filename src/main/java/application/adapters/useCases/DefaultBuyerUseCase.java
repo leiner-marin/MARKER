@@ -17,12 +17,12 @@ public class DefaultBuyerUseCase implements RegisterBuyerUseCase, ManageBuyerUse
 
     @Override
     public Buyer register(Buyer buyer) {
-        return buyerRepositoryPort.save(buyerService.registerBuyer(buyer));
+        return buyerRepositoryPort.save(buyerService.register(buyer));
     }
 
     @Override
     public Buyer update(Buyer buyer) {
-        buyerService.registerBuyer(buyer);
+        buyerService.validate(buyer);
         return buyerRepositoryPort.update(buyer);
     }
 
