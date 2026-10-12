@@ -1,27 +1,15 @@
-# UC-06 Registrar bodega
+# UC-06 Register Warehouse
 
-## Actor principal
-Administrador o vendedor
+**Primary actor:** Administrator
 
-## Objetivo
-Registrar una bodega para almacenamiento y gestión de inventario.
+**Goal:** Register a marketplace or seller warehouse.
 
-## Precondiciones
-- La entidad responsable debe estar registrada.
-- Debe existir información de dirección y tipo de bodega.
+**Preconditions**
+- Warehouse information is valid.
+- The warehouse type is valid.
 
-## Flujo principal
-1. El usuario solicita registrar una bodega.
-2. El sistema valida los datos obligatorios.
-3. El sistema crea la bodega.
-4. El sistema asocia el tipo y estado.
-5. El sistema confirma el registro.
-
-## Postcondiciones
-- La bodega queda disponible para uso operativo.
-
-## Servicios involucrados
-- BodegaService
-
-## Puertos de salida
-- BodegaRepository
+**Main flow**
+1. Warehouse information is submitted.
+2. The application validates the warehouse.
+3. The warehouse is registered.
+4. Registration is confirmed.
