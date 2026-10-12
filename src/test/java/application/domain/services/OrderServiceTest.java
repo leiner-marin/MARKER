@@ -7,6 +7,7 @@ import application.domain.entities.Buyer;
 import application.domain.entities.Order;
 import application.domain.entities.Product;
 import application.domain.enums.OrderStatus;
+import application.domain.enums.ProductStatus;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -54,12 +55,26 @@ class OrderServiceTest {
                 () -> service.updateStatus(order, OrderStatus.PAID));
     }
 
+    @Test
+    void detectsDigitalOnlyOrderWithoutPhysicalDelivery() {
+        Order order = validOrder();
+        order.getProducts().get(0).setProductType(application.domain.enums.ProductType.DIGITAL);
+        order.setId(10L);
+        order.setStatus(OrderStatus.PAID);
+
+        service.finalizeDigitalOrder(order);
+
+        assertEquals(OrderStatus.FINALIZED, order.getStatus());
+    }
+
     private Order validOrder() {
         Buyer buyer = new Buyer();
         buyer.setId(1L);
 
         Product product = new Product();
         product.setId(1L);
+        product.setStatus(ProductStatus.PUBLISHED);
+        product.setProductType(application.domain.enums.ProductType.PHYSICAL);
 
         Order order = new Order();
         order.setBuyer(buyer);
