@@ -16,8 +16,8 @@ public class Shipment {
     private Order order;
     private Warehouse originWarehouse;
     private String deliveryAddress;
+    private String trackingNumber;
     private ShipmentStatus shipmentStatus;
     private LocalDateTime dispatchDate;
     private LocalDateTime deliveryDate;
 }
-
