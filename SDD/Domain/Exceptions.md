@@ -1,17 +1,14 @@
-# Exceptions
+# Domain Exceptions
 
-## Excepciones sugeridas
-- UsuarioNoEncontradoException
-- CorreoDuplicadoException
-- RolInvalidoException
-- ProductoNoDisponibleException
-- InventarioInsuficienteException
-- InventarioNegativoException
-- ReservaInvalidaException
-- PedidoNoModificableException
-- PedidoInvalidoException
-- DevolucionInvalidaException
-- ReembolsoInvalidoException
+Domain exceptions represent business violations and invalid operations.
 
-## Uso
-Estas excepciones permiten representar situaciones de negocio no válidas y reforzar la integridad del dominio.
+## Current Exceptions
+
+- DomainViolationException
+- InventoryValidationException
+- ProductValidationException
+- SellerValidationException
+
+## Rule
+
+Infrastructure exceptions must not leak into the domain. Domain services should use meaningful domain exceptions when a business rule is violated.
