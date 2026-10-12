@@ -3,6 +3,9 @@ package application.domain.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import application.domain.entities.Inventory;
+import application.domain.entities.Product;
+import application.domain.entities.Seller;
+import application.domain.entities.Warehouse;
 import application.domain.enums.InventoryMovementType;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +30,18 @@ class InventoryMovementServiceTest {
 
     private Inventory inventory(int quantity) {
         Inventory inventory = new Inventory();
+
+        Product product = new Product();
+        product.setId(1L);
+        Seller seller = new Seller();
+        seller.setId(1L);
+        product.setSeller(seller);
+        inventory.setProduct(product);
+
+        Warehouse warehouse = new Warehouse();
+        warehouse.setId(1L);
+        inventory.setWarehouse(warehouse);
+
         inventory.setAvailableQuantity(quantity);
         inventory.setReservedQuantity(0);
         return inventory;
