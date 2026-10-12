@@ -21,6 +21,9 @@ public class UserService {
         if (user == null) {
             throw new IllegalArgumentException("User cannot be null.");
         }
+        if (user.getIdentityDocument() == null || user.getIdentityDocument().isBlank()) {
+            throw new IllegalArgumentException("Identity document is required.");
+        }
         if (user.getFullName() == null || user.getFullName().isBlank()) {
             throw new IllegalArgumentException("User full name is required.");
         }
