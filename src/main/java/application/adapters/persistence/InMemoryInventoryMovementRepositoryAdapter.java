@@ -38,6 +38,7 @@ public class InMemoryInventoryMovementRepositoryAdapter implements InventoryMove
         snapshot.setWarehouse(source.getWarehouse());
         snapshot.setAvailableQuantity(source.getAvailableQuantity());
         snapshot.setReservedQuantity(source.getReservedQuantity());
+        snapshot.setDamaged(source.isDamaged());
         snapshot.setMovementType(source.getMovementType());
         snapshot.setMovementDate(source.getMovementDate());
         return snapshot;
