@@ -23,8 +23,7 @@ public class ProductController {
     private final PublishProductUseCase publishProductUseCase;
     private final ManageProductUseCase manageProductUseCase;
 
-    public ProductController(
-            RegisterProductUseCase registerProductUseCase,
+    public ProductController(RegisterProductUseCase registerProductUseCase,
             PublishProductUseCase publishProductUseCase,
             ManageProductUseCase manageProductUseCase) {
         this.registerProductUseCase = registerProductUseCase;
@@ -34,27 +33,39 @@ public class ProductController {
 
     @GetMapping
     public List<ProductResponse> getAll() {
-        return manageProductUseCase.findAll().stream()
-                .map(ProductRestMapper::toResponse)
-                .toList();
+        return manageProductUseCase.findAll().stream().map(ProductRestMapper::toResponse).toList();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getById(@PathVariable Long id) {
-        return manageProductUseCase.findById(id)
-                .map(ProductRestMapper::toResponse)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return manageProductUseCase.findById(id).map(ProductRestMapper::toResponse)
+                .map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ProductResponse create(@RequestBody ProductRequest request) {
-        Product product = ProductRestMapper.toDomain(request);
-        return ProductRestMapper.toResponse(registerProductUseCase.register(product));
+        return ProductRestMapper.toResponse(registerProductUseCase.register(ProductRestMapper.toDomain(request)));
     }
 
     @PostMapping("/{id}/publish")
     public ProductResponse publish(@PathVariable Long id) {
         return ProductRestMapper.toResponse(publishProductUseCase.publish(id));
     }
+
+    @PostMapping("/{id}/suspend")
+    public ProductResponse suspend(@PathVariable Long id) {
+        return ProductRestMapper.toResponse(manageProductUseCase.suspend(id));
+    }
+
+    @PostMapping("/{id}/discontinue")
+    public ProductResponse discontinue(@PathVariable Long id) {
+        return ProductRestMapper.toResponse(manageProductUseCase.discontinue(id));
+    }
+
+    @PostMapping("/{id}/variants")
+    public ProductResponse addVariant(@PathVariable Long id, @RequestBody VariantRequest request) {
+        return ProductRestMapper.toResponse(manageProductUseCase.addVariant(id, request.variant()));
+    }
+
+    public record VariantRequest(String variant) {}
 }
