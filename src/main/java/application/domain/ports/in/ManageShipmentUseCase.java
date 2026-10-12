@@ -5,4 +5,5 @@ import application.domain.entities.Shipment;
 public interface ManageShipmentUseCase {
     Shipment create(Shipment shipment);
     Shipment dispatch(Shipment shipment);
+    Shipment findById(Long id);
 }
