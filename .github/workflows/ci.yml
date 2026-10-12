@@ -24,5 +24,20 @@ jobs:
       - name: Build and test
         run: bash mvnw -B clean verify
 
-      - name: Build Docker image
-        run: docker build --tag marker:ci .
+      - name: Start Docker Compose
+        run: docker compose up -d --build
+
+      - name: Verify running application
+        run: |
+          for i in {1..30}; do
+            if curl --fail --silent --show-error               -u marker:marker-dev-password               http://localhost:8080/api/products; then
+              exit 0
+            fi
+            sleep 2
+          done
+          docker compose logs
+          exit 1
+
+      - name: Stop Docker Compose
+        if: always()
+        run: docker compose down -v
