@@ -1,30 +1,26 @@
 # Traceability
 
-## Purpose
-This document links MARKER business objectives to the domain model, domain services, ports, use cases, adapters, and tests that must support each objective.
+This matrix connects MARKER business objectives to domain models, services, input ports, use cases, output ports, adapters, and tests.
 
-## Traceability Matrix
-
-| Objective | Requirement | Domain Model | Domain Service | Input Port / Use Case | Output Port | Adapter | Tests |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| OBJ-01 | Register and manage users | User, Role, UserStatus | UserService, UserValidationService | RegisterUserUseCase, ManageUserUseCase | UserRepositoryPort, NotificationPort | REST user controller, JPA user adapter | User registration, duplicate email, invalid role, status changes |
-| OBJ-02 | Register and manage buyers | Buyer, User | BuyerService | RegisterBuyerUseCase | BuyerRepositoryPort, UserRepositoryPort | REST buyer controller, JPA buyer adapter | Buyer registration, invalid linked user, duplicate identity |
-| OBJ-03 | Onboard and manage sellers | Seller, SellerStatus, User | SellerService, SellerOnboardingService | OnboardSellerUseCase, ManageSellerUseCase | SellerRepositoryPort, UserRepositoryPort, NotificationPort | REST seller controller, JPA seller adapter | Seller onboarding, invalid seller registration, status transitions |
-| OBJ-04 | Register and administer warehouses | Warehouse, WarehouseType | WarehouseService, WarehouseAssignmentService | RegisterWarehouseUseCase, ManageWarehouseUseCase | WarehouseRepositoryPort | REST warehouse controller, JPA warehouse adapter | Warehouse registration, invalid capacity, duplicate warehouse |
-| OBJ-05 | Register, classify, and publish products | Product, ProductType, ProductStatus | ProductService, ProductVariantService, ProductPublicationService | RegisterProductUseCase, PublishProductUseCase | ProductRepositoryPort, SellerRepositoryPort | REST product controller, JPA product adapter | Product registration, invalid seller, invalid publication state |
-| OBJ-06 | Manage inventory and stock reservations | Inventory, InventoryMovement, Quantity | InventoryService, InventoryReservationService, InventoryMovementService, InventoryAdjustmentService | ManageInventoryUseCase, ReserveInventoryUseCase | InventoryRepositoryPort, InventoryMovementRepositoryPort, ProductRepositoryPort | REST inventory controller, JPA inventory adapter | Negative stock, invalid reservation, missing inventory, damaged stock |
-| OBJ-07 | Manage cart before checkout | Cart, Product, Inventory | CartService | ManageCartUseCase | CartRepositoryPort, ProductRepositoryPort, InventoryRepositoryPort | REST cart controller, JPA cart adapter | Add item, remove item, invalid quantity, unavailable product |
-| OBJ-08 | Create and manage orders | Order, OrderStatus, Cart | OrderService, OrderValidationService, OrderStatusService, OrderPreparationService | CreateOrderUseCase, ManageOrderUseCase | OrderRepositoryPort, CartRepositoryPort, InventoryRepositoryPort | REST order controller, JPA order adapter | Order creation, invalid transition, finalized order cannot be modified |
-| OBJ-09 | Process payments and generate invoices | Payment, PaymentStatus, Invoice, Money | PaymentService, InvoiceService | ProcessPaymentUseCase, GenerateInvoiceUseCase | PaymentPort, InvoicePort, OrderRepositoryPort | Payment adapter, invoice adapter, REST payment controller | Payment accepted, payment rejected, invoice generated once |
-| OBJ-10 | Manage shipment and delivery | Shipment, ShipmentStatus, Order | ShipmentService, DispatchService, DeliveryService, LogisticsService | ManageShipmentUseCase, ConfirmDeliveryUseCase | ShipmentRepositoryPort, LogisticsPort, OrderRepositoryPort | Logistics adapter, REST shipment controller, JPA shipment adapter | Dispatch, delivery confirmation, invalid shipment state |
-| OBJ-11 | Manage returns and refunds | Return, Refund, Order, Payment | ReturnService, RefundService | RequestReturnUseCase, ProcessRefundUseCase | ReturnRepositoryPort, RefundRepositoryPort, PaymentPort, OrderRepositoryPort | REST return/refund controllers, JPA adapters, payment adapter | Valid return, invalid return window, refund processed once |
-| OBJ-12 | Generate administrative reports | AdministrativeReport | AdministrativeReportService | GenerateAdministrativeReportUseCase | ReportPort, OrderRepositoryPort, PaymentPort, InventoryRepositoryPort | Report adapter, REST report controller | Sales report, inventory report, authorization rules |
+| Objective | Capability | Domain | Domain Service | Input Port / Use Case | Output Port | Adapter / Integration | Test Focus |
+|---|---|---|---|---|---|---|---|
+| OBJ-01 | User management | User, UserRole, UserStatus | UserService, UserValidationService | RegisterUserUseCase, ManageUserUseCase / DefaultUserUseCase | UserRepositoryPort | User REST adapter, user repository adapter | Unique identifier, unique email, valid role, status |
+| OBJ-02 | Seller management | Seller, SellerStatus | SellerService, SellerOnboardingService | OnboardSellerUseCase, ManageSellerUseCase | SellerRepositoryPort, NotificationPort | Seller use case and REST adapter | Seller onboarding and authorization |
+| OBJ-03 | Buyer management | Buyer, CommercialStatus | BuyerService, BuyerAddressService | RegisterBuyerUseCase, ManageBuyerUseCase | BuyerRepositoryPort | Buyer use case and REST adapter | Buyer registration and address rules |
+| OBJ-04 | Warehouse management | Warehouse, WarehouseType | WarehouseService, WarehouseAssignmentService | ManageWarehouseUseCase | WarehouseRepositoryPort | Warehouse use case and REST adapter | Warehouse registration and assignment |
+| OBJ-05 | Product catalog | Product, ProductType, ProductStatus | ProductService, ProductVariantService, ProductPublicationService, CatalogService | RegisterProductUseCase, ManageProductUseCase, PublishProductUseCase | ProductRepositoryPort | Product REST and JPA adapters | Product registration, variants, publication |
+| OBJ-06 | Inventory | Inventory, InventoryMovementType, Quantity | InventoryService, InventoryReservationService, InventoryMovementService, InventoryAdjustmentService | ManageInventoryUseCase, ReserveInventoryUseCase | InventoryRepositoryPort, InventoryMovementRepositoryPort | Inventory REST and JPA adapters | Non-negative stock, valid reservation, movements |
+| OBJ-07 | Shopping cart | Cart, Product | CartService | ManageCartUseCase / DefaultCartUseCase | CartRepositoryPort | Cart REST and repository adapter | Add, remove, clear, unavailable products |
+| OBJ-08 | Orders | Order, OrderStatus | OrderService, OrderValidationService, OrderStatusService, OrderPreparationService | CreateOrderUseCase, ManageOrderUseCase / DefaultOrderUseCase | OrderRepositoryPort, CartRepositoryPort, InventoryRepositoryPort | Order REST and repository adapter | Valid transitions and finalization |
+| OBJ-09 | Payment and invoicing | Payment, Invoice, PaymentStatus | PaymentService, InvoiceService | ProcessPaymentUseCase, GenerateInvoiceUseCase | PaymentPort, InvoicePort, InvoiceRepositoryPort | Payment, invoice, REST adapters | Accepted/rejected payment and invoice creation |
+| OBJ-10 | Shipment and delivery | Shipment, ShipmentStatus | ShipmentService, DeliveryService, Preparation/Dispatch services | ManageShipmentUseCase, ConfirmDeliveryUseCase | ShipmentRepositoryPort, LogisticsPort | Shipment REST and logistics adapters | Dispatch and delivery lifecycle |
+| OBJ-11 | Returns and refunds | ReturnRequest, Refund, ReturnStatus, RefundStatus | ReturnService, RefundService | RequestReturnUseCase, ProcessRefundUseCase | ReturnRepositoryPort, RefundRepositoryPort, PaymentPort | Return/refund REST and integration adapters | Valid return and refund processing |
+| OBJ-12 | Administrative reports | AdministrativeReport | AdministrativeReportService / reporting services | GenerateAdministrativeReportUseCase | ReportPort | Report adapter and REST controller | Report generation and authorization |
 
 ## Completion Rule
-Every business feature must be traceable through this path:
 
-```text
-Requirement -> Domain Model -> Domain Service -> Input Port -> Use Case -> Output Port -> Adapter -> Test
-```
+A capability is considered complete only when its requirement can be traced through:
 
-A feature is not considered complete until every element in that path exists, is named consistently in English, and is covered by positive and negative tests.
+`Requirement → Domain → Domain Service → Input Port → Use Case → Output Port → Adapter → Test`
+
+The matrix must describe the real implementation. Names that do not exist in the code must not be listed as completed components.
