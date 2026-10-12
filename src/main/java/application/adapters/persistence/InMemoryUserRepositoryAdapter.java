@@ -17,6 +17,9 @@ public class InMemoryUserRepositoryAdapter implements UserRepositoryPort {
         if (existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email is already registered.");
         }
+        if (existsByIdentityDocument(user.getIdentityDocument())) {
+            throw new IllegalArgumentException("Identity document is already registered.");
+        }
         if (user.getId() == null) {
             user.setId(nextId.getAndIncrement());
         } else if (users.containsKey(user.getId())) {
@@ -32,6 +35,20 @@ public class InMemoryUserRepositoryAdapter implements UserRepositoryPort {
         if (user.getId() == null || !users.containsKey(user.getId())) {
             throw new IllegalArgumentException("User must exist before it can be updated.");
         }
+        users.values().stream()
+                .filter(existing -> !existing.getId().equals(user.getId())
+                        && user.getIdentityDocument().equalsIgnoreCase(existing.getIdentityDocument()))
+                .findFirst()
+                .ifPresent(existing -> {
+                    throw new IllegalArgumentException("Identity document is already registered.");
+                });
+        users.values().stream()
+                .filter(existing -> !existing.getId().equals(user.getId())
+                        && user.getEmail().equalsIgnoreCase(existing.getEmail()))
+                .findFirst()
+                .ifPresent(existing -> {
+                    throw new IllegalArgumentException("Email is already registered.");
+                });
         users.put(user.getId(), user);
         return user;
     }
@@ -57,9 +74,19 @@ public class InMemoryUserRepositoryAdapter implements UserRepositoryPort {
                 .anyMatch(user -> email.equalsIgnoreCase(user.getEmail()));
     }
 
+    @Override
+    public boolean existsByIdentityDocument(String identityDocument) {
+        return identityDocument != null && !identityDocument.isBlank()
+                && users.values().stream()
+                        .anyMatch(user -> identityDocument.equalsIgnoreCase(user.getIdentityDocument()));
+    }
+
     private void validate(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User cannot be null.");
+        }
+        if (user.getIdentityDocument() == null || user.getIdentityDocument().isBlank()) {
+            throw new IllegalArgumentException("Identity document is required.");
         }
     }
 }
