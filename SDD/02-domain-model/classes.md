@@ -1,128 +1,101 @@
-# Modelo de dominio - Clases
+# Domain Model Classes
 
-## Entidades principales
+## User
+- id: Long
+- fullName: String
+- email: String
+- role: UserRole
+- status: UserStatus
 
-### Usuario
-- identificador: String
-- nombreCompleto: String
-- correoElectronico: String
-- rol: Rol
-- estado: EstadoUsuario
+## Buyer
+- primaryAddress: String
+- additionalAddresses: List<String>
+- commercialStatus: CommercialStatus
 
-### Comprador
-- direccionPrincipal: String
-- direccionesAdicionales: List<String>
-- estadoComercial: EstadoComercial
+## Seller
+- associatedWarehouses: List<Warehouse>
+- productCatalog: List<Product>
+- incorporationDate: LocalDate
+- sellerStatus: SellerStatus
 
-### Vendedor
-- idVendedor: String
-- nombreComercial: String
-- estado: EstadoVendedor
+## Warehouse
+- id: Long
+- name: String
+- location: String
+- type: WarehouseType
+- ownerSeller: Seller
 
-### Bodega
-- idBodega: String
-- nombre: String
-- direccion: String
-- tipoBodega: TipoBodega
-- estado: EstadoBodega
+## Product
+- id: Long
+- name: String
+- productType: ProductType
+- variants: List<String>
+- status: ProductStatus
+- seller: Seller
 
-### Producto
-- idProducto: String
-- nombre: String
-- descripcion: String
-- precio: BigDecimal
-- tipoProducto: TipoProducto
-- variantes: List<Variante>
-- estado: EstadoProducto
+## Inventory
+- id: Long
+- product: Product
+- warehouse: Warehouse
+- availableQuantity: Integer
+- movementType: String
+- movementDate: LocalDateTime
 
-### Variante
-- idVariante: String
-- color: String
-- talla: String
-- modelo: String
+## Cart
+- id: Long
+- buyer: Buyer
+- products: List<Product>
 
-### Inventario
-- idInventario: String
-- producto: Producto
-- bodega: Bodega
-- existencias: int
+## Order
+- id: Long
+- buyer: Buyer
+- products: List<Product>
+- status: OrderStatus
+- creationDate: LocalDateTime
+- updateDate: LocalDateTime
 
-### MovimientoInventario
-- idMovimiento: String
-- tipoMovimiento: TipoMovimiento
-- cantidad: int
-- fecha: LocalDateTime
-- inventario: Inventario
+## Invoice
+- id: Long
+- order: Order
+- amount: BigDecimal
+- issueDate: LocalDateTime
+- paymentStatus: PaymentStatus
 
-### Carrito
-- idCarrito: String
-- comprador: Comprador
-- detalles: List<DetalleCarrito>
-- total: BigDecimal
+## Shipment
+- id: Long
+- order: Order
+- originWarehouse: Warehouse
+- deliveryAddress: String
+- shipmentStatus: ShipmentStatus
+- dispatchDate: LocalDateTime
+- deliveryDate: LocalDateTime
 
-### DetalleCarrito
-- producto: Producto
-- cantidad: int
-- precioUnitario: BigDecimal
-- subtotal: BigDecimal
+## Payment
+- id: Long
+- order: Order
+- amount: BigDecimal
+- paymentDate: LocalDateTime
+- status: PaymentStatus
+- method: String
 
-### Pedido
-- idPedido: String
-- comprador: Comprador
-- fechaPedido: LocalDateTime
-- detalles: List<DetallePedido>
-- total: BigDecimal
-- estado: EstadoPedido
+## ReturnRequest
+- id: Long
+- order: Order
+- product: Product
+- reason: String
+- requestDate: LocalDateTime
+- status: String
+- amount: BigDecimal
 
-### DetallePedido
-- producto: Producto
-- cantidad: int
-- precioUnitario: BigDecimal
-- subtotal: BigDecimal
+## Refund
+- id: Long
+- returnRequest: ReturnRequest
+- amount: BigDecimal
+- date: LocalDateTime
+- status: String
 
-### Pago
-- idPago: String
-- pedido: Pedido
-- monto: BigDecimal
-- fechaPago: LocalDateTime
-- estadoPago: EstadoPago
-- metodoPago: String
-
-### Factura
-- idFactura: String
-- numeroFactura: String
-- fechaEmision: LocalDateTime
-- pedido: Pedido
-- subtotal: BigDecimal
-- impuestos: BigDecimal
-- total: BigDecimal
-
-### Envio
-- idEnvio: String
-- pedido: Pedido
-- direccionEntrega: String
-- numeroGuia: String
-- estadoEnvio: EstadoEnvio
-- fechaDespacho: LocalDateTime
-- fechaEntrega: LocalDateTime
-
-### Devolucion
-- idDevolucion: String
-- pedido: Pedido
-- producto: Producto
-- motivo: String
-- fechaSolicitud: LocalDateTime
-- estado: EstadoDevolucion
-
-### Reembolso
-- idReembolso: String
-- devolucion: Devolucion
-- monto: BigDecimal
-- fecha: LocalDateTime
-- estado: EstadoReembolso
-
-### ReporteAdministrativo
-- idReporte: String
-- tipoReporte: String
-- fechaGeneracion: LocalDateTime
-- datos: String
+## AdministrativeReport
+- id: Long
+- reportType: String
+- generationDate: LocalDateTime
+- data: String
