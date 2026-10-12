@@ -13,17 +13,22 @@ class ProductPublicationServiceTest {
     @Test
     void changesPublicationState() {
         Product product = new Product();
+        product.setId(1L);
 
         service.suspend(product);
         assertEquals(ProductStatus.SUSPENDED, product.getStatus());
 
         service.publish(product);
         assertEquals(ProductStatus.PUBLISHED, product.getStatus());
+
+        service.discontinue(product);
+        assertEquals(ProductStatus.DISCONTINUED, product.getStatus());
     }
 
     @Test
     void rejectsPublishingDiscontinuedProduct() {
         Product product = new Product();
+        product.setId(1L);
         product.setStatus(ProductStatus.DISCONTINUED);
 
         assertThrows(IllegalStateException.class, () -> service.publish(product));
