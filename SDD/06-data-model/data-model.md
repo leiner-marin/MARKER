@@ -4,7 +4,7 @@ Persistence remains outside the domain layer.
 
 ## Technology
 
-The project uses Spring Data JPA and supports MySQL. H2 is available for local development.
+The project supports Spring Data JPA and MySQL. H2 is available for local development and automated tests.
 
 ## Canonical Persistence Structure
 
@@ -28,6 +28,8 @@ Spring Data Repository
     ↓
 Database
 
-JPA annotations must remain outside the domain entities.
+Product and Inventory currently provide JPA persistence adapters. The remaining aggregates use output-port contracts with in-memory adapters in the current project version, preserving the hexagonal boundary without placing persistence annotations in the domain.
 
-Product and Inventory already have canonical persistence adapters in the hexagonal structure. Remaining aggregates must follow the same pattern as their use cases are completed.
+## Rule
+
+No JPA annotation, repository implementation, database connection, or Spring persistence dependency may be placed in the domain package.
