@@ -2,8 +2,6 @@ package application.adapters.persistence;
 
 import application.domain.entities.User;
 import application.domain.ports.out.UserRepositoryPort;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +19,8 @@ public class InMemoryUserRepositoryAdapter implements UserRepositoryPort {
         }
         if (user.getId() == null) {
             user.setId(nextId.getAndIncrement());
+        } else if (users.containsKey(user.getId())) {
+            throw new IllegalArgumentException("User identifier is already registered.");
         }
         users.put(user.getId(), user);
         return user;
