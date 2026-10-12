@@ -49,6 +49,11 @@ public class InMemoryOrderRepositoryAdapter implements OrderRepositoryPort {
                 .toList());
     }
 
+    @Override
+    public List<Order> findAll() {
+        return new ArrayList<>(orders.values());
+    }
+
     private void validate(Order order) {
         if (order == null) {
             throw new IllegalArgumentException("Order cannot be null.");
