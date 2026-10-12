@@ -12,10 +12,11 @@ class UserServiceTest {
     private final UserService service = new UserService();
 
     @Test
-    void registersUserWithDefaultRoleAndStatus() {
+    void registersUserWithExplicitRoleAndActiveStatus() {
         User user = new User();
         user.setFullName("Test User");
         user.setEmail("user@example.com");
+        user.setRole(UserRole.BUYER);
 
         User result = service.register(user);
 
@@ -24,9 +25,10 @@ class UserServiceTest {
     }
 
     @Test
-    void rejectsUserWithoutEmail() {
+    void rejectsUserWithoutRole() {
         User user = new User();
         user.setFullName("Test User");
+        user.setEmail("user@example.com");
 
         assertThrows(IllegalArgumentException.class, () -> service.register(user));
     }
