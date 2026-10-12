@@ -294,12 +294,14 @@ public class ApplicationBeans {
     public DefaultSellerUseCase defaultSellerUseCase(
             SellerRepositoryPort sellerRepositoryPort,
             UserRepositoryPort userRepositoryPort,
+            WarehouseRepositoryPort warehouseRepositoryPort,
             SellerOnboardingService sellerOnboardingService,
             WarehouseAssignmentService warehouseAssignmentService,
             SellerService sellerService) {
         return new DefaultSellerUseCase(
                 sellerRepositoryPort,
                 userRepositoryPort,
+                warehouseRepositoryPort,
                 sellerOnboardingService,
                 warehouseAssignmentService,
                 sellerService);
