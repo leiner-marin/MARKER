@@ -22,6 +22,10 @@ public class ShipmentService {
         if (shipment == null) {
             throw new IllegalArgumentException("Shipment cannot be null.");
         }
+        if (shipment.getShipmentStatus() != ShipmentStatus.CREATED
+                && shipment.getShipmentStatus() != ShipmentStatus.IN_TRANSIT) {
+            throw new IllegalStateException("Only a created or in-transit shipment can be dispatched.");
+        }
         shipment.setShipmentStatus(ShipmentStatus.DISPATCHED);
         shipment.setDispatchDate(LocalDateTime.now());
         return shipment;
