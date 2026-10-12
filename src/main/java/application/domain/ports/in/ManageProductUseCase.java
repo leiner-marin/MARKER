@@ -7,4 +7,7 @@ import java.util.Optional;
 public interface ManageProductUseCase {
     List<Product> findAll();
     Optional<Product> findById(Long id);
+    Product suspend(Long productId);
+    Product discontinue(Long productId);
+    Product addVariant(Long productId, String variant);
 }
