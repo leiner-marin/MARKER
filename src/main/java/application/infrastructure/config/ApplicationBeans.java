@@ -18,6 +18,30 @@ import application.domain.services.CompradorService;
 import application.adapters.useCases.DefaultProductUseCase;
 import application.adapters.useCases.DefaultSellerUseCase;
 import application.adapters.useCases.DefaultWarehouseUseCase;
+import application.adapters.useCases.DefaultPaymentUseCase;
+import application.adapters.useCases.DefaultInvoiceUseCase;
+import application.adapters.useCases.DefaultShipmentUseCase;
+import application.adapters.useCases.DefaultDeliveryUseCase;
+import application.adapters.useCases.DefaultReturnUseCase;
+import application.adapters.useCases.DefaultRefundUseCase;
+import application.adapters.useCases.DefaultReportUseCase;
+import application.adapters.persistence.InMemoryInvoiceRepositoryAdapter;
+import application.adapters.persistence.InMemoryShipmentRepositoryAdapter;
+import application.adapters.persistence.InMemoryReturnRepositoryAdapter;
+import application.adapters.persistence.InMemoryRefundRepositoryAdapter;
+import application.domain.ports.out.InvoicePort;
+import application.domain.ports.out.InvoiceRepositoryPort;
+import application.domain.ports.out.ShipmentRepositoryPort;
+import application.domain.ports.out.ReturnRepositoryPort;
+import application.domain.ports.out.RefundRepositoryPort;
+import application.domain.ports.out.PaymentPort;
+import application.domain.ports.out.ReportPort;
+import application.domain.services.PaymentService;
+import application.domain.services.InvoiceService;
+import application.domain.services.ShipmentService;
+import application.domain.services.DeliveryService;
+import application.domain.services.ReturnService;
+import application.domain.services.RefundService;
 import application.adapters.useCases.DefaultUserUseCase;
 import application.adapters.persistence.InMemoryUserRepositoryAdapter;
 import application.domain.ports.out.UserRepositoryPort;
@@ -111,6 +135,106 @@ public class ApplicationBeans {
     @Bean
     public DefaultInventoryUseCase defaultInventoryUseCase(InventoryRepositoryPort inventoryRepositoryPort) {
         return new DefaultInventoryUseCase(inventoryRepositoryPort);
+    }
+
+    @Bean
+    public InvoiceRepositoryPort invoiceRepositoryPort() {
+        return new InMemoryInvoiceRepositoryAdapter();
+    }
+
+    @Bean
+    public ShipmentRepositoryPort shipmentRepositoryPort() {
+        return new InMemoryShipmentRepositoryAdapter();
+    }
+
+    @Bean
+    public ReturnRepositoryPort returnRepositoryPort() {
+        return new InMemoryReturnRepositoryAdapter();
+    }
+
+    @Bean
+    public RefundRepositoryPort refundRepositoryPort() {
+        return new InMemoryRefundRepositoryAdapter();
+    }
+
+    @Bean
+    public PaymentService paymentService() {
+        return new PaymentService();
+    }
+
+    @Bean
+    public InvoiceService invoiceService() {
+        return new InvoiceService();
+    }
+
+    @Bean
+    public ShipmentService shipmentService() {
+        return new ShipmentService();
+    }
+
+    @Bean
+    public DeliveryService deliveryService() {
+        return new DeliveryService();
+    }
+
+    @Bean
+    public ReturnService returnService() {
+        return new ReturnService();
+    }
+
+    @Bean
+    public RefundService refundService() {
+        return new RefundService();
+    }
+
+    @Bean
+    public DefaultPaymentUseCase defaultPaymentUseCase(
+            PaymentPort paymentPort,
+            OrderRepositoryPort orderRepositoryPort,
+            PaymentService paymentService) {
+        return new DefaultPaymentUseCase(paymentPort, orderRepositoryPort, paymentService);
+    }
+
+    @Bean
+    public DefaultInvoiceUseCase defaultInvoiceUseCase(
+            InvoicePort invoicePort,
+            InvoiceRepositoryPort invoiceRepositoryPort,
+            InvoiceService invoiceService) {
+        return new DefaultInvoiceUseCase(invoicePort, invoiceRepositoryPort, invoiceService);
+    }
+
+    @Bean
+    public DefaultShipmentUseCase defaultShipmentUseCase(
+            ShipmentRepositoryPort shipmentRepositoryPort,
+            ShipmentService shipmentService) {
+        return new DefaultShipmentUseCase(shipmentRepositoryPort, shipmentService);
+    }
+
+    @Bean
+    public DefaultDeliveryUseCase defaultDeliveryUseCase(
+            ShipmentRepositoryPort shipmentRepositoryPort,
+            DeliveryService deliveryService) {
+        return new DefaultDeliveryUseCase(shipmentRepositoryPort, deliveryService);
+    }
+
+    @Bean
+    public DefaultReturnUseCase defaultReturnUseCase(
+            ReturnRepositoryPort returnRepositoryPort,
+            ReturnService returnService) {
+        return new DefaultReturnUseCase(returnRepositoryPort, returnService);
+    }
+
+    @Bean
+    public DefaultRefundUseCase defaultRefundUseCase(
+            ReturnRepositoryPort returnRepositoryPort,
+            RefundRepositoryPort refundRepositoryPort,
+            RefundService refundService) {
+        return new DefaultRefundUseCase(returnRepositoryPort, refundRepositoryPort, refundService);
+    }
+
+    @Bean
+    public DefaultReportUseCase defaultReportUseCase(ReportPort reportPort) {
+        return new DefaultReportUseCase(reportPort);
     }
 
     @Bean
