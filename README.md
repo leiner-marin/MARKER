@@ -82,5 +82,9 @@ Docker:
 docker compose up --build
 ```
 
+## Validation
+
+The project targets Java 17 and uses Maven-based automated validation.
+
 ## Status
 MARKER is being consolidated into a single architecture aligned with DDD and Hexagonal Architecture. Existing valid functionality is preserved while duplicate contracts and responsibilities are removed.
