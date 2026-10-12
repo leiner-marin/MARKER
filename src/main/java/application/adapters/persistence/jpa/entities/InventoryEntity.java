@@ -1,5 +1,6 @@
 package application.adapters.persistence.jpa.entities;
 
+import application.domain.enums.InventoryMovementType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import application.domain.enums.InventoryMovementType;
 
 @Entity
 @Table(name = "inventory")
@@ -29,6 +29,9 @@ public class InventoryEntity {
     @Column(nullable = false)
     private Integer reservedQuantity;
 
+    @Column(nullable = false)
+    private boolean damaged;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private InventoryMovementType movementType;
@@ -45,6 +48,8 @@ public class InventoryEntity {
     public void setAvailableQuantity(Integer availableQuantity) { this.availableQuantity = availableQuantity; }
     public Integer getReservedQuantity() { return reservedQuantity; }
     public void setReservedQuantity(Integer reservedQuantity) { this.reservedQuantity = reservedQuantity; }
+    public boolean isDamaged() { return damaged; }
+    public void setDamaged(boolean damaged) { this.damaged = damaged; }
     public InventoryMovementType getMovementType() { return movementType; }
     public void setMovementType(InventoryMovementType movementType) { this.movementType = movementType; }
 }
