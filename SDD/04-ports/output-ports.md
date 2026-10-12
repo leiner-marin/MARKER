@@ -27,6 +27,4 @@ Output ports isolate application and domain logic from persistence and external 
 - NotificationPort
 - ReportPort
 
-## Rules
-
-Output ports belong to the domain boundary. Concrete Spring Data, JPA, HTTP, and vendor implementations remain in adapters or infrastructure.
+Concrete Spring Data, JPA, HTTP, and vendor implementations remain outside the domain boundary.
