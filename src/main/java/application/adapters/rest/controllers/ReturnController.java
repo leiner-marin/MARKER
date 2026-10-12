@@ -1,6 +1,6 @@
 package application.adapters.rest.controllers;
 
-import application.domain.entities.Order;
+import application.domain.entities.ReturnRequest;
 import application.domain.ports.in.RequestReturnUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class ReturnController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> request(@RequestBody Order order) {
-        return ResponseEntity.ok(requestReturnUseCase.request(order));
+    public ResponseEntity<ReturnRequest> request(@RequestBody ReturnRequest request) {
+        return ResponseEntity.ok(requestReturnUseCase.request(request));
     }
 }
