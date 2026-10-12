@@ -1,27 +1,15 @@
-# UC-03 Registrar comprador
+# UC-03 Register Buyer
 
-## Actor principal
-Comprador
+**Primary actor:** Administrator / Buyer registration flow
 
-## Objetivo
-Registrar la información comercial de un comprador.
+**Goal:** Register a buyer with buyer-specific information.
 
-## Precondiciones
-- El usuario debe existir.
-- El comprador debe contar con datos de dirección y estado comercial.
+**Preconditions**
+- Required user information is valid.
+- The buyer information is complete.
 
-## Flujo principal
-1. El comprador solicita registrarse como comprador.
-2. El sistema valida su identidad y datos obligatorios.
-3. El sistema crea la entidad Comprador.
-4. El sistema asocia la información de dirección.
-5. El sistema confirma el registro.
-
-## Postcondiciones
-- El comprador queda habilitado para operar en el marketplace.
-
-## Servicios involucrados
-- CompradorService
-
-## Puertos de salida
-- CompradorRepository
+**Main flow**
+1. The application receives buyer information.
+2. Buyer data is validated.
+3. The buyer is created and stored.
+4. Registration is confirmed.
