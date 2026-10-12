@@ -11,6 +11,8 @@
 - primaryAddress: String
 - additionalAddresses: List<String>
 - commercialStatus: CommercialStatus
+- activeCart: boolean
+- orderHistory: List<Order>
 
 ## Seller
 - associatedWarehouses: List<Warehouse>
@@ -38,6 +40,8 @@
 - product: Product
 - warehouse: Warehouse
 - availableQuantity: Integer
+- reservedQuantity: Integer
+- damaged: boolean
 - movementType: String
 - movementDate: LocalDateTime
 
@@ -54,6 +58,14 @@
 - creationDate: LocalDateTime
 - updateDate: LocalDateTime
 
+## Payment
+- id: Long
+- order: Order
+- amount: BigDecimal
+- paymentDate: LocalDateTime
+- status: PaymentStatus
+- method: String
+
 ## Invoice
 - id: Long
 - order: Order
@@ -66,17 +78,10 @@
 - order: Order
 - originWarehouse: Warehouse
 - deliveryAddress: String
+- trackingNumber: String
 - shipmentStatus: ShipmentStatus
 - dispatchDate: LocalDateTime
 - deliveryDate: LocalDateTime
-
-## Payment
-- id: Long
-- order: Order
-- amount: BigDecimal
-- paymentDate: LocalDateTime
-- status: PaymentStatus
-- method: String
 
 ## ReturnRequest
 - id: Long
@@ -84,7 +89,7 @@
 - product: Product
 - reason: String
 - requestDate: LocalDateTime
-- status: String
+- status: ReturnStatus
 - amount: BigDecimal
 
 ## Refund
@@ -92,10 +97,6 @@
 - returnRequest: ReturnRequest
 - amount: BigDecimal
 - date: LocalDateTime
-- status: String
+- status: RefundStatus
 
-## AdministrativeReport
-- id: Long
-- reportType: String
-- generationDate: LocalDateTime
-- data: String
+Administrative reporting is exposed through the reporting use case and does not require a dedicated persistence entity in the current implementation.
