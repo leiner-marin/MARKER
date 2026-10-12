@@ -91,6 +91,9 @@ public class OrderService {
         if (order.getBuyer() == null || order.getBuyer().getId() == null) {
             throw new IllegalArgumentException("Buyer is required for the order.");
         }
+        if (order.getStatus() != null && order.getStatus() != OrderStatus.CART) {
+            throw new IllegalArgumentException("A new order must start in CART state.");
+        }
         if (order.getProducts() == null || order.getProducts().isEmpty()) {
             throw new IllegalArgumentException("Order must contain at least one product.");
         }
