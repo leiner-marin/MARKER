@@ -1,7 +1,7 @@
 # MARKER Setup Guide
 
 ## Requirements
-- JDK 24
+- JDK 17
 - Git
 - Maven Wrapper
 - Docker and Docker Compose (optional)
