@@ -1,12 +1,9 @@
 package application.adapters.useCases;
 
-import application.domain.entities.Order;
-import application.domain.entities.Product;
 import application.domain.entities.ReturnRequest;
 import application.domain.ports.in.RequestReturnUseCase;
 import application.domain.ports.out.ReturnRepositoryPort;
 import application.domain.services.ReturnService;
-import java.math.BigDecimal;
 
 public class DefaultReturnUseCase implements RequestReturnUseCase {
     private final ReturnRepositoryPort returnRepositoryPort;
@@ -20,12 +17,15 @@ public class DefaultReturnUseCase implements RequestReturnUseCase {
     }
 
     @Override
-    public Order request(Order order) {
-        if (order == null || order.getProducts() == null || order.getProducts().isEmpty()) {
-            throw new IllegalArgumentException("Order with products is required.");
+    public ReturnRequest request(ReturnRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("Return request is required.");
         }
-        Product product = order.getProducts().get(0);
-        ReturnRequest request = returnService.request(order, product, "Customer return request", BigDecimal.ZERO);
-        return request.getOrder();
+        ReturnRequest validated = returnService.request(
+                request.getOrder(),
+                request.getProduct(),
+                request.getReason(),
+                request.getAmount());
+        return returnRepositoryPort.save(validated);
     }
 }
