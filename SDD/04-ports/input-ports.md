@@ -30,6 +30,4 @@ Input ports define the application use case contracts exposed by MARKER.
 
 ## Rules
 
-- Input ports remain independent from REST, JPA, Spring, and infrastructure.
-- Application use cases implement these contracts.
-- Domain services enforce business rules invoked by the use cases.
+Input ports remain independent from REST, JPA, Spring, and infrastructure. Application use case implementations reside under `application/adapters/useCases`.
