@@ -10,7 +10,11 @@ public final class UserRestMapper {
     private UserRestMapper() {}
 
     public static User toDomain(UserRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("User request is required.");
+        }
         User user = new User();
+        user.setIdentityDocument(request.identityDocument());
         user.setFullName(request.fullName());
         user.setEmail(request.email());
         if (request.role() != null && !request.role().isBlank()) {
@@ -25,6 +29,7 @@ public final class UserRestMapper {
     public static UserResponse toResponse(User user) {
         return new UserResponse(
                 user.getId(),
+                user.getIdentityDocument(),
                 user.getFullName(),
                 user.getEmail(),
                 user.getRole() == null ? null : user.getRole().name(),
