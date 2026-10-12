@@ -16,6 +16,7 @@ public class Inventory {
     private Warehouse warehouse;
     private Integer availableQuantity;
     private Integer reservedQuantity;
+    private boolean damaged;
     private String movementType;
     private LocalDateTime movementDate;
 }
