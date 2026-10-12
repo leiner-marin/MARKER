@@ -1,5 +1,6 @@
 package application.adapters.rest.controllers;
 
+import application.domain.entities.Buyer;
 import application.domain.entities.Order;
 import application.domain.ports.in.CreateOrderUseCase;
 import application.domain.ports.in.ManageOrderUseCase;
@@ -18,9 +19,7 @@ public class OrderController {
     private final CreateOrderUseCase createOrderUseCase;
     private final ManageOrderUseCase manageOrderUseCase;
 
-    public OrderController(
-            CreateOrderUseCase createOrderUseCase,
-            ManageOrderUseCase manageOrderUseCase) {
+    public OrderController(CreateOrderUseCase createOrderUseCase, ManageOrderUseCase manageOrderUseCase) {
         this.createOrderUseCase = createOrderUseCase;
         this.manageOrderUseCase = manageOrderUseCase;
     }
@@ -28,6 +27,11 @@ public class OrderController {
     @PostMapping
     public Order create(@RequestBody Order order) {
         return createOrderUseCase.create(order);
+    }
+
+    @PostMapping("/from-cart")
+    public Order createFromCart(@RequestBody Buyer buyer) {
+        return createOrderUseCase.createFromCart(buyer);
     }
 
     @GetMapping("/{id}")
