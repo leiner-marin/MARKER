@@ -1,14 +1,14 @@
-FROM eclipse-temurin:24-jdk AS build
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /workspace
 
 COPY .mvn .mvn
 COPY mvnw pom.xml ./
-RUN ./mvnw -q -DskipTests dependency:go-offline
+RUN bash mvnw -q -DskipTests dependency:go-offline
 
 COPY src src
-RUN ./mvnw -q -DskipTests package
+RUN bash mvnw -q -DskipTests package
 
-FROM eclipse-temurin:24-jre
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 COPY --from=build /workspace/target/*.jar app.jar
