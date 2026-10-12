@@ -6,6 +6,10 @@ import application.adapters.useCases.DefaultInventoryUseCase;
 import application.adapters.useCases.DefaultProductUseCase;
 import application.adapters.useCases.DefaultSellerUseCase;
 import application.adapters.useCases.DefaultWarehouseUseCase;
+import application.adapters.useCases.DefaultUserUseCase;
+import application.adapters.persistence.InMemoryUserRepositoryAdapter;
+import application.domain.ports.out.UserRepositoryPort;
+import application.domain.services.UsuarioService;
 import application.domain.ports.out.InventoryRepositoryPort;
 import application.domain.ports.out.ProductRepositoryPort;
 import application.domain.ports.out.SellerRepositoryPort;
@@ -18,6 +22,23 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ApplicationBeans {
+
+    @Bean
+    public UserRepositoryPort userRepositoryPort() {
+        return new InMemoryUserRepositoryAdapter();
+    }
+
+    @Bean
+    public UsuarioService userService() {
+        return new UsuarioService();
+    }
+
+    @Bean
+    public DefaultUserUseCase defaultUserUseCase(
+            UserRepositoryPort userRepositoryPort,
+            UsuarioService userService) {
+        return new DefaultUserUseCase(userRepositoryPort, userService);
+    }
 
     @Bean
     public DefaultProductUseCase defaultProductUseCase(ProductRepositoryPort productRepositoryPort) {
