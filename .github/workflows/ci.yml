@@ -1,7 +1,5 @@
 name: MARKER CI
 
-# Java 17 validation
-
 on:
   push:
     branches:
@@ -24,6 +22,7 @@ jobs:
           cache: maven
 
       - name: Build and test
-        run: bash mvnw -B clean test
+        run: bash mvnw -B clean verify
 
-# MARKER Java 17 CI validation
+      - name: Build Docker image
+        run: docker build --tag marker:ci .
