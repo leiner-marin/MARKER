@@ -416,6 +416,9 @@ public class ApplicationBeans {
             ShipmentService shipmentService,
             LogisticsPort logisticsPort,
             OrderRepositoryPort orderRepositoryPort,
+            InventoryRepositoryPort inventoryRepositoryPort,
+            InventoryMovementRepositoryPort inventoryMovementRepositoryPort,
+            InventoryMovementService inventoryMovementService,
             OrderPreparationService orderPreparationService,
             OrderService orderService) {
         return new DefaultShipmentUseCase(
@@ -423,6 +426,9 @@ public class ApplicationBeans {
                 shipmentService,
                 logisticsPort,
                 orderRepositoryPort,
+                inventoryRepositoryPort,
+                inventoryMovementRepositoryPort,
+                inventoryMovementService,
                 orderPreparationService,
                 orderService);
     }
