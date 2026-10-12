@@ -53,4 +53,11 @@ class SecurityConfigurationTest {
                 .with(httpBasic("marker-admin", "marker-dev-password")))
                 .andExpect(status().isForbidden());
     }
+    @Test
+    void buyerCannotReadUnpublishedProductManagementEndpoint() throws Exception {
+        mockMvc.perform(get("/api/products")
+                .with(httpBasic("marker-buyer", "marker-dev-password")))
+                .andExpect(status().isForbidden());
+    }
+
 }
