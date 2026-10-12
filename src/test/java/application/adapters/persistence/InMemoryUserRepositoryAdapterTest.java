@@ -9,10 +9,11 @@ import org.junit.jupiter.api.Test;
 class InMemoryUserRepositoryAdapterTest {
 
     @Test
-    void rejectsDuplicateEmailAndIdentifier() {
+    void rejectsDuplicateEmailIdentityDocumentAndIdentifier() {
         InMemoryUserRepositoryAdapter repository = new InMemoryUserRepositoryAdapter();
 
         User first = new User();
+        first.setIdentityDocument("1001");
         first.setFullName("First");
         first.setEmail("first@example.com");
         first.setRole(UserRole.BUYER);
@@ -20,14 +21,23 @@ class InMemoryUserRepositoryAdapterTest {
         repository.save(first);
 
         User duplicateEmail = new User();
+        duplicateEmail.setIdentityDocument("1002");
         duplicateEmail.setFullName("Second");
         duplicateEmail.setEmail("first@example.com");
         duplicateEmail.setRole(UserRole.BUYER);
         assertThrows(IllegalArgumentException.class, () -> repository.save(duplicateEmail));
 
+        User duplicateIdentity = new User();
+        duplicateIdentity.setIdentityDocument("1001");
+        duplicateIdentity.setFullName("Third");
+        duplicateIdentity.setEmail("third@example.com");
+        duplicateIdentity.setRole(UserRole.BUYER);
+        assertThrows(IllegalArgumentException.class, () -> repository.save(duplicateIdentity));
+
         User duplicateId = new User();
-        duplicateId.setFullName("Third");
-        duplicateId.setEmail("third@example.com");
+        duplicateId.setIdentityDocument("1003");
+        duplicateId.setFullName("Fourth");
+        duplicateId.setEmail("fourth@example.com");
         duplicateId.setRole(UserRole.BUYER);
         duplicateId.setId(1L);
         assertThrows(IllegalArgumentException.class, () -> repository.save(duplicateId));
