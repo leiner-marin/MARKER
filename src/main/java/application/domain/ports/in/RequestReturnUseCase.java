@@ -1,7 +1,7 @@
 package application.domain.ports.in;
 
-import application.domain.entities.Order;
+import application.domain.entities.ReturnRequest;
 
 public interface RequestReturnUseCase {
-    Order request(Order order);
+    ReturnRequest request(ReturnRequest request);
 }
