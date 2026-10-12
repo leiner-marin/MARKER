@@ -6,6 +6,7 @@ public record InventoryResponse(
         Long warehouseId,
         Integer availableQuantity,
         Integer reservedQuantity,
+        boolean damaged,
         String movementType,
         String movementDate) {
 }
