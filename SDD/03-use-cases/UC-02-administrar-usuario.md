@@ -1,27 +1,18 @@
-# UC-02 Administrar usuario
+# UC-02 Manage User
 
-## Actor principal
-Administrador
+**Primary actor:** Administrator
 
-## Objetivo
-Actualizar, consultar y bloquear o activar usuarios del sistema.
+**Goal:** Update and consult user information.
 
-## Precondiciones
-- El administrador debe estar autenticado.
-- El usuario objetivo debe existir.
+**Preconditions**
+- The user exists.
+- The actor has administrator permissions.
 
-## Flujo principal
-1. El administrador solicita la gestión de un usuario.
-2. El sistema valida el rol del administrador.
-3. El sistema consulta o actualiza los datos del usuario.
-4. El sistema cambia el estado si aplica.
-5. El sistema confirma la operación.
+**Main flow**
+1. The actor selects a user.
+2. The application validates the requested operation.
+3. The application updates or retrieves the user.
+4. The application returns the result.
 
-## Postcondiciones
-- El estado o datos del usuario quedan actualizados.
-
-## Servicios involucrados
-- UsuarioService
-
-## Puertos de salida
-- UsuarioRepository
+**Postconditions**
+- User information reflects the authorized change, or the requested information is returned.
