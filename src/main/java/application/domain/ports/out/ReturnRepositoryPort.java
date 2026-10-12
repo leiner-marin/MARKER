@@ -1,11 +1,11 @@
 package application.domain.ports.out;
 
-import application.domain.entities.Order;
+import application.domain.entities.ReturnRequest;
 import java.util.Optional;
 
 public interface ReturnRepositoryPort {
-    Order save(Order returnRequest);
-    Order update(Order returnRequest);
-    Optional<Order> findById(Long id);
-    Optional<Order> findByOrderId(Long orderId);
+    ReturnRequest save(ReturnRequest request);
+    ReturnRequest update(ReturnRequest request);
+    Optional<ReturnRequest> findById(Long id);
+    Optional<ReturnRequest> findByOrderId(Long orderId);
 }
