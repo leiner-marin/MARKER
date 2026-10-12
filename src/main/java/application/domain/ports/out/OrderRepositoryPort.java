@@ -9,4 +9,5 @@ public interface OrderRepositoryPort {
     Order update(Order order);
     Optional<Order> findById(Long id);
     List<Order> findByBuyerId(Long buyerId);
+    List<Order> findAll();
 }
