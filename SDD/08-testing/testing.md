@@ -1,27 +1,40 @@
 # Testing Strategy
 
-## Domain tests
-Validate entities, value objects, domain services, business rules, state transitions, and domain exceptions without requiring Spring.
+## Domain Tests
 
-## Use case tests
-Verify application orchestration by mocking output ports and external contracts.
+Domain tests validate business rules without requiring Spring. Current coverage includes user, buyer, product, inventory, cart, order, payment, invoice, shipment/delivery, seller, returns/refunds, publication lifecycle, and inventory movements.
 
-## Adapter tests
-Cover REST controllers, mappers, persistence adapters, JPA mapping, and security configuration.
+## Application and Integration Tests
 
-## Integration tests
-Verify Spring wiring, persistence, REST integration, and security behavior.
+- Spring application context loading
+- Security configuration
+- Maven compilation and test execution
+- Docker Compose startup
+- Authenticated REST smoke test
 
-## Critical scenarios
-- Duplicate user identity and email
-- Invalid seller onboarding
+## Critical Scenarios
+
+- Duplicate user email
+- Missing required identity data
+- Seller onboarding
+- Product publication and suspension
+- Product variants
 - Negative inventory
-- Excess inventory reservation
 - Damaged inventory reservation
+- Excess inventory reservation
+- Inventory movement traceability
 - Invalid order transitions
-- Modification of finalized orders
-- Unauthorized operations
-- Invalid return and refund operations
+- Finalized order mutation
+- Paid-order invoicing
+- Shipment dispatch and delivery
+- Payment acceptance and failure
+- Return and refund processing
 
-## Completion
-The complete Maven test suite must pass before final delivery.
+## CI Gate
+
+GitHub Actions must pass:
+
+1. `clean verify` with Java 17.
+2. Docker Compose build and startup.
+3. Authenticated API smoke test.
+4. Docker cleanup.
