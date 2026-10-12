@@ -4,6 +4,7 @@ import java.util.List;
 
 public record BuyerResponse(
         Long id,
+        String identityDocument,
         String fullName,
         String email,
         String primaryAddress,
