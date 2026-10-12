@@ -59,7 +59,7 @@ src/main/java/application/
 - Documentation and implementation must remain synchronized.
 
 ## Technology
-- Java 24
+- Java 17
 - Maven Wrapper
 - Spring Boot
 - Spring Data JPA
