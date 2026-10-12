@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import application.domain.entities.Buyer;
 import application.domain.entities.Cart;
 import application.domain.entities.Product;
+import application.domain.enums.ProductStatus;
 import org.junit.jupiter.api.Test;
 
 class CartServiceTest {
@@ -20,6 +21,7 @@ class CartServiceTest {
 
         Product product = new Product();
         product.setId(1L);
+        product.setStatus(ProductStatus.PUBLISHED);
 
         service.addProduct(cart, product);
         assertEquals(1, cart.getProducts().size());
