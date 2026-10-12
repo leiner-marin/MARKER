@@ -15,6 +15,7 @@ public final class BuyerRestMapper {
             throw new IllegalArgumentException("Buyer request is required.");
         }
         Buyer buyer = new Buyer();
+        buyer.setIdentityDocument(request.identityDocument());
         buyer.setFullName(request.fullName());
         buyer.setEmail(request.email());
         buyer.setPrimaryAddress(request.primaryAddress());
@@ -32,6 +33,7 @@ public final class BuyerRestMapper {
     public static BuyerResponse toResponse(Buyer buyer) {
         return new BuyerResponse(
                 buyer.getId(),
+                buyer.getIdentityDocument(),
                 buyer.getFullName(),
                 buyer.getEmail(),
                 buyer.getPrimaryAddress(),
