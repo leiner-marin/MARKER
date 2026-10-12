@@ -36,6 +36,9 @@ public class DefaultBuyerUseCase implements RegisterBuyerUseCase, ManageBuyerUse
         if (userRepositoryPort.existsByEmail(buyer.getEmail())) {
             throw new IllegalArgumentException("Email is already registered.");
         }
+        if (userRepositoryPort.existsByIdentityDocument(buyer.getIdentityDocument())) {
+            throw new IllegalArgumentException("Identity document is already registered.");
+        }
         userRepositoryPort.save(buyer);
         return buyerRepositoryPort.save(buyer);
     }
@@ -51,6 +54,10 @@ public class DefaultBuyerUseCase implements RegisterBuyerUseCase, ManageBuyerUse
         if (!current.getEmail().equalsIgnoreCase(buyer.getEmail())
                 && userRepositoryPort.existsByEmail(buyer.getEmail())) {
             throw new IllegalArgumentException("Email is already registered.");
+        }
+        if (!current.getIdentityDocument().equalsIgnoreCase(buyer.getIdentityDocument())
+                && userRepositoryPort.existsByIdentityDocument(buyer.getIdentityDocument())) {
+            throw new IllegalArgumentException("Identity document is already registered.");
         }
         userRepositoryPort.update(buyer);
         return buyerRepositoryPort.update(buyer);
