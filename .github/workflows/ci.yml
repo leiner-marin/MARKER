@@ -1,5 +1,7 @@
 name: MARKER CI
 
+# Java 17 validation
+
 on:
   push:
     branches:
