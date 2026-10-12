@@ -32,6 +32,11 @@ public class InventoryPersistenceAdapter implements InventoryRepositoryPort {
     }
 
     @Override
+    public Optional<Inventory> findById(Long id) {
+        return id == null ? Optional.empty() : repository.findById(id).map(InventoryJpaMapper::toDomain);
+    }
+
+    @Override
     public Optional<Inventory> findByProductId(Long productId) {
         return productId == null
                 ? Optional.empty()
