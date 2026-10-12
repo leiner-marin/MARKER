@@ -1,28 +1,48 @@
 package application.adapters.useCases;
 
 import application.domain.entities.Buyer;
+import application.domain.enums.UserRole;
 import application.domain.ports.in.ManageBuyerUseCase;
 import application.domain.ports.in.RegisterBuyerUseCase;
 import application.domain.ports.out.BuyerRepositoryPort;
+import application.domain.ports.out.UserRepositoryPort;
 import application.domain.services.BuyerService;
 
 public class DefaultBuyerUseCase implements RegisterBuyerUseCase, ManageBuyerUseCase {
     private final BuyerRepositoryPort buyerRepositoryPort;
+    private final UserRepositoryPort userRepositoryPort;
     private final BuyerService buyerService;
 
-    public DefaultBuyerUseCase(BuyerRepositoryPort buyerRepositoryPort, BuyerService buyerService) {
+    public DefaultBuyerUseCase(
+            BuyerRepositoryPort buyerRepositoryPort,
+            UserRepositoryPort userRepositoryPort,
+            BuyerService buyerService) {
         this.buyerRepositoryPort = buyerRepositoryPort;
+        this.userRepositoryPort = userRepositoryPort;
         this.buyerService = buyerService;
     }
 
     @Override
     public Buyer register(Buyer buyer) {
-        return buyerRepositoryPort.save(buyerService.register(buyer));
+        buyer.setRole(UserRole.BUYER);
+        buyerService.register(buyer);
+        if (userRepositoryPort.existsByEmail(buyer.getEmail())) {
+            throw new IllegalArgumentException("Email is already registered.");
+        }
+        userRepositoryPort.save(buyer);
+        return buyerRepositoryPort.save(buyer);
     }
 
     @Override
     public Buyer update(Buyer buyer) {
+        buyer.setRole(UserRole.BUYER);
         buyerService.validate(buyer);
+        Buyer current = findById(buyer.getId());
+        if (!current.getEmail().equalsIgnoreCase(buyer.getEmail())
+                && userRepositoryPort.existsByEmail(buyer.getEmail())) {
+            throw new IllegalArgumentException("Email is already registered.");
+        }
+        userRepositoryPort.update(buyer);
         return buyerRepositoryPort.update(buyer);
     }
 
