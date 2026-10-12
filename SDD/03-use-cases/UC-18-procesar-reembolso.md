@@ -1,29 +1,17 @@
-# UC-18 Procesar reembolso
+# UC-18 Process Refund
 
-## Actor principal
-Administrador o sistema
+**Primary actor:** Administrator
 
-## Objetivo
-Gestionar el reembolso asociado a una devolución aprobada.
+**Goal:** Process a refund for an approved return.
 
-## Precondiciones
-- La devolución debe existir y estar aprobada.
-- Debe existir un monto válido a devolver.
+**Preconditions**
+- The return request exists.
+- The refund amount is valid.
+- The actor is authorized.
 
-## Flujo principal
-1. El sistema identifica la devolución aprobada.
-2. El sistema calcula el monto de reembolso.
-3. El sistema invoca la operación de pago externa.
-4. El sistema registra el estado del reembolso.
-5. El sistema confirma la operación.
-
-## Postcondiciones
-- El reembolso queda procesado y asociado a la devolución.
-
-## Servicios involucrados
-- ReembolsoService
-- PagoService
-
-## Puertos de salida
-- ReembolsoRepository
-- PagoPort
+**Main flow**
+1. The return request is located.
+2. The refund is validated.
+3. The refund is processed.
+4. The refund record is stored.
+5. The result is returned.
