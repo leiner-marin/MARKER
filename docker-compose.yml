@@ -27,8 +27,11 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_H2_CONSOLE_ENABLED: "false"
-      APP_SECURITY_USER: marker
-      APP_SECURITY_PASSWORD: marker-dev-password
+      APP_SECURITY_ADMIN_PASSWORD: marker-dev-password
+      APP_SECURITY_SELLER_PASSWORD: marker-dev-password
+      APP_SECURITY_BUYER_PASSWORD: marker-dev-password
+      APP_SECURITY_LOGISTICS_PASSWORD: marker-dev-password
+      APP_SECURITY_SUPERVISOR_PASSWORD: marker-dev-password
     depends_on:
       marker-mysql:
         condition: service_healthy
