@@ -49,6 +49,13 @@ public class InMemoryInventoryRepositoryAdapter implements InventoryRepositoryPo
                 .findFirst();
     }
 
+    @Override
+    public List<Inventory> findAll() {
+        return inventoryById.values().stream()
+                .sorted(Comparator.comparing(Inventory::getId))
+                .toList();
+    }
+
     private void validate(Inventory inventory) {
         if (inventory == null) {
             throw new IllegalArgumentException("Inventory cannot be null.");
