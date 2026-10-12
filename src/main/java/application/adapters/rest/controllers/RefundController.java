@@ -1,6 +1,6 @@
 package application.adapters.rest.controllers;
 
-import application.domain.entities.Order;
+import application.domain.entities.Refund;
 import application.domain.ports.in.ProcessRefundUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class RefundController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> process(@RequestBody Order order) {
-        return ResponseEntity.ok(processRefundUseCase.process(order));
+    public ResponseEntity<Refund> process(@RequestBody Refund refund) {
+        return ResponseEntity.ok(processRefundUseCase.process(refund));
     }
 }
