@@ -1,28 +1,16 @@
-# UC-10 Gestionar inventario
+# UC-10 Manage Inventory
 
-## Actor principal
-Vendedor o administrador
+**Primary actor:** Seller / Administrator / Logistics Operator
 
-## Objetivo
-Registrar, consultar y ajustar existencias del inventario.
+**Goal:** Manage inventory and its movements.
 
-## Precondiciones
-- Debe existir un producto asociado a una bodega válida.
-- El usuario debe tener permisos sobre la bodega.
+**Preconditions**
+- Product and warehouse exist.
+- The actor is authorized.
 
-## Flujo principal
-1. El usuario solicita consultar o ajustar inventario.
-2. El sistema valida el producto y la bodega.
-3. El sistema calcula o actualiza existencias.
-4. El sistema registra el movimiento según el tipo.
-5. El sistema confirma el resultado.
-
-## Postcondiciones
-- El inventario queda actualizado con trazabilidad del movimiento.
-
-## Servicios involucrados
-- InventarioService
-
-## Puertos de salida
-- InventarioRepository
-- MovimientoInventarioRepository
+**Main flow**
+1. The actor requests an inventory operation.
+2. Stock and movement rules are validated.
+3. Inventory is updated.
+4. The movement is recorded.
+5. The result is returned.
