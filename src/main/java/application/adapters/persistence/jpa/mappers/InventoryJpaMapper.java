@@ -16,6 +16,7 @@ public final class InventoryJpaMapper {
         entity.setWarehouseId(inventory.getWarehouse().getId());
         entity.setAvailableQuantity(inventory.getAvailableQuantity());
         entity.setReservedQuantity(inventory.getReservedQuantity() == null ? 0 : inventory.getReservedQuantity());
+        entity.setDamaged(inventory.isDamaged());
         entity.setMovementType(parseMovementType(inventory.getMovementType()));
         return entity;
     }
@@ -25,6 +26,7 @@ public final class InventoryJpaMapper {
         inventory.setId(entity.getId());
         inventory.setAvailableQuantity(entity.getAvailableQuantity());
         inventory.setReservedQuantity(entity.getReservedQuantity());
+        inventory.setDamaged(entity.isDamaged());
         inventory.setMovementType(entity.getMovementType() == null ? null : entity.getMovementType().name());
 
         Product product = new Product();
