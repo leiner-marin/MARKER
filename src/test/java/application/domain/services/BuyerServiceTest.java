@@ -13,6 +13,7 @@ class BuyerServiceTest {
     @Test
     void registersBuyerWithActiveCommercialStatus() {
         Buyer buyer = new Buyer();
+        buyer.setIdentityDocument("2001");
         buyer.setFullName("Test Buyer");
         buyer.setEmail("buyer@example.com");
         buyer.setPrimaryAddress("Main Street 1");
@@ -25,6 +26,7 @@ class BuyerServiceTest {
     @Test
     void rejectsBuyerWithoutPrimaryAddress() {
         Buyer buyer = new Buyer();
+        buyer.setIdentityDocument("2002");
         buyer.setFullName("Test Buyer");
         buyer.setEmail("buyer@example.com");
 
