@@ -42,3 +42,6 @@
 3. The documented architecture matches the repository structure.
 4. No duplicate legacy service or port directories remain.
 5. Business objectives are traceable to application components and tests.
+
+## Validation Baseline
+The canonical final branch is validated with Java 17, Maven verification, Docker Compose startup, and authenticated API smoke testing.
