@@ -37,6 +37,9 @@ public class OrderController {
 
     @PutMapping("/{id}/status")
     public Order updateStatus(@PathVariable Long id, @RequestBody Order order) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order is required.");
+        }
         order.setId(id);
         return manageOrderUseCase.updateStatus(order);
     }
