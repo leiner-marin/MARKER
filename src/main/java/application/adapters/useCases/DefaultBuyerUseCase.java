@@ -6,24 +6,31 @@ import application.domain.ports.in.ManageBuyerUseCase;
 import application.domain.ports.in.RegisterBuyerUseCase;
 import application.domain.ports.out.BuyerRepositoryPort;
 import application.domain.ports.out.UserRepositoryPort;
+import application.domain.services.BuyerAddressService;
 import application.domain.services.BuyerService;
 
 public class DefaultBuyerUseCase implements RegisterBuyerUseCase, ManageBuyerUseCase {
     private final BuyerRepositoryPort buyerRepositoryPort;
     private final UserRepositoryPort userRepositoryPort;
     private final BuyerService buyerService;
+    private final BuyerAddressService buyerAddressService;
 
     public DefaultBuyerUseCase(
             BuyerRepositoryPort buyerRepositoryPort,
             UserRepositoryPort userRepositoryPort,
-            BuyerService buyerService) {
+            BuyerService buyerService,
+            BuyerAddressService buyerAddressService) {
         this.buyerRepositoryPort = buyerRepositoryPort;
         this.userRepositoryPort = userRepositoryPort;
         this.buyerService = buyerService;
+        this.buyerAddressService = buyerAddressService;
     }
 
     @Override
     public Buyer register(Buyer buyer) {
+        if (buyer == null) {
+            throw new IllegalArgumentException("Buyer is required.");
+        }
         buyer.setRole(UserRole.BUYER);
         buyerService.register(buyer);
         if (userRepositoryPort.existsByEmail(buyer.getEmail())) {
@@ -35,6 +42,9 @@ public class DefaultBuyerUseCase implements RegisterBuyerUseCase, ManageBuyerUse
 
     @Override
     public Buyer update(Buyer buyer) {
+        if (buyer == null) {
+            throw new IllegalArgumentException("Buyer is required.");
+        }
         buyer.setRole(UserRole.BUYER);
         buyerService.validate(buyer);
         Buyer current = findById(buyer.getId());
@@ -53,5 +63,12 @@ public class DefaultBuyerUseCase implements RegisterBuyerUseCase, ManageBuyerUse
         }
         return buyerRepositoryPort.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Buyer not found."));
+    }
+
+    @Override
+    public Buyer addAddress(Long buyerId, String address) {
+        Buyer buyer = findById(buyerId);
+        buyerAddressService.addAddress(buyer, address);
+        return buyerRepositoryPort.update(buyer);
     }
 }
