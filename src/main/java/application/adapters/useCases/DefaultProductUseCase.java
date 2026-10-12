@@ -52,6 +52,9 @@ public class DefaultProductUseCase implements RegisterProductUseCase, PublishPro
                 variantService.addVariant(normalized, variant);
             }
         }
+        if (normalized.getStatus() == null) {
+            normalized.setStatus(application.domain.enums.ProductStatus.PUBLISHED);
+        }
         return productRepositoryPort.save(normalized);
     }
 
