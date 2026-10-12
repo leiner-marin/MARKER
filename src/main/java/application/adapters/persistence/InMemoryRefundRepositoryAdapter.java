@@ -38,9 +38,12 @@ public class InMemoryRefundRepositoryAdapter implements RefundRepositoryPort {
 
     @Override
     public Optional<Refund> findByReturnId(Long returnId) {
+        if (returnId == null) {
+            return Optional.empty();
+        }
         return refunds.values().stream()
-                .filter(r -> r.getReturnRequest() != null && returnId != null
-                        && returnId.equals(r.getReturnRequest().getId()))
+                .filter(refund -> refund.getReturnRequest() != null
+                        && returnId.equals(refund.getReturnRequest().getId()))
                 .findFirst();
     }
 
@@ -49,3 +52,4 @@ public class InMemoryRefundRepositoryAdapter implements RefundRepositoryPort {
             throw new IllegalArgumentException("Refund cannot be null.");
         }
     }
+}
