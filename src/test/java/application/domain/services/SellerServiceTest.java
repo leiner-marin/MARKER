@@ -15,6 +15,7 @@ class SellerServiceTest {
     @Test
     void registersSellerWithRoleAndActiveStatus() {
         Seller seller = new Seller();
+        seller.setIdentityDocument("3001");
         seller.setFullName("Test Seller");
         seller.setEmail("seller@example.com");
 
@@ -28,6 +29,7 @@ class SellerServiceTest {
     @Test
     void rejectsSellerWithoutEmail() {
         Seller seller = new Seller();
+        seller.setIdentityDocument("3002");
         seller.setFullName("Test Seller");
 
         assertThrows(IllegalArgumentException.class, () -> service.register(seller));
