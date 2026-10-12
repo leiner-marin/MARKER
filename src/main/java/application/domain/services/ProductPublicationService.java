@@ -15,6 +15,9 @@ public class ProductPublicationService {
 
     public Product suspend(Product product) {
         validate(product);
+        if (product.getStatus() == ProductStatus.DISCONTINUED) {
+            throw new IllegalStateException("A discontinued product cannot be suspended.");
+        }
         product.setStatus(ProductStatus.SUSPENDED);
         return product;
     }
@@ -26,8 +29,8 @@ public class ProductPublicationService {
     }
 
     private void validate(Product product) {
-        if (product == null) {
-            throw new IllegalArgumentException("Product cannot be null.");
+        if (product == null || product.getId() == null) {
+            throw new IllegalArgumentException("Product with id is required.");
         }
     }
 }
