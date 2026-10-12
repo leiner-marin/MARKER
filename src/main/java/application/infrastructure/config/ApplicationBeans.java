@@ -3,6 +3,10 @@ package application.infrastructure.config;
 import application.adapters.persistence.InMemorySellerRepositoryAdapter;
 import application.adapters.persistence.InMemoryWarehouseRepositoryAdapter;
 import application.adapters.useCases.DefaultInventoryUseCase;
+import application.adapters.useCases.DefaultBuyerUseCase;
+import application.adapters.persistence.InMemoryBuyerRepositoryAdapter;
+import application.domain.ports.out.BuyerRepositoryPort;
+import application.domain.services.CompradorService;
 import application.adapters.useCases.DefaultProductUseCase;
 import application.adapters.useCases.DefaultSellerUseCase;
 import application.adapters.useCases.DefaultWarehouseUseCase;
@@ -31,6 +35,23 @@ public class ApplicationBeans {
     @Bean
     public UsuarioService userService() {
         return new UsuarioService();
+    }
+
+    @Bean
+    public BuyerRepositoryPort buyerRepositoryPort() {
+        return new InMemoryBuyerRepositoryAdapter();
+    }
+
+    @Bean
+    public CompradorService buyerService() {
+        return new CompradorService();
+    }
+
+    @Bean
+    public DefaultBuyerUseCase defaultBuyerUseCase(
+            BuyerRepositoryPort buyerRepositoryPort,
+            CompradorService buyerService) {
+        return new DefaultBuyerUseCase(buyerRepositoryPort, buyerService);
     }
 
     @Bean
