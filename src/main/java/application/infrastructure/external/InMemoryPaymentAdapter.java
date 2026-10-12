@@ -1,6 +1,6 @@
 package application.infrastructure.external;
 
-import application.ports.out.PaymentPort;
+import application.domain.ports.out.PaymentPort;
 import java.math.BigDecimal;
 import org.springframework.stereotype.Component;
 

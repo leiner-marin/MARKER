@@ -1,27 +1,16 @@
-# UC-04 Registrar vendedor
+# UC-04 Onboard Seller
 
-## Actor principal
-Administrador
+**Primary actor:** Administrator
 
-## Objetivo
-Registrar un vendedor dentro del marketplace.
+**Goal:** Incorporate a seller into MARKER.
 
-## Precondiciones
-- El administrador debe estar autenticado.
-- El vendedor no debe estar ya registrado.
+**Preconditions**
+- The seller information is complete.
+- Seller onboarding is authorized.
 
-## Flujo principal
-1. El administrador solicita crear un vendedor.
-2. El sistema valida los datos del vendedor.
-3. El sistema crea la entidad vendedor.
-4. El sistema guarda la información de estado.
-5. El sistema confirma la creación.
-
-## Postcondiciones
-- El vendedor queda registrado y puede iniciar operación comercial.
-
-## Servicios involucrados
-- VendedorService
-
-## Puertos de salida
-- VendedorRepository
+**Main flow**
+1. The administrator submits seller information.
+2. The application validates the seller.
+3. The seller is incorporated.
+4. The seller is stored.
+5. The application confirms onboarding.

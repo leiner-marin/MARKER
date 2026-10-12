@@ -1,29 +1,16 @@
-# UC-15 Generar factura
+# UC-15 Generate Invoice
 
-## Actor principal
-Administrador o sistema
+**Primary actor:** Administrator / Application
 
-## Objetivo
-Emitir la factura asociada a un pedido pagado.
+**Goal:** Generate an invoice for a valid order.
 
-## Precondiciones
-- El pedido debe existir.
-- Debe validarse el estado del pedido antes de la facturación.
+**Preconditions**
+- The order exists.
+- The invoice amount is valid.
 
-## Flujo principal
-1. El sistema detecta un pedido listo para facturar.
-2. Se calculan subtotal, impuestos y total.
-3. Se genera la factura.
-4. El sistema guarda la factura.
-5. El sistema confirma la emisión.
-
-## Postcondiciones
-- La factura queda almacenada y asociada al pedido.
-
-## Servicios involucrados
-- FacturaService
-- PedidoService
-
-## Puertos de salida
-- FacturaRepository
-- FacturacionPort
+**Main flow**
+1. The application receives the order and amount.
+2. Invoice data is created.
+3. The invoice integration contract is invoked.
+4. The invoice is stored.
+5. The invoice is returned.

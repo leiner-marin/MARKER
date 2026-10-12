@@ -1,17 +1,18 @@
 # Business Requirements
 
-## Objetivo
-Documentar los requisitos funcionales de MARKER como plataforma de marketplace y comercio digital.
+MARKER supports the following business capabilities:
 
-## Requisitos principales
-- Registro y administración de usuarios.
-- Gestión de compradores y vendedores.
-- Administración de bodegas y catálogo de productos.
-- Manejo de inventario y reservas.
-- Procesamiento de pedidos, pagos y facturación.
-- Logística de envío y entrega.
-- Atención posventa con devoluciones y reembolsos.
-- Generación de reportes administrativos.
+1. User management
+2. Seller onboarding and management
+3. Buyer management
+4. Warehouse management
+5. Product catalog management
+6. Distributed inventory management
+7. Shopping cart management
+8. Order lifecycle management
+9. Payment and invoicing
+10. Shipment and delivery management
+11. Returns and refunds
+12. Administrative reporting
 
-## Cobertura
-Este documento será la base para los casos de uso y la trazabilidad funcional del proyecto.
+All implementation work must remain traceable to these capabilities and the functional specification.

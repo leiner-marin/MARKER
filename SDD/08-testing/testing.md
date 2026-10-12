@@ -1,8 +1,27 @@
-# Estrategia de pruebas
+# Testing Strategy
 
-- Pruebas unitarias para reglas de servicios y entidades.
-- Pruebas de contrato para puertos de salida.
-- Pruebas de integracion para cada adaptador de infraestructura.
-- Pruebas de contexto Spring para verificar el ensamblado.
+## Domain tests
+Validate entities, value objects, domain services, business rules, state transitions, and domain exceptions without requiring Spring.
 
-Actualmente `ProductServiceTest` cubre registro, persistencia, publicacion y recuperacion mediante el repositorio en memoria.
+## Use case tests
+Verify application orchestration by mocking output ports and external contracts.
+
+## Adapter tests
+Cover REST controllers, mappers, persistence adapters, JPA mapping, and security configuration.
+
+## Integration tests
+Verify Spring wiring, persistence, REST integration, and security behavior.
+
+## Critical scenarios
+- Duplicate user identity and email
+- Invalid seller onboarding
+- Negative inventory
+- Excess inventory reservation
+- Damaged inventory reservation
+- Invalid order transitions
+- Modification of finalized orders
+- Unauthorized operations
+- Invalid return and refund operations
+
+## Completion
+The complete Maven test suite must pass before final delivery.

@@ -1,20 +1,21 @@
 # Input Ports
 
 ## Purpose
-Input ports define the application use case contracts. They are the boundary through which REST adapters, tests, or other clients invoke MARKER behavior.
 
-## Required Use Case Ports
+Input ports define application use case contracts. They are the boundary through which REST adapters, tests, or other clients invoke MARKER behavior.
+
+## Canonical Ports
+
 - RegisterUserUseCase
 - ManageUserUseCase
 - RegisterBuyerUseCase
 - OnboardSellerUseCase
 - ManageSellerUseCase
-- RegisterWarehouseUseCase
 - ManageWarehouseUseCase
 - RegisterProductUseCase
+- ManageProductUseCase
 - PublishProductUseCase
 - ManageInventoryUseCase
-- ReserveInventoryUseCase
 - ManageCartUseCase
 - CreateOrderUseCase
 - ProcessPaymentUseCase
@@ -27,7 +28,9 @@ Input ports define the application use case contracts. They are the boundary thr
 - GenerateAdministrativeReportUseCase
 
 ## Rules
-- Input ports must live under `application/domain/ports/in` until the project adopts a separate application layer package.
-- Names must describe use cases, not actors.
-- Input ports may depend on domain types or use case command/result objects, but never on JPA entities or REST DTOs.
-- Every input port must have an implementation and tests.
+
+- Input ports live under application/domain/ports/in.
+- Names describe use cases, not technical transport mechanisms.
+- Input ports must not depend on JPA entities, REST DTOs, or infrastructure classes.
+- Every implemented input port must have a corresponding use case implementation and tests.
+- Use cases must delegate business rules to domain services instead of duplicating them.

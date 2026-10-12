@@ -1,27 +1,15 @@
-# UC-19 Generar reporte
+# UC-19 Generate Administrative Report
 
-## Actor principal
-Administrador o supervisor
+**Primary actor:** Administrator / Supervisor
 
-## Objetivo
-Generar reportes administrativos de ventas, pedidos, inventario y logística.
+**Goal:** Generate an administrative report.
 
-## Precondiciones
-- El usuario debe tener permisos de consulta.
-- Debe existir información consolidada del negocio.
+**Preconditions**
+- The requested report type is supported.
+- The actor is authorized.
 
-## Flujo principal
-1. El actor solicita un tipo de reporte.
-2. El sistema identifica la fuente de datos.
-3. El sistema procesa los datos en la capa de reportes.
-4. El sistema genera el documento o resultado.
-5. El sistema entrega el reporte al usuario.
-
-## Postcondiciones
-- El reporte queda generado y disponible para consulta.
-
-## Servicios involucrados
-- ReporteService
-
-## Puertos de salida
-- ReportePort
+**Main flow**
+1. The actor requests a report.
+2. The application validates the report type.
+3. The report port is invoked.
+4. The report data is returned.

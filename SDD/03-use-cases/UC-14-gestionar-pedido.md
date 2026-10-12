@@ -1,27 +1,15 @@
-# UC-14 Gestionar pedido
+# UC-14 Manage Order
 
-## Actor principal
-Comprador o administrador
+**Primary actor:** Administrator / Logistics Operator
 
-## Objetivo
-Consultar el estado del pedido y cambiarlo conforme al flujo de negocio.
+**Goal:** Manage an order through its valid lifecycle.
 
-## Precondiciones
-- El pedido debe existir.
-- El cambio de estado debe seguir una secuencia válida.
+**Preconditions**
+- The order exists.
+- The actor is authorized.
 
-## Flujo principal
-1. El actor solicita consultar o actualizar un pedido.
-2. El sistema valida el estado actual.
-3. El sistema aplica la transición de estado.
-4. El sistema confirma la actualización.
-
-## Postcondiciones
-- El pedido queda en el nuevo estado solicitado.
-
-## Servicios involucrados
-- PedidoService
-
-## Puertos de salida
-- PedidoRepository
-- PagoPort
+**Main flow**
+1. The actor requests a valid status transition.
+2. The current state is validated.
+3. The order state changes.
+4. The change is stored.

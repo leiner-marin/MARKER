@@ -1,28 +1,16 @@
-# UC-09 Publicar producto
+# UC-09 Publish Product
 
-## Actor principal
-Vendedor
+**Primary actor:** Seller
 
-## Objetivo
-Publicar un producto para que esté disponible para la venta.
+**Goal:** Publish a product in the marketplace catalog.
 
-## Precondiciones
-- El producto debe estar registrado.
-- El producto no debe estar descontinuado ni suspendido indefinidamente.
+**Preconditions**
+- The product exists.
+- The product is eligible for publication.
+- The seller is authorized.
 
-## Flujo principal
-1. El vendedor solicita publicar el producto.
-2. El sistema valida el estado actual del producto.
-3. El sistema cambia el estado a PUBLICADO.
-4. El sistema actualiza el catálogo.
-5. El sistema confirma la publicación.
-
-## Postcondiciones
-- El producto queda disponible para su venta.
-
-## Servicios involucrados
-- ProductoService
-
-## Puertos de salida
-- ProductoRepository
-- InventarioRepository
+**Main flow**
+1. The seller requests publication.
+2. The application validates the product state.
+3. The product changes to PUBLISHED.
+4. The publication is confirmed.

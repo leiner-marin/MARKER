@@ -1,7 +1,7 @@
 package application.domain.ports.in;
 
-import application.domain.models.ProductModel;
+import application.domain.entities.Product;
 
 public interface PublishProductUseCase {
-    ProductModel publish(Long productId);
+    Product publish(Long productId);
 }

@@ -1,36 +1,42 @@
 # Domain Services
 
-## Propósito
-Los servicios de dominio encapsulan lógica que no pertenece exclusivamente a una entidad, pero sí al núcleo del negocio.
+## Purpose
 
-## Servicios principales
-- UsuarioService
-- ValidacionUsuarioService
-- CompradorService
-- DireccionCompradorService
-- VendedorService
-- IncorporacionVendedorService
-- BodegaService
-- AsignacionBodegaService
-- ProductoService
-- ProductoPublicacionService
-- VarianteProductoService
-- CatalogoService
-- InventarioService
-- ReservaInventarioService
-- MovimientoInventarioService
-- AjusteInventarioService
-- PedidoService
-- EstadoPedidoService
-- ValidacionPedidoService
-- PagoService
-- FacturacionService
-- PreparacionPedidoService
-- DespachoService
-- EntregaService
-- DevolucionService
-- ReembolsoService
-- ReporteAdministrativoService
+Domain services encapsulate business logic that does not belong exclusively to a single domain entity.
 
-## Regla
-Cada servicio debe validar precondiciones, errores y reglas del negocio antes de ejecutar la operación.
+## Current Services
+
+- UserService
+- UserValidationService
+- BuyerService
+- BuyerAddressService
+- SellerService
+- SellerOnboardingService
+- WarehouseService
+- WarehouseAssignmentService
+- ProductService
+- ProductPublicationService
+- ProductVariantService
+- CatalogService
+- InventoryService
+- InventoryReservationService
+- InventoryMovementService
+- InventoryAdjustmentService
+- CartService
+- OrderService
+- OrderStatusService
+- OrderValidationService
+- PaymentService
+- InvoiceService
+- OrderPreparationService
+- ShipmentService
+- DeliveryService
+- ReturnService
+- RefundService
+- AdministrativeReportService
+
+Legacy Spanish-named service classes are being progressively replaced by canonical English application contracts without changing MARKER business requirements.
+
+## Rule
+
+Each domain service must validate preconditions, business rules, invalid states, and domain errors before completing its operation.

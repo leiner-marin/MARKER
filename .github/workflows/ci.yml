@@ -1,0 +1,29 @@
+name: MARKER CI
+
+# Java 17 validation
+
+on:
+  push:
+    branches:
+      - main
+      - "refactor/**"
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Build and test
+        run: bash mvnw -B clean test
+
+# MARKER Java 17 CI validation

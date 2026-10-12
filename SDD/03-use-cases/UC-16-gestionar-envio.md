@@ -1,28 +1,15 @@
-# UC-16 Gestionar envio
+# UC-16 Manage Shipment
 
-## Actor principal
-Operador logístico
+**Primary actor:** Logistics Operator
 
-## Objetivo
-Preparar, despachar y confirmar la entrega de un pedido.
+**Goal:** Create and dispatch an order shipment.
 
-## Precondiciones
-- El pedido debe estar listo para envío.
-- La dirección de entrega debe estar definida.
+**Preconditions**
+- The order exists.
+- A valid delivery address and warehouse are available.
 
-## Flujo principal
-1. El sistema crea el envío asociado al pedido.
-2. El operador prepara el pedido.
-3. El sistema registra el despacho.
-4. El sistema actualiza el estado del envío.
-5. El sistema confirma la entrega.
-
-## Postcondiciones
-- El pedido queda identificado con guía, despacho y entrega finalizada.
-
-## Servicios involucrados
-- EnvioService
-
-## Puertos de salida
-- EnvioRepository
-- LogisticaPort
+**Main flow**
+1. The shipment is created.
+2. Shipment information is validated.
+3. The shipment is dispatched.
+4. The shipment state is stored.

@@ -1,7 +1,7 @@
 package application.domain.ports.in;
 
-import application.domain.models.ProductModel;
+import application.domain.entities.Product;
 
 public interface RegisterProductUseCase {
-    ProductModel register(ProductModel product);
+    Product register(Product product);
 }

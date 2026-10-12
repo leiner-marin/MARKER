@@ -1,28 +1,16 @@
-# UC-17 Solicitar devolución
+# UC-17 Request Return
 
-## Actor principal
-Comprador
+**Primary actor:** Buyer
 
-## Objetivo
-Solicitar la devolución de un producto recibido o con problema.
+**Goal:** Request a return for a product from an order.
 
-## Precondiciones
-- El pedido o producto debe estar asociado al comprador.
-- Debe existir motivo válido para la devolución.
+**Preconditions**
+- The order exists.
+- The product belongs to the order.
+- The return request contains a reason.
 
-## Flujo principal
-1. El comprador solicita la devolución.
-2. El sistema valida el pedido, el producto y el motivo.
-3. El sistema crea la solicitud de devolución.
-4. El sistema registra la operación.
-5. El sistema confirma la solicitud.
-
-## Postcondiciones
-- La devolución queda registrada para revisión o aprobación.
-
-## Servicios involucrados
-- DevolucionService
-
-## Puertos de salida
-- DevolucionRepository
-- InventarioRepository
+**Main flow**
+1. The buyer submits the return request.
+2. The application validates the request.
+3. The return request is stored.
+4. The result is returned.

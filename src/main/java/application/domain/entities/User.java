@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class User {
+public class User {
     private Long id;
     private String fullName;
     private String email;

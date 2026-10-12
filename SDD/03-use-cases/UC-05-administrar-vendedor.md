@@ -1,28 +1,15 @@
-# UC-05 Administrar vendedor
+# UC-05 Manage Seller
 
-## Actor principal
-Administrador
+**Primary actor:** Administrator
 
-## Objetivo
-Actualizar y consultar la información del vendedor y sus productos.
+**Goal:** Manage an existing seller.
 
-## Precondiciones
-- El vendedor debe existir.
-- El administrador debe tener permisos de gestión.
+**Preconditions**
+- The seller exists.
+- The actor is authorized.
 
-## Flujo principal
-1. El administrador solicita consultar o actualizar al vendedor.
-2. El sistema valida la existencia del vendedor.
-3. El sistema actualiza los datos o consulta información.
-4. El sistema confirma la acción.
-
-## Postcondiciones
-- La información del vendedor queda actualizada o consultada.
-
-## Servicios involucrados
-- VendedorService
-- ProductoService
-
-## Puertos de salida
-- VendedorRepository
-- ProductoRepository
+**Main flow**
+1. The administrator selects a seller.
+2. The requested operation is validated.
+3. Seller information is updated or consulted.
+4. The result is returned.

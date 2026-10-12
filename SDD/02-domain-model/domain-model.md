@@ -1,9 +1,15 @@
-# Modelo de dominio
+# Domain Model
 
-Las entidades Java viven en `application.domain.entities` y los estados en `application.domain.enums`.
+The MARKER domain is implemented under `application.domain`.
 
-Entidades actuales: `User`, `Buyer`, `Seller`, `Administrator`, `Supervisor`, `Warehouse`, `Product`, `Inventory`, `Order`, `Invoice`, `Shipment` y `LogisticsOperator`.
+## Main Entities
 
-Los estados comerciales, de vendedor, pago y envio tambien se representan mediante enums; no se usan `String` para controlar transiciones de estado.
+User, Buyer, Seller, Administrator, Supervisor, LogisticsOperator, Warehouse, Product, Inventory, Cart, Order, Payment, Invoice, Shipment, ReturnRequest, Refund, and AdministrativeReport.
 
-Las entidades no contienen dependencias de JPA, SQL Server, MongoDB ni APIs externas.
+## Domain Boundaries
+
+Domain entities, services, value objects, enums, and exceptions contain business concepts only.
+
+They must not depend on Spring, JPA, REST, HTTP, or database-specific implementations.
+
+Persistence and external systems interact with the domain through ports.

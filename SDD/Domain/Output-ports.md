@@ -1,9 +1,11 @@
 # Output Ports
 
 ## Purpose
-Output ports isolate the domain and use cases from persistence, external systems, notifications, payment providers, logistics providers, and reports.
 
-## Required Repository Ports
+Output ports isolate the domain and application use cases from persistence and external integrations.
+
+## Repository Ports
+
 - UserRepositoryPort
 - BuyerRepositoryPort
 - SellerRepositoryPort
@@ -18,7 +20,8 @@ Output ports isolate the domain and use cases from persistence, external systems
 - ReturnRepositoryPort
 - RefundRepositoryPort
 
-## Required External Ports
+## External Ports
+
 - PaymentPort
 - InvoicePort
 - LogisticsPort
@@ -26,8 +29,10 @@ Output ports isolate the domain and use cases from persistence, external systems
 - ReportPort
 
 ## Rules
-- Output ports must live under `application/domain/ports/out`.
-- Repository ports should be named with the `RepositoryPort` suffix.
-- External-service ports should use the `Port` suffix.
-- Output ports expose domain-oriented contracts, not database or framework details.
-- Every output port must have at least one adapter implementation before its use case is considered complete.
+
+- Output ports live under application/domain/ports/out.
+- Repository ports use the RepositoryPort suffix.
+- External integrations use the Port suffix.
+- Ports expose domain-oriented contracts only.
+- Ports must not depend on Spring Data, JPA, SQL, HTTP, or other infrastructure implementations.
+- Every output port must have an adapter implementation before the related use case is considered complete.

@@ -1,29 +1,17 @@
-# UC-12 Crear pedido
+# UC-12 Create Order
 
-## Actor principal
-Comprador
+**Primary actor:** Buyer
 
-## Objetivo
-Generar un pedido a partir del carrito confirmado.
+**Goal:** Convert a valid cart into an order.
 
-## Precondiciones
-- El carrito debe tener productos válidos.
-- Debe existir disponibilidad suficiente.
+**Preconditions**
+- The buyer exists.
+- The cart contains at least one product.
+- Inventory is available.
 
-## Flujo principal
-1. El comprador confirma el carrito.
-2. El sistema calcula el total final.
-3. El sistema valida la disponibilidad.
-4. El sistema crea el pedido y sus detalles.
-5. El sistema registra el estado inicial.
-
-## Postcondiciones
-- El pedido queda generado y pendiente de pago o validación.
-
-## Servicios involucrados
-- PedidoService
-- CarritoService
-
-## Puertos de salida
-- PedidoRepository
-- InventarioRepository
+**Main flow**
+1. The buyer confirms the cart.
+2. The application validates the order.
+3. Inventory is reserved as required.
+4. The order is created.
+5. The order is stored.
