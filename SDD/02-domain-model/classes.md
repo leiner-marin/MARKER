@@ -2,6 +2,7 @@
 
 ## User
 - id: Long
+- identityDocument: String
 - fullName: String
 - email: String
 - role: UserRole
