@@ -1,6 +1,6 @@
 # Output Ports
 
-Output ports isolate domain and application logic from persistence and external integrations.
+Output ports isolate application and domain logic from persistence and external integrations.
 
 ## Repository Ports
 
@@ -13,12 +13,13 @@ Output ports isolate domain and application logic from persistence and external 
 - InventoryMovementRepositoryPort
 - CartRepositoryPort
 - OrderRepositoryPort
+- PaymentRepositoryPort
 - InvoiceRepositoryPort
 - ShipmentRepositoryPort
 - ReturnRepositoryPort
 - RefundRepositoryPort
 
-## Integration Ports
+## External Integration Ports
 
 - PaymentPort
 - InvoicePort
@@ -28,7 +29,4 @@ Output ports isolate domain and application logic from persistence and external 
 
 ## Rules
 
-- Output ports belong under the domain boundary.
-- Repository ports use the RepositoryPort suffix.
-- External integrations use the Port suffix.
-- Ports expose domain-oriented contracts and remain independent from Spring Data, JPA, SQL, HTTP, and vendor-specific implementations.
+Output ports belong to the domain boundary. Concrete Spring Data, JPA, HTTP, and vendor implementations remain in adapters or infrastructure.
