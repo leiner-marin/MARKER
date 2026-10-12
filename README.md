@@ -22,7 +22,7 @@ Infrastructure
 Tests
 ```
 
-## Canonical source structure
+## Canonical Source Structure
 
 ```text
 src/main/java/application/
@@ -45,20 +45,26 @@ src/main/java/application/
 │   └── persistence/
 └── infrastructure/
     ├── config/
-    ├── persistence/
     ├── security/
     └── external/
 ```
 
-## Principles
+## Business Scope
+
+MARKER covers user, buyer, seller, warehouse, product catalog, inventory, cart, order, payment, invoicing, shipment, delivery, return, refund, and administrative reporting flows.
+
+## Architecture Rules
+
 - The domain is independent from Spring, JPA, REST, HTTP, and database implementations.
 - Input ports define application entry contracts.
 - Output ports define persistence and external integration contracts.
 - Use cases orchestrate application flows.
 - Controllers remain thin and call input ports.
-- Documentation and implementation must remain synchronized.
+- Persistence and external integrations remain outside the domain.
+- Documentation and implementation use consistent English terminology.
 
 ## Technology
+
 - Java 17
 - Maven Wrapper
 - Spring Boot
@@ -72,19 +78,22 @@ src/main/java/application/
 ## Run
 
 Windows:
+
 ```powershell
 .\mvnw.cmd clean test
 .\mvnw.cmd spring-boot:run
 ```
 
 Docker:
+
 ```bash
 docker compose up --build
 ```
 
 ## Validation
 
-The project targets Java 17 and uses Maven-based automated validation.
+GitHub Actions executes the Maven test suite with Java 17.
 
-## Status
-MARKER is being consolidated into a single architecture aligned with DDD and Hexagonal Architecture. Existing valid functionality is preserved while duplicate contracts and responsibilities are removed.
+## Project Status
+
+The repository structure, domain boundaries, application ports, use cases, REST adapters, persistence adapters, business documentation, traceability, and Java 17 CI validation have been consolidated.
