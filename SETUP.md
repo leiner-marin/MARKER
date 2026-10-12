@@ -12,7 +12,7 @@
 Open the repository root and run:
 
 ```powershell
-.\mvnw.cmd clean test
+.\mvnw.cmd clean verify
 ```
 
 Start the application:
@@ -41,7 +41,8 @@ docker compose down
 - SPRING_DATASOURCE_URL
 - SPRING_DATASOURCE_USERNAME
 - SPRING_DATASOURCE_PASSWORD
-- JWT_SECRET
+- SPRING_JPA_HIBERNATE_DDL_AUTO
+- SPRING_H2_CONSOLE_ENABLED
 - APP_SECURITY_USER
 - APP_SECURITY_PASSWORD
 
@@ -57,4 +58,4 @@ docker compose down
 
 ## Verification
 
-The GitHub Actions workflow validates compilation and tests with Java 17. A successful CI run is required before final delivery.
+The GitHub Actions workflow runs `clean verify` and builds the Docker image with Java 17.
