@@ -25,3 +25,5 @@ jobs:
 
       - name: Build and test
         run: bash mvnw -B clean test
+
+# MARKER Java 17 CI validation
