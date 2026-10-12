@@ -5,25 +5,40 @@ import application.domain.ports.in.ManageUserUseCase;
 import application.domain.ports.in.RegisterUserUseCase;
 import application.domain.ports.out.UserRepositoryPort;
 import application.domain.services.UserService;
+import application.domain.services.UserValidationService;
 
 public class DefaultUserUseCase implements RegisterUserUseCase, ManageUserUseCase {
     private final UserRepositoryPort userRepositoryPort;
     private final UserService userService;
+    private final UserValidationService userValidationService;
 
-    public DefaultUserUseCase(UserRepositoryPort userRepositoryPort, UserService userService) {
+    public DefaultUserUseCase(
+            UserRepositoryPort userRepositoryPort,
+            UserService userService,
+            UserValidationService userValidationService) {
         this.userRepositoryPort = userRepositoryPort;
         this.userService = userService;
+        this.userValidationService = userValidationService;
     }
 
     @Override
     public User register(User user) {
+        userValidationService.validate(user);
+        if (userRepositoryPort.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Email is already registered.");
+        }
         return userRepositoryPort.save(userService.register(user));
     }
 
     @Override
     public User update(User user) {
-        userService.register(user);
-        return userRepositoryPort.update(user);
+        userValidationService.validate(user);
+        User current = findById(user.getId());
+        if (!current.getEmail().equalsIgnoreCase(user.getEmail())
+                && userRepositoryPort.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Email is already registered.");
+        }
+        return userRepositoryPort.update(userService.update(user));
     }
 
     @Override
