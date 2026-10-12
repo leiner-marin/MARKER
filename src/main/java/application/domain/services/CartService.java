@@ -2,12 +2,16 @@ package application.domain.services;
 
 import application.domain.entities.Cart;
 import application.domain.entities.Product;
+import application.domain.enums.ProductStatus;
 import java.util.ArrayList;
 
 public class CartService {
 
     public Cart addProduct(Cart cart, Product product) {
         validate(cart, product);
+        if (product.getStatus() != ProductStatus.PUBLISHED) {
+            throw new IllegalStateException("Only published products can be added to the cart.");
+        }
         if (cart.getProducts() == null) {
             cart.setProducts(new ArrayList<>());
         }
