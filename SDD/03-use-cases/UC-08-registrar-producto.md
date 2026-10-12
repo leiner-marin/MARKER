@@ -1,30 +1,16 @@
-# UC-08 Registrar producto
+# UC-08 Register Product
 
-## Actor principal
-Vendedor
+**Primary actor:** Seller
 
-## Objetivo
-Registrar un nuevo producto dentro del catálogo del marketplace.
+**Goal:** Register a product in the marketplace catalog.
 
-## Precondiciones
-- El vendedor debe estar registrado y autorizado.
-- La información del producto debe estar completa.
+**Preconditions**
+- The seller exists and is authorized.
+- Required product information is complete.
 
-## Flujo principal
-1. El vendedor solicita registrar un producto.
-2. El sistema recibe la información del producto.
-3. El sistema valida datos obligatorios y estado.
-4. El sistema crea el producto.
-5. El sistema almacena el producto.
-6. El sistema confirma el registro.
-
-## Postcondiciones
-- El producto queda registrado en el catálogo.
-
-## Servicios involucrados
-- VendedorService
-- ProductoService
-
-## Puertos de salida
-- VendedorRepository
-- ProductoRepository
+**Main flow**
+1. The seller submits product information.
+2. The application validates product data.
+3. The product is created.
+4. The product is stored.
+5. Registration is confirmed.
