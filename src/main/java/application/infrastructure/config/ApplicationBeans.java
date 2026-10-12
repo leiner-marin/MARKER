@@ -20,6 +20,8 @@ import application.adapters.useCases.DefaultPaymentUseCase;
 import application.adapters.useCases.DefaultProductUseCase;
 import application.adapters.useCases.DefaultRefundUseCase;
 import application.adapters.useCases.DefaultReportUseCase;
+import application.adapters.useCases.DefaultReserveInventoryUseCase;
+import application.adapters.persistence.InMemoryPaymentRepositoryAdapter;
 import application.adapters.useCases.DefaultReturnUseCase;
 import application.adapters.useCases.DefaultSellerUseCase;
 import application.adapters.useCases.DefaultShipmentUseCase;
@@ -31,6 +33,7 @@ import application.domain.ports.out.InvoicePort;
 import application.domain.ports.out.InvoiceRepositoryPort;
 import application.domain.ports.out.OrderRepositoryPort;
 import application.domain.ports.out.PaymentPort;
+import application.domain.ports.out.PaymentRepositoryPort;
 import application.domain.ports.out.ProductRepositoryPort;
 import application.domain.ports.out.RefundRepositoryPort;
 import application.domain.ports.out.ReportPort;
@@ -44,6 +47,7 @@ import application.domain.services.BuyerService;
 import application.domain.services.CartService;
 import application.domain.services.DeliveryService;
 import application.domain.services.InventoryService;
+import application.domain.services.InventoryReservationService;
 import application.domain.services.InvoiceService;
 import application.domain.services.OrderService;
 import application.domain.services.PaymentService;
@@ -167,6 +171,23 @@ public class ApplicationBeans {
             InventoryRepositoryPort inventoryRepositoryPort,
             InventoryService inventoryService) {
         return new DefaultInventoryUseCase(inventoryRepositoryPort, inventoryService);
+    }
+
+    @Bean
+    public InventoryReservationService inventoryReservationService() {
+        return new InventoryReservationService();
+    }
+
+    @Bean
+    public DefaultReserveInventoryUseCase defaultReserveInventoryUseCase(
+            InventoryRepositoryPort inventoryRepositoryPort,
+            InventoryReservationService inventoryReservationService) {
+        return new DefaultReserveInventoryUseCase(inventoryRepositoryPort, inventoryReservationService);
+    }
+
+    @Bean
+    public PaymentRepositoryPort paymentRepositoryPort() {
+        return new InMemoryPaymentRepositoryAdapter();
     }
 
     @Bean
