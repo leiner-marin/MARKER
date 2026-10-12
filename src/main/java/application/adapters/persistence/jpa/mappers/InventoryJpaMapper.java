@@ -4,6 +4,7 @@ import application.adapters.persistence.jpa.entities.InventoryEntity;
 import application.domain.entities.Inventory;
 import application.domain.entities.Product;
 import application.domain.entities.Warehouse;
+import application.domain.enums.InventoryMovementType;
 
 public final class InventoryJpaMapper {
     private InventoryJpaMapper() {}
@@ -14,7 +15,7 @@ public final class InventoryJpaMapper {
         entity.setProductId(inventory.getProduct().getId());
         entity.setWarehouseId(inventory.getWarehouse().getId());
         entity.setAvailableQuantity(inventory.getAvailableQuantity());
-        entity.setReservedQuantity(0);
+        entity.setReservedQuantity(inventory.getReservedQuantity() == null ? 0 : inventory.getReservedQuantity());
         entity.setMovementType(parseMovementType(inventory.getMovementType()));
         return entity;
     }
@@ -23,6 +24,7 @@ public final class InventoryJpaMapper {
         Inventory inventory = new Inventory();
         inventory.setId(entity.getId());
         inventory.setAvailableQuantity(entity.getAvailableQuantity());
+        inventory.setReservedQuantity(entity.getReservedQuantity());
         inventory.setMovementType(entity.getMovementType() == null ? null : entity.getMovementType().name());
 
         Product product = new Product();
@@ -35,10 +37,10 @@ public final class InventoryJpaMapper {
         return inventory;
     }
 
-    private static application.domain.enums.InventoryMovementType parseMovementType(String value) {
+    private static InventoryMovementType parseMovementType(String value) {
         if (value == null || value.isBlank()) {
-            return application.domain.enums.InventoryMovementType.INGRESS;
+            return InventoryMovementType.INGRESS;
         }
-        return application.domain.enums.InventoryMovementType.valueOf(value);
+        return InventoryMovementType.valueOf(value);
     }
 }
