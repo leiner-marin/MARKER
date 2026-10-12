@@ -19,19 +19,23 @@ public class DefaultCartUseCase implements ManageCartUseCase {
     @Override
     public Cart addProduct(Buyer buyer, Product product) {
         Cart cart = getOrCreate(buyer);
-        return cartRepositoryPort.saveOrUpdate(cartService.addProduct(cart, product));
+        return persist(cartService.addProduct(cart, product));
     }
 
     @Override
     public Cart removeProduct(Buyer buyer, Product product) {
         Cart cart = getOrCreate(buyer);
-        return cartRepositoryPort.saveOrUpdate(cartService.removeProduct(cart, product));
+        return persist(cartService.removeProduct(cart, product));
     }
 
     @Override
     public Cart clear(Buyer buyer) {
         Cart cart = getOrCreate(buyer);
-        return cartRepositoryPort.saveOrUpdate(cartService.clear(cart));
+        return persist(cartService.clear(cart));
+    }
+
+    private Cart persist(Cart cart) {
+        return cart.getId() == null ? cartRepositoryPort.save(cart) : cartRepositoryPort.update(cart);
     }
 
     private Cart getOrCreate(Buyer buyer) {
