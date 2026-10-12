@@ -1,7 +1,6 @@
 # Domain Enums
 
 ## UserRole
-
 - BUYER
 - SELLER
 - LOGISTICS_OPERATOR
@@ -9,23 +8,19 @@
 - SUPERVISOR
 
 ## UserStatus
-
 - ACTIVE
 - BLOCKED
 
 ## ProductType
-
 - PHYSICAL
 - DIGITAL
 
 ## ProductStatus
-
 - PUBLISHED
 - SUSPENDED
 - DISCONTINUED
 
 ## InventoryMovementType
-
 - INGRESS
 - RESERVE
 - SALE_OUT
@@ -33,7 +28,6 @@
 - RETURN
 
 ## OrderStatus
-
 - CART
 - PENDING_PAYMENT
 - PAID
@@ -42,7 +36,6 @@
 - FINALIZED
 
 ## Additional Enums
-
 - CommercialStatus
 - SellerStatus
 - WarehouseType
