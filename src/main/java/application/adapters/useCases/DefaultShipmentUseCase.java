@@ -8,6 +8,7 @@ import application.domain.ports.out.LogisticsPort;
 import application.domain.ports.out.OrderRepositoryPort;
 import application.domain.ports.out.ShipmentRepositoryPort;
 import application.domain.services.OrderPreparationService;
+import application.domain.services.OrderService;
 import application.domain.services.ShipmentService;
 import java.util.UUID;
 
@@ -17,18 +18,21 @@ public class DefaultShipmentUseCase implements ManageShipmentUseCase {
     private final LogisticsPort logisticsPort;
     private final OrderRepositoryPort orderRepositoryPort;
     private final OrderPreparationService orderPreparationService;
+    private final OrderService orderService;
 
     public DefaultShipmentUseCase(
             ShipmentRepositoryPort shipmentRepositoryPort,
             ShipmentService shipmentService,
             LogisticsPort logisticsPort,
             OrderRepositoryPort orderRepositoryPort,
-            OrderPreparationService orderPreparationService) {
+            OrderPreparationService orderPreparationService,
+            OrderService orderService) {
         this.shipmentRepositoryPort = shipmentRepositoryPort;
         this.shipmentService = shipmentService;
         this.logisticsPort = logisticsPort;
         this.orderRepositoryPort = orderRepositoryPort;
         this.orderPreparationService = orderPreparationService;
+        this.orderService = orderService;
     }
 
     @Override
@@ -36,6 +40,9 @@ public class DefaultShipmentUseCase implements ManageShipmentUseCase {
         Shipment prepared = shipmentService.create(shipment);
         Order order = orderRepositoryPort.findById(prepared.getOrder().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Order not found."));
+        if (!orderService.requiresPhysicalDelivery(order)) {
+            throw new IllegalStateException("Digital-only orders do not require a physical shipment.");
+        }
         if (order.getStatus() != OrderStatus.PAID) {
             throw new IllegalStateException("Only paid orders can be shipped.");
         }
