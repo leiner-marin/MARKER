@@ -3,6 +3,7 @@ package application.adapters.rest.controllers;
 import application.adapters.rest.dtos.user.UserRequest;
 import application.adapters.rest.dtos.user.UserResponse;
 import application.adapters.rest.mappers.UserRestMapper;
+import application.domain.entities.User;
 import application.domain.ports.in.ManageUserUseCase;
 import application.domain.ports.in.RegisterUserUseCase;
 import org.springframework.http.ResponseEntity;
