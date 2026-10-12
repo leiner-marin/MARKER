@@ -2,20 +2,14 @@ package application.domain.services;
 
 import application.domain.entities.Seller;
 import application.domain.enums.SellerStatus;
+import application.domain.enums.UserRole;
 import java.time.LocalDate;
 
 public class SellerOnboardingService {
 
     public Seller onboard(Seller seller) {
-        if (seller == null) {
-            throw new IllegalArgumentException("Seller cannot be null.");
-        }
-        if (seller.getFullName() == null || seller.getFullName().isBlank()) {
-            throw new IllegalArgumentException("Seller full name is required.");
-        }
-        if (seller.getEmail() == null || seller.getEmail().isBlank()) {
-            throw new IllegalArgumentException("Seller email is required.");
-        }
+        validate(seller);
+        seller.setRole(UserRole.SELLER);
         if (seller.getIncorporationDate() == null) {
             seller.setIncorporationDate(LocalDate.now());
         }
@@ -40,6 +34,12 @@ public class SellerOnboardingService {
     private void validate(Seller seller) {
         if (seller == null) {
             throw new IllegalArgumentException("Seller cannot be null.");
+        }
+        if (seller.getFullName() == null || seller.getFullName().isBlank()) {
+            throw new IllegalArgumentException("Seller full name is required.");
+        }
+        if (seller.getEmail() == null || seller.getEmail().isBlank()) {
+            throw new IllegalArgumentException("Seller email is required.");
         }
     }
 }
