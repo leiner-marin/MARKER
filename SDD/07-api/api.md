@@ -42,6 +42,7 @@ All `/api/**` endpoints require authentication. Role restrictions are applied at
 | Cart | DELETE | /api/carts/items | Remove product |
 | Cart | DELETE | /api/carts | Clear cart |
 | Orders | POST | /api/orders | Create order |
+| Orders | POST | /api/orders/from-cart | Create order from the buyer cart |
 | Orders | GET | /api/orders/{id} | Find order |
 | Orders | PUT | /api/orders/{id}/status | Advance order lifecycle |
 | Payments | POST | /api/payments | Process payment |
