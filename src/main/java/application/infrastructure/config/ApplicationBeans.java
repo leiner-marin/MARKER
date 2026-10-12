@@ -406,13 +406,15 @@ public class ApplicationBeans {
             ShipmentService shipmentService,
             LogisticsPort logisticsPort,
             OrderRepositoryPort orderRepositoryPort,
-            OrderPreparationService orderPreparationService) {
+            OrderPreparationService orderPreparationService,
+            OrderService orderService) {
         return new DefaultShipmentUseCase(
                 shipmentRepositoryPort,
                 shipmentService,
                 logisticsPort,
                 orderRepositoryPort,
-                orderPreparationService);
+                orderPreparationService,
+                orderService);
     }
 
     @Bean
