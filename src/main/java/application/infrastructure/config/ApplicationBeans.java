@@ -5,6 +5,14 @@ import application.adapters.persistence.InMemoryWarehouseRepositoryAdapter;
 import application.adapters.useCases.DefaultInventoryUseCase;
 import application.adapters.useCases.DefaultBuyerUseCase;
 import application.adapters.persistence.InMemoryBuyerRepositoryAdapter;
+import application.adapters.persistence.InMemoryCartRepositoryAdapter;
+import application.adapters.persistence.InMemoryOrderRepositoryAdapter;
+import application.adapters.useCases.DefaultCartUseCase;
+import application.adapters.useCases.DefaultOrderUseCase;
+import application.domain.ports.out.CartRepositoryPort;
+import application.domain.ports.out.OrderRepositoryPort;
+import application.domain.services.CartService;
+import application.domain.services.OrderService;
 import application.domain.ports.out.BuyerRepositoryPort;
 import application.domain.services.CompradorService;
 import application.adapters.useCases.DefaultProductUseCase;
@@ -35,6 +43,40 @@ public class ApplicationBeans {
     @Bean
     public UsuarioService userService() {
         return new UsuarioService();
+    }
+
+    @Bean
+    public CartRepositoryPort cartRepositoryPort() {
+        return new InMemoryCartRepositoryAdapter();
+    }
+
+    @Bean
+    public OrderRepositoryPort orderRepositoryPort() {
+        return new InMemoryOrderRepositoryAdapter();
+    }
+
+    @Bean
+    public CartService cartService() {
+        return new CartService();
+    }
+
+    @Bean
+    public OrderService orderService() {
+        return new OrderService();
+    }
+
+    @Bean
+    public DefaultCartUseCase defaultCartUseCase(
+            CartRepositoryPort cartRepositoryPort,
+            CartService cartService) {
+        return new DefaultCartUseCase(cartRepositoryPort, cartService);
+    }
+
+    @Bean
+    public DefaultOrderUseCase defaultOrderUseCase(
+            OrderRepositoryPort orderRepositoryPort,
+            OrderService orderService) {
+        return new DefaultOrderUseCase(orderRepositoryPort, orderService);
     }
 
     @Bean
