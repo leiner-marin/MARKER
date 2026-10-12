@@ -11,10 +11,7 @@
 ## UserStatus
 
 - ACTIVE
-- INACTIVE
 - BLOCKED
-
-The business specification defines ACTIVE and BLOCKED. INACTIVE is retained as an implementation extension for explicit deactivation.
 
 ## ProductType
 
@@ -23,13 +20,9 @@ The business specification defines ACTIVE and BLOCKED. INACTIVE is retained as a
 
 ## ProductStatus
 
-Source-defined states:
 - PUBLISHED
 - SUSPENDED
 - DISCONTINUED
-
-Implementation extension:
-- DRAFT — internal pre-publication state used while product information is being prepared.
 
 ## InventoryMovementType
 
@@ -41,21 +34,12 @@ Implementation extension:
 
 ## OrderStatus
 
-Source-defined lifecycle:
 - CART
 - PENDING_PAYMENT
 - PAID
 - DISPATCHED
 - DELIVERED
 - FINALIZED
-
-Implementation extensions:
-- CREATED — internal initialization state retained for compatibility.
-- CANCELLED — reserved for a future cancellation flow; not part of the source-defined lifecycle.
-- RETURNED — reserved for return processing; return requests are now modeled separately.
-- REFUNDED — reserved for refund processing; refunds are now modeled separately.
-
-The application must use the source-defined lifecycle for the standard order flow.
 
 ## Additional Enums
 
@@ -66,3 +50,5 @@ The application must use the source-defined lifecycle for the standard order flo
 - ShipmentStatus
 - ReturnStatus
 - RefundStatus
+
+All lifecycle values listed above are the canonical values used by the current Java implementation.
